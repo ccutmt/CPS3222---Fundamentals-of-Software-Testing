@@ -15,8 +15,8 @@
 
 	</label> <label> Date of Birth: <input type="date" name="dob" /> <br />
 
-	</label> <label> <input type="checkbox" name="free_acc" /> Free
-		Account <input type="checkbox" name="prem_acc" /> Premium Account <br />
+	</label> <label> <input type="radio" name="account" /> Free
+		Account <input type="radio" name="account" /> Premium Account <br />
 
 	</label> <label> Credit card number: <input type="number" name="cc_num" />
 		<br />
