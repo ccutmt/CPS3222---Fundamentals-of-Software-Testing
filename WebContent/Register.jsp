@@ -15,13 +15,13 @@
 	</label> <label> Password: <input type="password" name="password" /> <br />
 
 	</label> <label> Name: <input type="text" name="name" /> <br />
-	
+
 	</label> <label> Surname: <input type="text" name="surname" /> <br />
 
 	</label> <label> Date of Birth: <input type="date" name="dob" /> <br />
 
-	</label> <label> <input type="radio" name="account" /> Free
-		Account <input type="radio" name="account" /> Premium Account <br />
+	</label> <label> <input type="radio" name="account" /> Free 
+	    Account <input type="radio" name="account" /> Premium Account <br />
 
 	</label> <label> Credit card number: <input type="number" name="cc_num" />
 		<br />
