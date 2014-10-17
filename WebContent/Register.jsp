@@ -72,7 +72,10 @@
 			</div>
 			
 			<div class='row'>
-				<label for='Free Account'>Free Account</label> <input type="radio"> <label for='Premium Account'>Premium Account</label> <input type="radio">
+				<label for='Account'>Free Account</label> <input type="radio"> <label for='Account'>Premium Account</label> <input type="radio"
+					name='account' id='account'
+					data-required="true"
+					data-error-message="Account type required">
 			</div>
 			
 			<div class='row'>
