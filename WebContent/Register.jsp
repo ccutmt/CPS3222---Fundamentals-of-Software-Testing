@@ -1,8 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>User Registration</title>
-<link rel="stylesheet"  type="text/css" href="style.css">
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title></title>
+<link rel="stylesheet"  type="text/css" href="register.css">
 </head>
+<body>
 <!--<form action="main.jsp" method="GET">
 	 <h1>User Registration</h1>
 	<label> Username:<input type="text" name="username" /> <br />
@@ -27,24 +32,73 @@
 	</label>
 	
 </form>-->
-	<div id="registration-form">
+<div id="register-form">
 	<div class='fieldset'>
-    <legend>Register</legend>
+		<legend>Register</legend>
 		<form action="#" method="post" data-validate="parsley">
+		
 			<div class='row'>
-				<label for='firstname'>First Name</label>
-				<input type="text" placeholder="First Name" name='firstname' id='firstname' data-required="true" data-error-message="Your First Name is required">
+				<label for='Username'>Username</label> <input type="text"
+					placeholder="Username" name='username' id='username'
+					data-required="true"
+					data-error-message="Username required">
 			</div>
+			
 			<div class='row'>
-				<label for="email">E-mail</label>
-				<input type="text" placeholder="E-mail"  name='email' data-required="true" data-type="email" data-error-message="Your E-mail is required">
+				<label for="password">Password</label> <input type="text"
+					placeholder="Password" name='password' data-required="true"
+					data-type="password" data-error-message="Password required">
 			</div>
+			
 			<div class='row'>
-				<label for="cemail">Confirm your E-mail</label>
-				<input type="text" placeholder="Confirm your E-mail" name='cemail' data-required="true" data-error-message="Your E-mail must correspond">
+				<label for='Name'>Name</label> <input type="text"
+					placeholder="Name" name='name' id='name'
+					data-required="true"
+					data-error-message="Name required">
 			</div>
+			
+			<div class='row'>
+				<label for='Surname'>Surname</label> <input type="text"
+					placeholder="Surname" name='surname' id='surname'
+					data-required="true"
+					data-error-message="Surname required">
+			</div>
+			
+			<div class='row'>
+				<label for='DOB'>Date of Birth</label> <input type="date"
+					placeholder="Date of Birth" name='dob' id='dob'
+					data-required="true"
+					data-error-message="Date of Birth required">
+			</div>
+			
+			<div class='row'>
+				<label for='Free Account'>Free Account</label> <input type="radio"> <label for='Premium Account'>Premium Account</label> <input type="radio">
+			</div>
+			
+			<div class='row'>
+				<label for='CCNumber'>CreditCard Number </label> <input type="number"
+					placeholder="CreditCard Number" name='cc_num' id='cc_num'
+					data-required="true"
+					data-error-message="CreditCard number required">
+			</div>
+			
+			<div class='row'>
+				<label for='ccexpiry'>CreditCard Expiry Date</label> <input type="date"
+					placeholder="CreditCard Expiry Date" name='cc_exp' id='cc_exp'
+					data-required="true"
+					data-error-message="CreditCard Expiry Date required">
+			</div>
+			
+			<div class='row'>
+				<label for='CCV'>CVV</label> <input type="number"
+					placeholder="CVV" name='cvv' id='cvv'
+					data-required="true"
+					data-error-message="CVV number required">
+			</div>
+			
 			<input type="submit" value="Register">
 		</form>
 	</div>
 </div>
+</body>
 </html>

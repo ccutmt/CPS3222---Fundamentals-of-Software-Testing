@@ -16,7 +16,7 @@
 					<label for='username'>Username</label> <input type="text"
 						placeholder="Username" name='username' id='username'
 						data-required="true"
-						data-error-message="Username required!">
+						data-error-message="Username required.">
 				</div>
 				<div class='row'>
 					<label for="password">Password</label> <input type="text"
