@@ -7,39 +7,15 @@
 
 <title>User Registration</title>
 <link rel="stylesheet" type="text/css" href="register.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="validation.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="parsley.min.js"></script>
 
 <title>Register Page</title>
-<link rel="stylesheet" type="text/css" href="register.css">
 
 </head>
 <body>
 
-	<!--<form action="main.jsp" method="GET">
-	 <h1>User Registration</h1>
-	<label> Username:<input type="text" name="username" /> <br />
-
-	</label> <label> Password: <input type="password" name="password" /> <br />
-
-	</label> <label> Name: <input type="text" name="name" /> <br />
-
-	</label> <label> Surname: <input type="text" name="surname" /> <br />
-
-	</label> <label> Date of Birth: <input type="date" name="dob" /> <br />
-
-	</label> <label> <input type="radio" name="account" /> Free 
-	    Account <input type="radio" name="account" /> Premium Account <br />
-
-	</label> <label> Credit card number: <input type="number" name="cc_num" />
-		<br />
-	</label> <label> Credit Card expiry date: <input type="date"
-		name="expire_date" /> <br />
-	</label> <label> CVV: <input type="number" name="expire_date" /> <br />
-		<br /> <input type="button" value="Submit" />
-	</label>
-	
-</form>-->
 	<div id="register-form">
 		<div class='fieldset'>
 
@@ -47,9 +23,15 @@
 			<form action="#" method="post" data-validate="parsley">
 
 				<div class='row'>
-					<label for='Username'>Username</label> <input type="text"
-						placeholder="Username" name='username' id='username'
-						data-required="true" data-error-message="Username required">
+					<label>Email</label><input type="text" name="email" 
+					data-required="true" data-type="email"
+						 data-error-message="Please enter a valid Email Address"/>
+				</div>
+
+				<div class='row'>
+					<label for='username'>Username</label><input type="text" name="username" placeholder="Username"
+					data-required="true" data-type="alphanum"
+						data-parsley-trigger="change" data-error-message="Please enter a valid Username"/>
 				</div>
 
 				<div class='row'>
@@ -117,9 +99,10 @@
 						name='cvv' id='cvv' data-required="true"
 						data-error-message="CVV number required">
 				</div>
-	
+
 				<input type="submit" value="Register">
 			</form>
+			
 		</div>
 	</div>
 </body>
