@@ -21,7 +21,18 @@
 
 $(document).ready(function() {
 	$('#name').blur(function() {
-		validateName($('#name').val());
+		if (validateName($('#name').val()) == true){
+			$('#name').css('border-color', '#00FF00');
+			$('#name').css('border-radius', '3px');
+			$('#name').css('border-style', 'solid');
+			$('#name').css('border-width', '3px');
+		}
+		else{
+			$('#name').css('border-color', 'red');
+			$('#name').css('border-radius', '3px');
+			$('#name').css('border-style', 'solid');
+			$('#name').css('border-width', '3px');
+		}
 	});
 });
 
@@ -31,14 +42,15 @@ function validateName(name) {
 		return false;
 	} else if (isNumeric(name)) {
 		alert("Name can only contain letters")
-		return false
-	} else
+		return false;
+	} else{
 		return true;
+	}
 }
 
 function isNumeric(n) {
 	for (i = 0; i < n.length; i++) {
-		if (!isNaN(parstFloat(i))) {
+		if (isNaN(parseFloat(n)) == false) {
 			return true;
 		}
 	}

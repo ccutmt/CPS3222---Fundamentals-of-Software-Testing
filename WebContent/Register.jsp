@@ -42,10 +42,10 @@
 </form>-->
 	<div id="register-form">
 		<div class='fieldset'>
-		
+
 			<legend>Register</legend>
 			<form action="#" method="post" data-validate="parsley">
-	
+
 				<div class='row'>
 					<label for='Username'>Username</label> <input type="text"
 						placeholder="Username" name='username' id='username'
@@ -60,16 +60,17 @@
 				</div>
 
 
-				<!-- 				<div class='row'> -->
-				<!-- 					<label for='Name'>Name</label> <input type="text" -->
-				<!-- 						placeholder="Name" name='name' id='name' data-required="true" -->
-				<!-- 						data-error-message="Name required"> -->
-				<!-- 				</div> -->
+				<div class='row'>
+					<label for='Name'>Name</label> <input type="text"
+						placeholder="Name" name='name' id='name' data-required="true"
+						data-error-message="Name required">
+				</div>
 
 
-				<label for='Name'>Name</label> <input type="text" placeholder="Name"
+				<!-- <label for='Name'>Name</label> <input type="text" placeholder="Name"
 					name='name' id='name' data-required="true"
 					data-error-message="Name required">
+					-->
 
 				<div class='row'>
 					<label for='Surname'>Surname</label> <input type="text"
@@ -116,7 +117,7 @@
 						name='cvv' id='cvv' data-required="true"
 						data-error-message="CVV number required">
 				</div>
-
+	
 				<input type="submit" value="Register">
 			</form>
 		</div>
