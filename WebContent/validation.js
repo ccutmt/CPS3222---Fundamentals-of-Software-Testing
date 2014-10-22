@@ -21,8 +21,8 @@ function validateSurname(surname) {
 $(document).ready(function() {
 	$('#name').blur(function() {
 		var input=$(this);
-		var is_name=$(this).val();
-		if(validateName($(this).val())){
+		var is_name=input.val();
+		if(validateName(is_name)){
 				input.removeClass("invalid").addClass("valid");
 		}
 	    else{
