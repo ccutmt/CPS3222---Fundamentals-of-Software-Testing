@@ -181,12 +181,96 @@ body {
 	top: 0;
 }
 
+#register-form input[type=password] {
+	padding: 15px 20px;
+	border-radius: 1px;
+	margin: 5px auto;
+	background-color: #f7f7f7;
+	border: 1px solid silver;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2), 0 1px
+		rgba(255, 255, 255, .8);
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: background-color .5s ease;
+	-moz-transition: background-color .5s ease;
+	-o-transition: background-color .5s ease;
+	-ms-transition: background-color .5s ease;
+	transition: background-color .5s ease;
+}
+
+.no-placeholder #register-form input[type=password] {
+	padding: 10px 20px;
+}
+
+#register-form input[type=password]:active, .placeholder #register-form input[type=password]:focus
+	{
+	outline: none;
+	border-color: silver;
+	background-color: white;
+}
+
+#register-form input[type=month] {
+	padding: 15px 20px;
+	border-radius: 1px;
+	margin: 5px auto;
+	background-color: #f7f7f7;
+	border: 1px solid silver;
+	-webkit-box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2);
+	box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.2), 0 1px
+		rgba(255, 255, 255, .8);
+	width: 100%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+	-webkit-transition: background-color .5s ease;
+	-moz-transition: background-color .5s ease;
+	-o-transition: background-color .5s ease;
+	-ms-transition: background-color .5s ease;
+	transition: background-color .5s ease;
+}
+
+.no-placeholder #register-form input[type=month] {
+	padding: 10px 20px;
+}
+
+#register-form input[type=month]:active, .placeholder #register-form input[type=month]:focus
+	{
+	outline: none;
+	border-color: silver;
+	background-color: white;
+}
+
+
+
 #register-form input[type=submit]:hover {
 	background-color: #2980b9;
 }
 
 #register-form input[type=submit]:active {
 	background: #5C8CA7;
+}
+
+.error{
+    display: none;
+    margin-left: 10px;
+}      
+ 
+.error_show{
+    color: red;
+    margin-left: 10px;
+}
+
+input.invalid{
+    border: 2px solid red;
+}
+ 
+input.valid{
+    border: 2px solid green;
 }
 
 .parsley-error-list {
