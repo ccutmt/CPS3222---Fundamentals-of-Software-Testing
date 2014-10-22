@@ -5,14 +5,8 @@
 <meta charset="UTF-8">
 <title>Test</title>
 
-<link
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"
-	rel="stylesheet">
-<link />
-
-<script
-	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" type="text/css" href="register.css">
+<script type="text/javascript" src="validation.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="parsley.min.js"></script>
 
@@ -20,20 +14,31 @@
 
 <body>
 
-	<div class="container">
-		<div class="row">
-			<div class="span6 offset3">
 
-				<form data-validate="parsley">
+	<div id="register-form">
+		<div class="fieldset">
 
-					<label>Name</label> <input type="text" name="name"
-						data-required="true" /> <label>Name</label> <input type="text"
-						name="name" data-required="true" /> <label>Name</label> <input
-						type="text" name="name" data-required="true" /> <br /> <input
-						type="submit" value="Submit" class="btn btn-success" />
+			<form action="#" method="post" data-validate="parsley">
 
+					<div class="row">
+						<label>Name</label> <input type="text" name="name"
+							data-required="true" data-parsley-trigger="change" />
+					</div>
+
+					<div class="row">
+						<label>Name</label> <input type="text" name="name"
+							data-required="true" data-parsley-trigger="change"/>
+
+					</div>
+
+					<div class="row">
+						<label>Name</label> <input type="text" name="name"
+							data-required="true" />
+					</div>
+
+					<br /> <input type="submit" value="Submit" class="btn btn-success" />
 				</form>
-			</div>
 		</div>
 	</div>
+
 </body>
