@@ -80,6 +80,15 @@ function validateName(name) {
 	}
 }
 
+function validateSurname(surname) {
+	if (surname == null || surname == "")
+		return false;
+	else if (isNumeric(surname))
+		return false;
+	else
+		return true;
+}
+
 function isNumeric(n) {
 	for (i = 0; i < n.length; i++) {
 		if (isNaN(parseFloat(n)) == false) {
