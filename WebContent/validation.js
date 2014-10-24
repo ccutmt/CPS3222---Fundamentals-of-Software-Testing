@@ -90,10 +90,17 @@ function validateSurname(surname) {
 }
 
 function isNumeric(n) {
+	var b = true;
 	for (i = 0; i < n.length; i++) {
 		if (isNaN(parseFloat(n)) == false) {
-			return true;
+			b = false;
 		}
+		else
+			b = true;
 	}
-	return false;
+	
+	if(b == false)
+		return false;
+	else
+		return true;
 }
