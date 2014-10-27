@@ -72,7 +72,7 @@ function validateName(name) {
 	if (name == null || name == "") {
 		//alert("Name must be filled out");
 		return false;
-	} else if (isNumeric(name)) {
+	} else if (isNumeric(name) == false) {
 		//alert("Name can only contain letters")
 		return false;
 	} else{
@@ -83,7 +83,7 @@ function validateName(name) {
 function validateSurname(surname) {
 	if (surname == null || surname == "")
 		return false;
-	else if (isNumeric(surname))
+	else if (isNumeric(surname) == false)
 		return false;
 	else
 		return true;
@@ -91,9 +91,11 @@ function validateSurname(surname) {
 
 function isNumeric(n) {
 	var b = true;
+	var c = 0;
 	for (i = 0; i < n.length; i++) {
-		if (isNaN(parseFloat(n)) == false) {
+		if (isNaN(n.charAt(parseFloat(i))) == false) {
 			b = false;
+			break;
 		}
 		else
 			b = true;

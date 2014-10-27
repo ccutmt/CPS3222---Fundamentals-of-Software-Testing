@@ -43,7 +43,7 @@
 
 				<div class="row">
 					<label for="Name"><br>Name</label> 
-					<input type="text" placeholder="Name" name="name" id="name" />
+					<input type="text" placeholder="Name" name="name" id="name"></input>
 					<span class="error">Name required</span>
 				</div>
 
