@@ -264,12 +264,14 @@ body {
     margin-left: 10px;
 }
 
-input.invalid{
-    border: 2px solid red;
+input.invalid {
+    /*border: 2px solid red;*/
+    background-color: #FFD9D9;
 }
  
 input.valid{
-    border: 2px solid green;
+    /*border: 2px solid green;*/
+    background-color: #D9FFD9;
 }
 
 .parsley-error-list {

@@ -77,13 +77,13 @@
 
 				<div class="row">
 					<label for="ccexpiry"><br>CreditCard Expiry Date</label> 
-					<input type="month" name="cc_exp" id="cc_exp"/>
+					<input type="month" name="cc_exp" id="cc_exp" min="2014-10" max="2050-12"/>
 					<span class="error">CreditCard Expiry date required</span>	
 				</div>
 
 				<div class="row">
 					<label for="CCV"><br>CVV</label> 
-					<input type="number" placeholder="CVV" name="cvv" id="cvv"/>
+					<input type="number" placeholder="CVV" name="cvv" id="cvv" />
 					<span class="error">CVV number required</span>
 				</div>
 				

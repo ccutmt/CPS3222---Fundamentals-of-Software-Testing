@@ -1,48 +1,62 @@
-/**
- * 
- */
-
-/*$(document).ready(function() {
-	$('#surname').blur(function() {
-		validateName($('#surname').val());
-	});
-});
-
-function validateSurname(surname) {
-	if (surname == null || surname == "") {
-		alert("Surname must be filled out");
-		return false;
-	} else if (isNumeric(surname)) {
-		alert("Surname can only contain letters")
-} else
-		return true;
-}*/
-
-$(document).ready(function() {
-	$('#name').blur(function() {
-		var input=$(this);
-		var is_name=input.val();
-		if(validateName(is_name)){
-				input.removeClass("invalid").addClass("valid");
+$(document).ready(function() {	
+	//Password real-time validation
+	$('#password').blur(function() {
+		//var input=$(this);
+		//var is_name=input.val();
+		if(validatePassword($('#password').val())){
+				$('#password').removeClass("invalid");
+				$('#password').addClass("valid");
 		}
 	    else{
-	    		input.removeClass("valid").addClass("invalid");
+	    		$('#password').removeClass("valid");
+	    		$('#password').addClass("invalid");
 	    }
-		//validateName($('#name').val());
-		/*if (validateName($('#name').val()) == false){
-			$('#name').css('border-color', '#00FF00');
-			$('#name').css('border-radius', '3px');
-			$('#name').css('border-style', 'solid');
-			$('#name').css('border-width', '3px');
-		}
-		else{
-			$('#name').css('border-color', 'red');
-			$('#name').css('border-radius', '3px');
-			$('#name').css('border-style', 'solid');
-			$('#name').css('border-width', '3px');
-		}*/
 	});
+	
+	//Name real-time validation
+	$('#name').blur(function() {
+		//var input=$(this);
+		//var is_name=input.val();
+		if(validateName($('#name').val())){
+				$('#name').removeClass("invalid");
+				$('#name').addClass("valid");
+		}
+	    else{
+	    		$('#name').removeClass("valid");
+	    		$('#name').addClass("invalid");
+	    }
+	});
+	
+	//Surname real-time validation
+	$('#surname').blur(function() {
+		//var input=$(this);
+		//var is_name=input.val();
+		if(validateSurame($('#surname').val())){
+				$('#surname').removeClass("invalid");
+				$('#surname').addClass("valid");
+		}
+	    else{
+	    		$('#surname').removeClass("valid");
+	    		$('#surname').addClass("invalid");
+	    }
+	});
+	
+	//Credit Card Expiry Date real-time validation
+	$('#cc_exp').blur(function() {
+		//var input=$(this);
+		//var is_name=input.val();
+		if(validateCCExpiryDate($('#cc_exp').val())){
+				$('#cc_exp').removeClass("invalid");
+				$('#cc_exp').addClass("valid");
+		}
+	    else{
+	    		$('#cc_exp').removeClass("valid");
+	    		$('#cc_exp').addClass("invalid");
+	    }
+	});
+	
 
+	//Register button, checks that all fields are correct before submitting the data
 	$("#register").click(function(event){
 		var form_data=$("#register_form").serializeArray();
 		var error_free=true;
@@ -68,11 +82,21 @@ $(document).ready(function() {
 	});
 });
 
+//Checks whether the password given by the user is 8 characters long
+function validatePassword(password){
+	if(password.length > 8)
+		return true;
+	else
+		return false;
+}
+
+
+//This function checks that the name given by the user is not empty, does not contain any white spaces and also does not contain any numbers
 function validateName(name) {
 	if (name == null || name == "") {
 		//alert("Name must be filled out");
 		return false;
-	} else if (isNumeric(name) == false) {
+	} else if (containsNumbers(name) == true) {
 		//alert("Name can only contain letters")
 		return false;
 	} else{
@@ -80,29 +104,46 @@ function validateName(name) {
 	}
 }
 
+//This function checks that the surname given by the user is not empty, does not contain any white spaces and also does not contain any numbers
 function validateSurname(surname) {
 	if (surname == null || surname == "")
 		return false;
-	else if (isNumeric(surname) == false)
+	else if (containsNumbers(surname) == true)
 		return false;
 	else
 		return true;
 }
 
-function isNumeric(n) {
-	var b = true;
-	var c = 0;
+//This function checks whether the credit card expiry date given by the user is in the future or not
+function validateCCExpiryDate(expiry_date){
+	if(expiry_date >= "2014-10" && expiry_date <= "2050-12")
+		return true;
+	else 
+		return false;
+}
+
+//The below function will check a string if it contains any numbers
+function containsNumbers(n) {
+	var nan = false;
 	for (i = 0; i < n.length; i++) {
-		if (isNaN(n.charAt(parseFloat(i))) == false) {
-			b = false;
+		if (isNaN(n.charAt(i)) == false) {
+			nan = false;
 			break;
 		}
 		else
-			b = true;
+			nan = true;
 	}
 	
-	if(b == false)
-		return false;
-	else
+	if(nan == false)
 		return true;
+	else
+		return false;
 }
+
+//The below function checks whether the parameter passed is a number or not
+/*function isNumeric(n) {
+		if (isNaN(parseFloat(n)) == false) 
+			return true;
+		else
+			return false;
+}*/
