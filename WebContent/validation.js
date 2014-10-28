@@ -64,6 +64,19 @@ $(document).ready(function() {
 		}
 	});
 
+	// Credit Card CVV real-time validation
+	$('#cvv').blur(function() {
+		// var input=$(this);
+		// var is_name=input.val();
+		if (validateCVV($('#cvv').val())) {
+			$('#cvv').removeClass("invalid");
+			$('#cvv').addClass("valid");
+		} else {
+			$('#cvv').removeClass("valid");
+			$('#cvv').addClass("invalid");
+		}
+	});
+
 	// Register button, checks that all fields are correct before submitting the
 	// data
 	$("#register").click(function(event) {
@@ -89,31 +102,40 @@ $(document).ready(function() {
 	});
 });
 
+// Checks whether the CVV is valid or not, accepts only 3 or 4 digit number
+function validateCVV(cvv) {
+	// RegEx expression
+	if (/^[0-9]{3,4}$/.test(cvv))
+		return true;
+	else
+		return false;
+}
+
 // Checks whether the credit card number is valid or not
 function validateCCNum(ccnum) {
 
-	// accept only digits, dashes or spaces, RegEx espression
+	// accept only digits, dashes or spaces, RegEx expression
 	if (/[^0-9-\s]+/.test(ccnum))
 		return false;
 	else {
 		var result = 0;
 		var intNum = 0;
 		var even = false;
-		
-		//select all non digit string and eliminate
-		ccnum = ccnum.replace(/\D/g, ""); 
 
-		//start from the back of number
+		// select all non digit string and eliminate
+		ccnum = ccnum.replace(/\D/g, "");
+
+		// start from the back of number
 		for (var n = ccnum.length - 1; n >= 0; n--) {
 			var strNum = ccnum.charAt(n);
-			
-			//convert back to digit
+
+			// convert back to digit
 			var intNum = parseInt(strNum, 10);
 
-			//alternate numbers
+			// alternate numbers
 			if (even) {
 				if ((intNum *= 2) > 9)
-					//same result as summing the digits of the product
+					// same result as summing the digits of the product
 					intNum -= 9;
 			}
 
@@ -121,7 +143,7 @@ function validateCCNum(ccnum) {
 			even = !even;
 		}
 
-		//if no remainder true else false
+		// if no remainder true else false
 		return (result % 10) == 0;
 	}
 
