@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="register.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="validation.js"></script>
-<script src="parsley.min.js"></script>
 
 <title>Register Page</title>
 
@@ -20,14 +19,8 @@
 		<div class="fieldset">
 
 			<legend>Register</legend>
-			<form id="register_form" action="" method="post"><!-- action="#" data-validate="parsley" -->
-				
-				<!-- <div class="row">
-					<label for="name">Name</label>
-					<input type="text" name="name" id="name"></input>
-					<span class="error">This field is required</span>
-				</div>-->
-
+			<form id="register_form" action="" method="post">
+			
 				<div class="row">
 					<label for="username">Username</label>
 					<input type="text" name="username" id="username" placeholder="Username"/>
