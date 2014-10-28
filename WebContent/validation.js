@@ -1,4 +1,18 @@
 $(document).ready(function() {
+
+	// Username real-time validation
+	$('#username').blur(function() {
+		// var input=$(this);
+		// var is_name=input.val();
+		if (validateUsername($('#username').val())) {
+			$('#username').removeClass("invalid");
+			$('#username').addClass("valid");
+		} else {
+			$('#username').removeClass("valid");
+			$('#username').addClass("invalid");
+		}
+	});
+
 	// Password real-time validation
 	$('#password').blur(function() {
 		// var input=$(this);
@@ -101,6 +115,15 @@ $(document).ready(function() {
 		}
 	});
 });
+
+// Checks whether the username is alphanumeric or not and has to be longer than 6
+function validateUsername(username) {
+	// RegEx expression that accepts A-Z, a-z, 0-9
+	if (/^[a-zA-Z0-9]+$/.test(username) && (username.length > 6))
+		return true;
+	else
+		return false;
+}
 
 // Checks whether the CVV is valid or not, accepts only 3 or 4 digit number
 function validateCVV(cvv) {
