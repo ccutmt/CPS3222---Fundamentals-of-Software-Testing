@@ -56,7 +56,8 @@ $(document).ready(function() {
 	$('#cc_num').blur(function() {
 		// var input=$(this);
 		// var is_name=input.val();
-		if (validateCCNum($('#cc_num').val())) {
+		var cctype = validateCCType($('#cc_num').val());
+		if ((cctype != 0) && LuhnAlgorithm($('#cc_num').val())) {
 			$('#cc_num').removeClass("invalid");
 			$('#cc_num').addClass("valid");
 		} else {
@@ -82,7 +83,7 @@ $(document).ready(function() {
 	$('#cvv').blur(function() {
 		// var input=$(this);
 		// var is_name=input.val();
-		if (validateCVV($('#cvv').val())) {
+		if (validateCVV($('#cvv').val()), cctype) {
 			$('#cvv').removeClass("invalid");
 			$('#cvv').addClass("valid");
 		} else {
@@ -116,7 +117,8 @@ $(document).ready(function() {
 	});
 });
 
-// Checks whether the username is alphanumeric or not and has to be longer than 6
+// Checks whether the username is alphanumeric or not and has to be longer than
+// 6
 function validateUsername(username) {
 	// RegEx expression that accepts A-Z, a-z, 0-9
 	if (/^[a-zA-Z0-9]+$/.test(username) && (username.length > 6))
@@ -126,16 +128,36 @@ function validateUsername(username) {
 }
 
 // Checks whether the CVV is valid or not, accepts only 3 or 4 digit number
-function validateCVV(cvv) {
+function validateCVV(cvv, cctype) {
 	// RegEx expression
-	if (/^[0-9]{3,4}$/.test(cvv))
+	if (/^[0-9]{3}$/.test(cvv))
 		return true;
 	else
 		return false;
 }
 
+function validateCCType(ccnum) {
+
+	// if type remains 0, card type not accepted
+	var cctype = 0;
+
+	// eliminate non-digit characters
+	ccnum = ccnum.replace(/\D/g, "");
+	if (/^4\d{12,15}$/.test(ccnum)) {
+		// VISA: 4 and 12/15 digits
+		cctype = 1;
+	} else if (/^5[1-5]\d{14}$/.test(ccnum)) {
+		// Mastercard
+		cctype = 2;
+	} else if (/^3[47]\d{13}$/.test(ccnum)) {
+		// American Express
+		cctype = 3;
+	}
+	return cctype;
+}
+
 // Checks whether the credit card number is valid or not
-function validateCCNum(ccnum) {
+function LuhnAlgorithm(ccnum) {
 
 	// accept only digits, dashes or spaces, RegEx expression
 	if (/[^0-9-\s]+/.test(ccnum))
