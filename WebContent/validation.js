@@ -57,7 +57,7 @@ $(document).ready(function() {
 	
 	// Account type real-time validation
 	$("#account_type").blur(function() {
-		if (validateAccountType($("#account_type").val())) {
+		if (validateAccountType($("#account_type").value)) {
 			$("#account_type").removeClass('error_show');
 			$("#account_type").addClass('error');
 		} else {
@@ -91,7 +91,7 @@ $(document).ready(function() {
 
 	// Credit Card CVV real-time validation
 	$("#cvv").blur(function() {
-		if (validateCVV($("#cvv").val(), cctype)) {
+		if (validateCVV($("#cvv").val())) { 
 			$("#cvv").removeClass('invalid');
 			$("#cvv").addClass('valid');
 		} else {
@@ -136,7 +136,6 @@ function validateUsername(username) {
 }
 
 // Checks whether the CVV is valid or not, accepts only 3 or 4 digit number
-//Deleted the parameter cctype since it wasn't used anywhere in the function
 function validateCVV(cvv) {
 	// RegEx expression
 	if (/^[0-9]{3}$/.test(cvv))
