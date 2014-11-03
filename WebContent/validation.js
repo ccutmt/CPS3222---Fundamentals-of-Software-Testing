@@ -1,94 +1,102 @@
 $(document).ready(function() {
 
 	// Username real-time validation
-	$('#username').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		if (validateUsername($('#username').val())) {
-			$('#username').removeClass('invalid');
-			$('#username').addClass('valid');
+	$("#username").blur(function() {
+		if (validateUsername($("#username").val())) {
+			$("#username").removeClass('invalid');
+			$("#username").addClass('valid');
 		} else {
-			$('#username').removeClass('valid');
-			$('#username').addClass('invalid');
+			$("#username").removeClass('valid');
+			$("#username").addClass('invalid');
 		}
 	});
 
 	// Password real-time validation
-	$('#password').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		if (validatePassword($('#password').val())) {
-			$('#password').removeClass("invalid");
-			$('#password').addClass("valid");
+	$("#password").blur(function() {
+		if (validatePassword($("#password").val())) {
+			$("#password").removeClass('invalid');
+			$("#password").addClass('valid');
 		} else {
-			$('#password').removeClass("valid");
-			$('#password').addClass("invalid");
+			$("#password").removeClass('valid');
+			$("#password").addClass('invalid');
 		}
 	});
 
 	// Name real-time validation
 	$("#name").blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
 		if (validateName($("#name").val())) {
-			$("#name").removeClass('invalid').addClass('valid');
-			/*$("#name").addClass('valid');*/
+			$("#name").removeClass('invalid');//.addClass('valid');
+			$("#name").addClass('valid');
 		} else {
-			$("#name").removeClass('valid').addClass('invalid');
-			/*$("#name").addClass('invalid');*/
+			$("#name").removeClass('valid');//.addClass('invalid');
+			$("#name").addClass('invalid');
 		}
 	});
 
 	// Surname real-time validation
-	$('#surname').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		if (validateSurname($('#surname').val())) {
-			$('#surname').removeClass("invalid");
-			$('#surname').addClass("valid");
+	$("#surname").blur(function() {
+		if (validateSurname($("#surname").val())) {
+			$("#surname").removeClass('invalid');
+			$("#surname").addClass('valid');
 		} else {
-			$('#surname').removeClass("valid");
-			$('#surname').addClass("invalid");
+			$("#surname").removeClass('valid');
+			$("#surname").addClass('invalid');
 		}
 	});
-
-	// credit card number real-time validation
-	$('#cc_num').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		var cctype = validateCCType($('#cc_num').val());
-		if ((cctype != 0) && LuhnAlgorithm($('#cc_num').val())) {
-			$('#cc_num').removeClass("invalid");
-			$('#cc_num').addClass("valid");
+	
+	// DOB real-time validation
+	$("#dob").blur(function() {
+		if (validateDOB($("#dob").val())) {
+			$("#dob").removeClass('invalid');
+			$("#dob").addClass('valid');
 		} else {
-			$('#cc_num').removeClass("valid");
-			$('#cc_num').addClass("invalid");
+			$("#dob").removeClass('valid');
+			$("#dob").addClass('invalid');
+		}
+	});
+	
+	// Account type real-time validation
+	$("#account_type").blur(function() {
+		if (validateAccountType($("#account_type").val())) {
+			$("#account_type").removeClass('error_show');
+			$("#account_type").addClass('error');
+		} else {
+			$("#account_type").removeClass('error_show');
+			$("#account_type").addClass('error');
+		}
+	});
+	
+	// credit card number real-time validation
+	$("#cc_num").blur(function() {
+		var cctype = validateCCType($("#cc_num").val());
+		if ((cctype != 0) && LuhnAlgorithm($("#cc_num").val())) {
+			$("#cc_num").removeClass('invalid');
+			$("#cc_num").addClass('valid');
+		} else {
+			$("#cc_num").removeClass('valid');
+			$("#cc_num").addClass('invalid');
 		}
 	});
 
 	// Credit Card Expiry Date real-time validation
-	$('#cc_exp').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		if (validateCCExpiryDate($('#cc_exp').val())) {
-			$('#cc_exp').removeClass("invalid");
-			$('#cc_exp').addClass("valid");
+	$("#cc_exp").blur(function() {
+		if (validateCCExpiryDate($("#cc_exp").val())) {
+			$("#cc_exp").removeClass('invalid');
+			$("#cc_exp").addClass('valid');
 		} else {
-			$('#cc_exp').removeClass("valid");
-			$('#cc_exp').addClass("invalid");
+			$("#cc_exp").removeClass('valid');
+			$("#cc_exp").addClass('invalid');
 		}
 	});
 
 	// Credit Card CVV real-time validation
-	$('#cvv').blur(function() {
-		// var input=$(this);
-		// var is_name=input.val();
-		if (validateCVV($('#cvv').val()), cctype) {
-			$('#cvv').removeClass("invalid");
-			$('#cvv').addClass("valid");
+	$("#cvv").blur(function() {
+		if (validateCVV($("#cvv").val(), cctype)) {
+			$("#cvv").removeClass('invalid');
+			$("#cvv").addClass('valid');
 		} else {
-			$('#cvv').removeClass("valid");
-			$('#cvv').addClass("invalid");
+			$("#cvv").removeClass('valid');
+			$("#cvv").addClass('invalid');
 		}
 	});
 
@@ -99,13 +107,13 @@ $(document).ready(function() {
 		var error_free = true;
 		for ( var input in form_data) {
 			var element = $("#" + form_data[input]['name']);
-			var valid = element.hasClass("valid");
+			var valid = element.hasClass('valid');
 			var error_element = $("span", element.parent());
 			if (!valid) {
-				error_element.removeClass("error").addClass("error_show");
+				error_element.removeClass('error').addClass('error_show');
 				error_free = false;
 			} else {
-				error_element.removeClass("error_show").addClass("error");
+				error_element.removeClass('error_show').addClass('error');
 			}
 		}
 
@@ -128,7 +136,8 @@ function validateUsername(username) {
 }
 
 // Checks whether the CVV is valid or not, accepts only 3 or 4 digit number
-function validateCVV(cvv, cctype) {
+//Deleted the parameter cctype since it wasn't used anywhere in the function
+function validateCVV(cvv) {
 	// RegEx expression
 	if (/^[0-9]{3}$/.test(cvv))
 		return true;
@@ -227,6 +236,44 @@ function validateSurname(surname) {
 	}
 	else
 		return true;
+}
+
+//Function to check whether the player registering is bigger than 18-years old
+function validateDOB(dob){
+	var pl_dob = new Date(dob); //date the player inserted in the DOB field
+	var today = new Date(); //current date
+	if((today.getFullYear() - pl_dob.getFullYear()) > 18){
+		return true;
+	}
+	else if((today.getFullYear() - pl_dob.getFullYear()) == 18){
+		if((today.getMonth()) > pl_dob.getMonth()){
+			return true;
+		}
+		else if (today.getMonth() == pl_dob.getMonth()) {
+			if(today.getDate() >= pl_dob.getDate()){
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	}
+	else {
+		return false;
+	}
+}
+
+//function that will check that one of the radio button is checked out
+function validateAccountType(acc_type){
+	if(acc_type == null){
+		return false;
+	}
+	else {
+		return true;
+	}
 }
 
 // This function checks whether the credit card expiry date given by the user is

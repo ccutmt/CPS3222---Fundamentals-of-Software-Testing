@@ -55,7 +55,7 @@
 				<div class="row">
 					<label for="Account"><br>Free Account</label> 
 					<input type="radio" name="account_type" id="account_type"/>
-					<span class="error">Account type required</span>
+					<!-- <span class="error">Account type required</span>-->
 					
 					<label for="Account">&nbspPremium Account</label> 
 					<input type="radio" name="account_type" id="account_type"/>
