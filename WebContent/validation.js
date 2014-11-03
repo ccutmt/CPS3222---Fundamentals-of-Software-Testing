@@ -5,11 +5,11 @@ $(document).ready(function() {
 		// var input=$(this);
 		// var is_name=input.val();
 		if (validateUsername($('#username').val())) {
-			$('#username').removeClass("invalid");
-			$('#username').addClass("valid");
+			$('#username').removeClass('invalid');
+			$('#username').addClass('valid');
 		} else {
-			$('#username').removeClass("valid");
-			$('#username').addClass("invalid");
+			$('#username').removeClass('valid');
+			$('#username').addClass('invalid');
 		}
 	});
 
@@ -27,15 +27,15 @@ $(document).ready(function() {
 	});
 
 	// Name real-time validation
-	$('#name').blur(function() {
+	$("#name").blur(function() {
 		// var input=$(this);
 		// var is_name=input.val();
-		if (validateName($('#name').val())) {
-			$('#name').removeClass("invalid");
-			$('#name').addClass("valid");
+		if (validateName($("#name").val())) {
+			$("#name").removeClass('invalid').addClass('valid');
+			/*$("#name").addClass('valid');*/
 		} else {
-			$('#name').removeClass("valid");
-			$('#name').addClass("invalid");
+			$("#name").removeClass('valid').addClass('invalid');
+			/*$("#name").addClass('invalid');*/
 		}
 	});
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
 	$('#surname').blur(function() {
 		// var input=$(this);
 		// var is_name=input.val();
-		if (validateSurame($('#surname').val())) {
+		if (validateSurname($('#surname').val())) {
 			$('#surname').removeClass("invalid");
 			$('#surname').addClass("valid");
 		} else {
@@ -219,10 +219,12 @@ function validateName(name) {
 // This function checks that the surname given by the user is not empty, does
 // not contain any white spaces and also does not contain any numbers
 function validateSurname(surname) {
-	if (surname == null || surname == "")
+	if (surname == null || surname == ""){
 		return false;
-	else if (containsNumbers(surname) == true)
+	}
+	else if (containsNumbers(surname) == true){
 		return false;
+	}
 	else
 		return true;
 }
