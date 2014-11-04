@@ -56,13 +56,13 @@ $(document).ready(function() {
 	});
 	
 	// Account type real-time validation
-	$("#account_type").blur(function() {
+	$("#account_type").click(function() {
 		if (validateAccountType($("#account_type").value)) {
-			$("#account_type").removeClass('error_show');
-			$("#account_type").addClass('error');
+			$("#account_type").removeClass('invalid');
+			$("#account_type").addClass('valid');
 		} else {
-			$("#account_type").removeClass('error_show');
-			$("#account_type").addClass('error');
+			$("#account_type").removeClass('valid');
+			$("#account_type").addClass('invalid');
 		}
 	});
 	
@@ -116,6 +116,14 @@ $(document).ready(function() {
 				error_element.removeClass('error_show').addClass('error');
 			}
 		}
+		
+		/*if(validateAccountTypev2() == true){
+			error_element.removeClass('error').addClass('error_show');
+			error_free = false;
+		}
+		else{
+			error_element.removeClass('error_show').addClass('error');
+		}*/
 
 		if (!error_free) {
 			event.preventDefault();
@@ -271,6 +279,26 @@ function validateAccountType(acc_type){
 		return false;
 	}
 	else {
+		return true;
+	}
+}
+
+function validateAccountTypev2(){
+	var account_type = "";
+	var len = document.register_form.account_type.length;
+	var i;
+	
+	for(i = 0; i < len; i++){
+			if ( document.register_form.account_type[i].checked ) {
+				account_type = document.register_form.account_type[i].value;
+				break;
+			}
+	}
+	
+	if(account_type == ""){
+		return false;
+	}
+	else{
 		return true;
 	}
 }
