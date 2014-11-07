@@ -6,15 +6,18 @@ public class DBConnection {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:mysql://localhost:8080/softwaretestingdb", "andreas", "password");
+					"jdbc:mysql://localhost/softwaretestingdb", "andreas", "password");
 			Statement stmt = con.createStatement();
 			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Players");
 
 			while (rs.next()) {
-				System.out.println(rs.getInt(1) + " " + rs.getString(2));
+				System.out.println(rs.getString(1) + " " + rs.getString(2)+ rs.getString(3)+ rs.getString(4)
+						+ rs.getDate(5) + rs.getInt(6) + rs.getDate(7)+rs.getInt(8));
 			}
 			
+			rs.close();
+			stmt.close();
 			con.close();
 			
 		} catch (ClassNotFoundException ex) {
