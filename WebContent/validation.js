@@ -55,17 +55,6 @@ $(document).ready(function() {
 		}
 	});
 	
-	// Account type real-time validation
-	$("#account_type").click(function() {
-		if (validateAccountType($("#account_type").value)) {
-			$("#account_type").removeClass('invalid');
-			$("#account_type").addClass('valid');
-		} else {
-			$("#account_type").removeClass('valid');
-			$("#account_type").addClass('invalid');
-		}
-	});
-	
 	// credit card number real-time validation
 	$("#cc_num").blur(function() {
 		var cctype = validateCCType($("#cc_num").val());
@@ -116,14 +105,6 @@ $(document).ready(function() {
 				error_element.removeClass('error_show').addClass('error');
 			}
 		}
-		
-		/*if(validateAccountTypev2() == true){
-			error_element.removeClass('error').addClass('error_show');
-			error_free = false;
-		}
-		else{
-			error_element.removeClass('error_show').addClass('error');
-		}*/
 
 		if (!error_free) {
 			event.preventDefault();
@@ -283,30 +264,11 @@ function validateAccountType(acc_type){
 	}
 }
 
-function validateAccountTypev2(){
-	var account_type = "";
-	var len = document.register_form.account_type.length;
-	var i;
-	
-	for(i = 0; i < len; i++){
-			if ( document.register_form.account_type[i].checked ) {
-				account_type = document.register_form.account_type[i].value;
-				break;
-			}
-	}
-	
-	if(account_type == ""){
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-
 // This function checks whether the credit card expiry date given by the user is
 // in the future or not
 function validateCCExpiryDate(expiry_date) {
-	if (expiry_date >= "2014-10" && expiry_date <= "2050-12")
+	var today = new Date();
+	if (expiry_date >= today.getFullYear() && expiry_date >= today.getMonth() && expiry_date <= "2050-12")
 		return true;
 	else
 		return false;
