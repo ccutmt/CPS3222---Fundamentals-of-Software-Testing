@@ -269,10 +269,20 @@ function validateAccountType(acc_type){
 function validateCCExpiryDate(exp_dt) {
 	var today = new Date();
 	var expiry_date = new Date(exp_dt)
-	if (expiry_date.getFullYear() >= today.getFullYear() && expiry_date.getMonth() >= today.getMonth() /*&& expiry_date <= "2050-12"*/)
-		return true;
-	else
+	if(expiry_date.getFullYear() < today.getFullYear()) {
 		return false;
+	}
+	else if(expiry_date.getFullYear() == today.getFullYear()) {
+		if(expiry_date.getMonth() >= today.getMonth()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	else {
+		return true;
+	}
 }
 
 // The below function will check a string if it contains any numbers
