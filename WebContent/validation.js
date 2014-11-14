@@ -266,9 +266,10 @@ function validateAccountType(acc_type){
 
 // This function checks whether the credit card expiry date given by the user is
 // in the future or not
-function validateCCExpiryDate(expiry_date) {
+function validateCCExpiryDate(exp_dt) {
 	var today = new Date();
-	if (expiry_date >= today.getFullYear() && expiry_date >= today.getMonth() && expiry_date <= "2050-12")
+	var expiry_date = new Date(exp_dt)
+	if (expiry_date.getFullYear() >= today.getFullYear() && expiry_date.getMonth() >= today.getMonth() /*&& expiry_date <= "2050-12"*/)
 		return true;
 	else
 		return false;
