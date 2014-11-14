@@ -19,7 +19,7 @@
 		<div class="fieldset">
 
 			<legend>Register</legend>
-			<form id="register_form" action="RegServlet" method="GET">
+			<form id="register_form" action="ServletRegistration" method="GET">
 			
 				<div class="row">
 					<label for="username">Username</label>

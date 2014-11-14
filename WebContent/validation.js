@@ -25,10 +25,10 @@ $(document).ready(function() {
 	// Name real-time validation
 	$("#name").blur(function() {
 		if (validateName($("#name").val())) {
-			$("#name").removeClass('invalid');//.addClass('valid');
+			$("#name").removeClass('invalid');// .addClass('valid');
 			$("#name").addClass('valid');
 		} else {
-			$("#name").removeClass('valid');//.addClass('invalid');
+			$("#name").removeClass('valid');// .addClass('invalid');
 			$("#name").addClass('invalid');
 		}
 	});
@@ -43,7 +43,7 @@ $(document).ready(function() {
 			$("#surname").addClass('invalid');
 		}
 	});
-	
+
 	// DOB real-time validation
 	$("#dob").blur(function() {
 		if (validateDOB($("#dob").val())) {
@@ -54,7 +54,7 @@ $(document).ready(function() {
 			$("#dob").addClass('invalid');
 		}
 	});
-	
+
 	// credit card number real-time validation
 	$("#cc_num").blur(function() {
 		var cctype = validateCCType($("#cc_num").val());
@@ -80,7 +80,7 @@ $(document).ready(function() {
 
 	// Credit Card CVV real-time validation
 	$("#cvv").blur(function() {
-		if (validateCVV($("#cvv").val())) { 
+		if (validateCVV($("#cvv").val())) {
 			$("#cvv").removeClass('invalid');
 			$("#cvv").addClass('valid');
 		} else {
@@ -91,6 +91,7 @@ $(document).ready(function() {
 
 	// Register button, checks that all fields are correct before submitting the
 	// data
+
 	$("#register").click(function(event) {
 		var form_data = $("#register_form").serializeArray();
 		var error_free = true;
@@ -98,18 +99,18 @@ $(document).ready(function() {
 			var element = $("#" + form_data[input]['name']);
 			var valid = element.hasClass('valid');
 			var error_element = $("span", element.parent());
-			if (!valid) {
-				error_element.removeClass('error').addClass('error_show');
-				error_free = false;
-			} else {
-				error_element.removeClass('error_show').addClass('error');
+			if (form_data[input]['name'] != "account_type") {
+				if (!valid) {
+					error_element.removeClass('error').addClass('error_show');
+					error_free = false;
+				} else {
+					error_element.removeClass('error_show').addClass('error');
+				}
 			}
 		}
 
 		if (!error_free) {
 			event.preventDefault();
-		} else {
-			alert('No errors: Form will be submitted');
 		}
 	});
 });
@@ -216,50 +217,42 @@ function validateName(name) {
 // This function checks that the surname given by the user is not empty, does
 // not contain any white spaces and also does not contain any numbers
 function validateSurname(surname) {
-	if (surname == null || surname == ""){
+	if (surname == null || surname == "") {
 		return false;
-	}
-	else if (containsNumbers(surname) == true){
+	} else if (containsNumbers(surname) == true) {
 		return false;
-	}
-	else
+	} else
 		return true;
 }
 
-//Function to check whether the player registering is bigger than 18-years old
-function validateDOB(dob){
-	var pl_dob = new Date(dob); //date the player inserted in the DOB field
-	var today = new Date(); //current date
-	if((today.getFullYear() - pl_dob.getFullYear()) > 18){
+// Function to check whether the player registering is bigger than 18-years old
+function validateDOB(dob) {
+	var pl_dob = new Date(dob); // date the player inserted in the DOB field
+	var today = new Date(); // current date
+	if ((today.getFullYear() - pl_dob.getFullYear()) > 18) {
 		return true;
-	}
-	else if((today.getFullYear() - pl_dob.getFullYear()) == 18){
-		if((today.getMonth()) > pl_dob.getMonth()){
+	} else if ((today.getFullYear() - pl_dob.getFullYear()) == 18) {
+		if ((today.getMonth()) > pl_dob.getMonth()) {
 			return true;
-		}
-		else if (today.getMonth() == pl_dob.getMonth()) {
-			if(today.getDate() >= pl_dob.getDate()){
+		} else if (today.getMonth() == pl_dob.getMonth()) {
+			if (today.getDate() >= pl_dob.getDate()) {
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
-		}
-		else{
+		} else {
 			return false;
 		}
-	}
-	else {
+	} else {
 		return false;
 	}
 }
 
-//function that will check that one of the radio button is checked out
-function validateAccountType(acc_type){
-	if(acc_type == null){
+// function that will check that one of the radio button is checked out
+function validateAccountType(acc_type) {
+	if (acc_type == null) {
 		return false;
-	}
-	else {
+	} else {
 		return true;
 	}
 }
@@ -269,18 +262,15 @@ function validateAccountType(acc_type){
 function validateCCExpiryDate(exp_dt) {
 	var today = new Date();
 	var expiry_date = new Date(exp_dt)
-	if(expiry_date.getFullYear() < today.getFullYear()) {
+	if (expiry_date.getFullYear() < today.getFullYear()) {
 		return false;
-	}
-	else if(expiry_date.getFullYear() == today.getFullYear()) {
-		if(expiry_date.getMonth() >= today.getMonth()) {
+	} else if (expiry_date.getFullYear() == today.getFullYear()) {
+		if (expiry_date.getMonth() >= today.getMonth()) {
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
-	}
-	else {
+	} else {
 		return true;
 	}
 }

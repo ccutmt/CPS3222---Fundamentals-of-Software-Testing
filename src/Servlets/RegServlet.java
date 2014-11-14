@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class RegServlet
  */
-@WebServlet(description = "Servlet for registration page", urlPatterns = { "/RegServlet" })
+@WebServlet(description = "Servlet for registration page", urlPatterns = { "/ServletRegistration" })
 public class RegServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
