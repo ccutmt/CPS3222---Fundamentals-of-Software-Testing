@@ -58,12 +58,10 @@ body {
 	text-shadow: 0 1px 1px white;
 	font-weight: bold;
 } /* firefox 19+ */
-
 :-ms-input-placeholder {
 	text-shadow: 0 1px 1px white;
 	font-weight: bold;
 } /* ie */
-
 #register-form input[type=text] {
 	padding: 15px 20px;
 	border-radius: 1px;
@@ -254,50 +252,25 @@ body {
 	background: #5C8CA7;
 }
 
-.error{
-    display: none;
-    margin-left: 10px;
-}      
- 
-.error_show{
-    color: red;
-    margin-left: 10px;
+.error {
+	font-size: 12px;
+	display: none;
+	margin-left: 10px;
+}
+
+.error_show {
+	font-size: 12px; color : red;
+	margin-left: 10px;
 }
 
 .invalid {
-    /*border: 2px solid red;*/
-    background-color: #FFD9D9 !important;
-}
- 
-.valid{
-    /*border: 2px solid green;*/
-    background-color: #D9FFD9 !important;
+	/*border: 2px solid red;*/
+	background-color: #FFD9D9 !important;
 }
 
-.parsley-error-list {
-	background-color: #C34343;
-	padding: 5px 11px;
-	margin: 0;
-	list-style: none;
-	border-radius: 0 0 3px 3px;
-	margin-top: -5px;
-	margin-bottom: 5px;
-	color: white;
-	border: 1px solid #870d0d;
-	border-top: none;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	position: relative;
-	top: -1px;
-	text-shadow: 0px 1px 1px #460909;
-	font-weight: 700;
-	font-size: 12px;
-}
-
-.parsley-error {
-	border-color: #870d0d !important;
-	border-bottom: none;
+.valid {
+	/*border: 2px solid green;*/
+	background-color: #D9FFD9 !important;
 }
 
 #register-form select {
