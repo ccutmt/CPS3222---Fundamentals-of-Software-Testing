@@ -100,7 +100,9 @@ $(document).ready(function() {
 			var valid = element.hasClass('valid');
 			var error_element = $("span", element.parent());
 			if (form_data[input]['name'] != "account_type") {
+				//account type can never be invalid
 				if (!valid) {
+					element.removeClass('valid').addClass('invalid');
 					error_element.removeClass('error').addClass('error_show');
 					error_free = false;
 				} else {
