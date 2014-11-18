@@ -25,7 +25,7 @@
 				</div>
 				<input type="submit" value="Login">
 				<div class='row'>
-					<br><a href="http://localhost:8080/SoftwareTesting/Register.jsp">Register</a>
+					<br><a href="Register.jsp">Register</a>
 				</div>
 			</form>
 		</div>

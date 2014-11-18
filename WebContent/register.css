@@ -222,7 +222,9 @@ body {
 	background-color: white;
 }
 
-#register-form input[type=submit] {
+
+
+#register-form input[type=submit],  #register-form input[type=button]{
 	font-family: 'Arial';
 	text-transform: uppercase;
 	outline: none;
@@ -244,11 +246,11 @@ body {
 	top: 0;
 }
 
-#register-form input[type=submit]:hover {
+#register-form input[type=submit]:hover, #register-form input[type=button]:hover {
 	background-color: #2980b9;
 }
 
-#register-form input[type=submit]:active {
+#register-form input[type=submit]:active, #register-form input[type=button]:active {
 	background: #5C8CA7;
 }
 

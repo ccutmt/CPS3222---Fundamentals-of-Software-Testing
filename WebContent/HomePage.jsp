@@ -17,19 +17,12 @@
 		<div class="fieldset">
 			<form>
 				<legend>Assignment Betting Company</legend>
-
-				<div id="register">
-					<input type="button" value="Register" action="Register.jsp"
-						name=register></input>
-				</div>
-
-				<div id="login">
-					<input type="submit" value="Login"
-						onclick="http://localhost:8080/SoftwareTesting/Login.jsp"></input>
-				</div>
+				
+				<a href="Register.jsp"><input type="button" value="Register"></a>
+				
+				<a href="Login.jsp"><input type="button" value="Login"></a>
 
 			</form>
-
 		</div>
 	</div>
 </body>
