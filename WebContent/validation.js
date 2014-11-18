@@ -306,8 +306,8 @@ function validateAccountType(acc_type) {
 function validateCCExpiryDate(exp_dt) {
 	var today = new Date();
 	var expiry_date = new Date(exp_dt)
-	if (expiry_date.getFullYear() < today.getFullYear()) {
-		return false;
+	if (expiry_date.getFullYear() > today.getFullYear()) {
+		return true;
 	} else if (expiry_date.getFullYear() == today.getFullYear()) {
 		if (expiry_date.getMonth() >= today.getMonth()) {
 			return true;
@@ -315,7 +315,7 @@ function validateCCExpiryDate(exp_dt) {
 			return false;
 		}
 	} else {
-		return true;
+		return false;
 	}
 }
 
