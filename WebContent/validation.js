@@ -2,90 +2,131 @@ $(document).ready(function() {
 
 	// Username real-time validation
 	$("#username").blur(function() {
-		if (validateUsername($("#username").val())) {
-			$("#username").removeClass('invalid');
-			$("#username").addClass('valid');
+		var element = $("#username");
+		if (validateUsername(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#username").removeClass('valid');
-			$("#username").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Password real-time validation
-	$("#password").blur(function() {
-		if (validatePassword($("#password").val())) {
-			$("#password").removeClass('invalid');
-			$("#password").addClass('valid');
+	$("#password").blur(function() {		
+		var element = $("#password");
+		if (validatePassword(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');			
 		} else {
-			$("#password").removeClass('valid');
-			$("#password").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Name real-time validation
 	$("#name").blur(function() {
-		if (validateName($("#name").val())) {
-			$("#name").removeClass('invalid');// .addClass('valid');
-			$("#name").addClass('valid');
+		var element = $("#name");
+		if (validateName(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#name").removeClass('valid');// .addClass('invalid');
-			$("#name").addClass('invalid');
+			element.removeClass('valid');// .addClass('invalid');
+			element.addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Surname real-time validation
 	$("#surname").blur(function() {
-		if (validateSurname($("#surname").val())) {
-			$("#surname").removeClass('invalid');
-			$("#surname").addClass('valid');
+		var element = $("#surname");
+		if (validateSurname(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#surname").removeClass('valid');
-			$("#surname").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// DOB real-time validation
 	$("#dob").blur(function() {
-		if (validateDOB($("#dob").val())) {
-			$("#dob").removeClass('invalid');
-			$("#dob").addClass('valid');
+		var element = $("#dob");
+		if (validateDOB(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#dob").removeClass('valid');
-			$("#dob").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// credit card number real-time validation
 	$("#cc_num").blur(function() {
-		var cctype = validateCCType($("#cc_num").val());
-		if ((cctype != 0) && LuhnAlgorithm($("#cc_num").val())) {
-			$("#cc_num").removeClass('invalid');
-			$("#cc_num").addClass('valid');
+		var element = $("#cc_num");
+		var cctype = validateCCType(element.val());
+		if ((cctype != 0) && LuhnAlgorithm(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#cc_num").removeClass('valid');
-			$("#cc_num").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Credit Card Expiry Date real-time validation
-	$("#cc_exp").blur(function() {
-		if (validateCCExpiryDate($("#cc_exp").val())) {
-			$("#cc_exp").removeClass('invalid');
-			$("#cc_exp").addClass('valid');
+	$("#cc_exp").blur(function() {		
+		var element = $("#cc_exp");
+		if (validateCCExpiryDate(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#cc_exp").removeClass('valid');
-			$("#cc_exp").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Credit Card CVV real-time validation
 	$("#cvv").blur(function() {
-		if (validateCVV($("#cvv").val())) {
-			$("#cvv").removeClass('invalid');
-			$("#cvv").addClass('valid');
+		var element = $("#cvv");
+		if (validateCVV(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
 		} else {
-			$("#cvv").removeClass('valid');
-			$("#cvv").addClass('invalid');
+			element.removeClass('valid').addClass('invalid');
+			
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
