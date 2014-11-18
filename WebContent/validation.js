@@ -148,6 +148,7 @@ $(document).ready(function() {
 					error_free = false;
 				} else {
 					error_element.removeClass('error_show').addClass('error');
+					//document.href = "http://localhost:8080/SoftwareTesting/BetPage.jsp>;
 				}
 			}
 		}
