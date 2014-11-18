@@ -15,18 +15,21 @@
 
 	<div id="register-form">
 		<div class="fieldset">
+			<form>
+				<legend>Assignment Betting Company</legend>
 
-			<legend>Assignment Betting Company</legend>
-			<form id="homepage" method="post">
 				<div id="register">
-					<input type="submit" value="Register" action="http://localhost:8080/SoftwareTesting/Register.jsp"></input>
+					<input type="button" value="Register" action="Register.jsp"
+						name=register></input>
 				</div>
-				
+
 				<div id="login">
-					<input type="submit" value="Login" onclick="http://localhost:8080/SoftwareTesting/Login.jsp"></input>
+					<input type="submit" value="Login"
+						onclick="http://localhost:8080/SoftwareTesting/Login.jsp"></input>
 				</div>
-				
+
 			</form>
+
 		</div>
 	</div>
 </body>
