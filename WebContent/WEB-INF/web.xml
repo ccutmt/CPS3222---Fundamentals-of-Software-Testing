@@ -9,7 +9,9 @@
 	version="3.0" metadata-complete="true">
 	<display-name>SoftwareTesting</display-name>
 	<welcome-file-list>
+		<welcome-file>HomePage.jsp</welcome-file>
 		<welcome-file>Register.jsp</welcome-file>
+		<welcome-file>BetPage.jsp</welcome-file>
 		<welcome-file>Login.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>

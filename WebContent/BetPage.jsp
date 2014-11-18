@@ -36,6 +36,9 @@
 				<div id="place_bet">
 					<input type="submit" value="Place Bet"></input>
 				</div>
+				<div class='row'>
+					<br><a href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
+				</div>
 			</form>
 			
 		</div>
