@@ -8,6 +8,7 @@ public class main {
 		try{
 			DBConnection db = new DBConnection();
 		}catch (SQLException sc){
+			System.out.println("DB Connection Error!");
 			sc.printStackTrace();
 		}
 	}

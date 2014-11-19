@@ -7,9 +7,8 @@ public class DBConnection {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://localhost/softwaretestingdb", "andreas", "password");
-			Statement stmt = con.createStatement();
 			
-			ResultSet rs = stmt.executeQuery("SELECT * FROM Players");
+			ResultSet rs = ExecuteQuery(con, "SELECT * FROM PLAYERS");
 
 			while (rs.next()) {
 				System.out.println(rs.getString(1) + " " + rs.getString(2)+ rs.getString(3)+ rs.getString(4)
@@ -17,15 +16,27 @@ public class DBConnection {
 			}
 			
 			rs.close();
-			stmt.close();
-			con.close();
-			
+			CloseConnection(con);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Error: unable to load driver class!");
 			System.exit(1);
 		}
 	}
 
+	
+	public ResultSet ExecuteQuery(Connection con, String query) throws SQLException{
+		Statement stmt = con.createStatement();
+		return stmt.executeQuery(query);
+	}
+	
+	public boolean InsertElement(String table, String name){
+		return false;
+	}
+
+	public void CloseConnection(Connection con) throws SQLException{
+		con.close();
+	}
+	
 //	public static Connection getConnection(String URL, String username,
 //			String password) throws SQLException {
 //		Connection con = DriverManager.getConnection(
