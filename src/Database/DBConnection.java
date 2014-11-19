@@ -1,21 +1,22 @@
+package Database;
 import java.sql.*; // for standard JDBC programs
 import java.math.*; // for BigDecimal and BigInteger support
 
 public class DBConnection {
-	public DBConnection() throws SQLException{
+	public DBConnection(String query) throws SQLException{
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://localhost/softwaretestingdb", "andreas", "password");
 			
-			ResultSet rs = ExecuteQuery(con, "SELECT * FROM PLAYERS");
+			ExecuteQuery(con, query);
 
-			while (rs.next()) {
-				System.out.println(rs.getString(1) + " " + rs.getString(2)+ rs.getString(3)+ rs.getString(4)
-						+ rs.getDate(5) + rs.getInt(6) + rs.getDate(7)+rs.getInt(8));
-			}
-			
-			rs.close();
+//			while (rs.next()) {
+//				System.out.println(rs.getString(1) + " " + rs.getString(2)+ rs.getString(3)+ rs.getString(4)
+//						+ rs.getDate(5) + rs.getInt(6) + rs.getDate(7)+rs.getInt(8));
+//			}
+//			
+//			rs.close();
 			CloseConnection(con);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Error: unable to load driver class!");
@@ -24,9 +25,9 @@ public class DBConnection {
 	}
 
 	
-	public ResultSet ExecuteQuery(Connection con, String query) throws SQLException{
+	public boolean ExecuteQuery(Connection con, String query) throws SQLException{
 		Statement stmt = con.createStatement();
-		return stmt.executeQuery(query);
+		return stmt.execute(query);
 	}
 	
 	public boolean InsertElement(String table, String name){
