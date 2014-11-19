@@ -1,5 +1,6 @@
 body {
-	background: #b4b4b4;
+	/*background: #b4b4b4;*/
+	background-image:url('\WebContent\images\background.jpg');
 }
 
 #register-form {
