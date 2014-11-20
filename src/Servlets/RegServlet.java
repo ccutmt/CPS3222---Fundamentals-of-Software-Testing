@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -58,20 +59,30 @@ public class RegServlet extends HttpServlet {
 							+ request.getParameter("cc_num")
 							+ ", \""
 							+ request.getParameter("cc_exp")
-							+ "-30\", "
-							+ request.getParameter("cvv") + " );");
+							+ "-"
+							+ GetMaxDate(request.getParameter("cc_exp"))
+							+ "\", " + request.getParameter("cvv") + " );");
 			writer.println("User added Successfully");
 			System.out.println("Added new User");
-		} catch (MySQLIntegrityConstraintViolationException ex) {
+		} catch (MySQLIntegrityConstraintViolationException e1) {
 			writer.println("User already Exists!");
 			System.out.println("User already exists");
-			ex.printStackTrace();
-		} catch (SQLException e) {
+			e1.printStackTrace();
+		} catch (SQLException e2) {
 			writer.println("Cannot add new user to db");
 			System.out.println("Failed to add new user");
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e2.printStackTrace();
 		}
+	}
+
+	private int GetMaxDate(String date) {
+		//method used for cc expiry date to find the maximum date for the particular month, in order to fit in db field
+		System.out.println((date));
+		Calendar calendar = Calendar.getInstance();
+		String year = date.substring(0, 4);
+		String month = date.substring(5, 7);
+		calendar.set(Integer.parseInt(year), Integer.parseInt(month)-1, 1);
+		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 
 }
