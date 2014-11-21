@@ -29,6 +29,9 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
+		
+		
+		
 		PrintWriter writer = response.getWriter();
 		writer.println("Login Servlet");
 	}

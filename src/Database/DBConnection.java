@@ -1,6 +1,5 @@
 package Database;
 import java.sql.*; // for standard JDBC programs
-import java.math.*; // for BigDecimal and BigInteger support
 
 public class DBConnection {
 	public DBConnection(String query) throws SQLException{
