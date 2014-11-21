@@ -20,6 +20,7 @@ public class DBConnection {
 			CloseConnection(con);
 		} catch (ClassNotFoundException ex) {
 			System.out.println("Error: unable to load driver class!");
+			ex.printStackTrace();
 			System.exit(1);
 		}
 	}
