@@ -39,7 +39,7 @@ public class RegServlet extends HttpServlet {
 		System.out.println("Executing Registration Servlet");
 		PrintWriter writer = response.getWriter();
 		try {
-			DBConnection db = new DBConnection(
+			new DBConnection(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV )"
 							+ " VALUES ( \""
 							+ request.getParameter("username")

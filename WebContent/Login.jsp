@@ -4,25 +4,30 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
 <title>Login Page</title>
-<link rel="stylesheet"  type="text/css" href="login.css">
+<link rel="stylesheet" type="text/css" href="register.css">
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="validation.js"></script>
 </head>
 <body>
-	<div id="login-form">
+	<div id="register-form">
 		<div class='fieldset'>
 			<legend>Login</legend>
-			<form action="#" method="post" data-validate="parsley">
-				<div class='row'>
-					<label for='username'>Username</label> <input type="text"
-						placeholder="Username" name='username' id='username'
-						data-required="true"
-						data-error-message="Username required.">
+			<form id="register_form" action="LoginServlet" method="GET">
+			
+				<div class="row">
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username" placeholder="Username"/>
+					<span class="error">Invalid Username</span>
 				</div>
-				<div class='row'>
-					<label for="password">Password</label> <input type="text"
-						placeholder="Password" name='password' data-required="true"
-						data-error-message="Password required">
+				
+				<div class="row">
+					<label for="password"><br>Password</label> 
+					<input type="password" placeholder="Password" name="password" id="password"/>
+					<span class="error">Invalid Password</span>
 				</div>
+				
 				<input type="submit" value="Login">
 				<div class='row'>
 					<br><a href="Register.jsp">Register</a>
