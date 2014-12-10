@@ -1,5 +1,8 @@
 package tests;
 
+import java.sql.SQLException;
+
+import Servlets.RegServlet;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
@@ -7,13 +10,186 @@ import org.junit.Test;
 
 public class RegistrationTests {
 
+	private RegServlet regservlet;
+	
 	@Before
 	public void setUp() throws Exception {
+		 regservlet = new RegServlet();
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void ValidateUsernameTest() throws SQLException {
+		
+		assertEquals("UsernameTesting", regservlet.UsernameValidation("UsernameTesting"));
 	}
+	
+	@Test
+	public void ValidateUsernameNumberTest() throws SQLException {
+		
+		assertEquals("UsernameTesting123", regservlet.UsernameValidation("UsernameTesting123"));
+	}
+	
+	@Test
+	public void ShortUsernameTest() {
+		 try{
+			 regservlet.UsernameValidation("chris");
 
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void UsernameSpecialCharTest() {
+		 try{
+			 regservlet.UsernameValidation("UsernameTesting!!");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void ValidateCVVTest() throws SQLException {
+		
+		assertEquals("123", regservlet.CVVValidation("123"));
+	}
+	
+	@Test
+	public void LongCVVTest() {
+		 try{
+			 regservlet.CVVValidation("1234");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void CVVLetterTest() {
+		 try{
+			 regservlet.UsernameValidation("1d2");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void ValidatePasswordTest() throws SQLException {
+		
+		assertEquals("password1994", regservlet.PasswordValidation("password1994"));
+	}
+	
+	@Test
+	public void ShortPasswordTest() {
+		 try{
+			 regservlet.PasswordValidation("chris");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void StringLettersOnly() {
+		assertFalse(regservlet.containsNumbers("NoNumbers"));
+	}
+	
+	@Test
+	public void StringLettersNumbers() {
+		assertTrue(regservlet.containsNumbers("Numbers12345"));
+	}
+	
+	@Test
+	public void NameValidationTest() throws SQLException{
+		assertEquals("Andreas", regservlet.NameValidation("Andreas"));
+	}
+	
+	@Test
+	public void NameWithNumbersTest() {
+		 try{
+			 regservlet.NameValidation("Andreas45");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void NullNameTest() {
+		 try{
+			 regservlet.NameValidation(null);
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void EmptyNameTest() {
+		 try{
+			 regservlet.NameValidation("");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void SurnameValidationTest() throws SQLException{
+		assertEquals("Spiteri", regservlet.SurnameValidation("Spiteri"));
+	}
+	
+	@Test
+	public void SurNameWithNumbersTest() {
+		 try{
+			 regservlet.SurnameValidation("Spiteri1002");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void NullSurnameTest() {
+		 try{
+			 regservlet.SurnameValidation(null);
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void EmptySurnameTest() {
+		 try{
+			 regservlet.SurnameValidation("");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
 }

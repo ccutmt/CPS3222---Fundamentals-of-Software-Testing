@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,24 +41,28 @@ public class RegServlet extends HttpServlet {
 		System.out.println("Executing Registration Servlet");
 		PrintWriter writer = response.getWriter();
 		try {
+			/*if (UsernameValidation(request.getParameter("username")) == false) {
+				throw new SQLException();
+			}*/
+				
 			new DBConnection(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV )"
 							+ " VALUES ( \""
-							+ request.getParameter("username")
+							+ UsernameValidation(request.getParameter("username"))
 							+ "\", \""
-							+ request.getParameter("password")
+							+ PasswordValidation(request.getParameter("password"))
 							+ "\""
 							+ ", \""
-							+ request.getParameter("name")
+							+ NameValidation(request.getParameter("name"))
 							+ "\", \""
-							+ request.getParameter("surname")
+							+ SurnameValidation(request.getParameter("surname"))
 							+ "\", "
 							+ "\""
 							+ request.getParameter("dob")
 							+ "\", "
 							+ request.getParameter("account_type")
 							+ ", "
-							+ request.getParameter("cc_num")
+							+ CVVValidation(request.getParameter("cc_num"))
 							+ ", \""
 							+ request.getParameter("cc_exp")
 							+ "-"
@@ -84,5 +90,73 @@ public class RegServlet extends HttpServlet {
 		calendar.set(Integer.parseInt(year), Integer.parseInt(month)-1, 1);
 		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
+	
+	public String UsernameValidation(String username) throws SQLException {
+		Pattern p = Pattern.compile("^[A-Za-z0-9]+$");
+		Matcher m = p.matcher(username);
+		boolean b = m.find();
+		if (b == true && username.length() >= 6) {
+			return username;
+		}
+		else {
+			throw new SQLException();
+		}
+	}
 
+	public String CVVValidation(String cvv)  throws SQLException {
+		Pattern p = Pattern.compile("^[0-9]{3}+$");
+		Matcher m = p.matcher(cvv);
+		boolean b = m.find();
+		if (b == true) {
+			return cvv;
+		}
+		else {
+			throw new SQLException();
+		}
+	}
+	
+	public String PasswordValidation(String password) throws SQLException {
+		if(password.length() > 8) {
+			return password;
+		}
+		else {
+			throw new SQLException();
+		}
+	}
+	
+	public boolean containsNumbers(String n) {
+		Pattern p = Pattern.compile("^[A-Za-z]+$");
+		Matcher m = p.matcher(n);
+		boolean b = m.find();
+		if ( b == true) {
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	
+	public String NameValidation(String name) throws SQLException {
+		if(name == null ||  name == "") {
+			throw new SQLException();
+		}
+		else if(containsNumbers(name) == true) {
+			throw new SQLException();
+		} 
+		else {
+			return name;
+		}
+	}
+	
+	public String SurnameValidation(String surname) throws SQLException {
+		if(surname == null ||  surname == "") {
+			throw new SQLException();
+		}
+		else if(containsNumbers(surname) == true) {
+			throw new SQLException();
+		} 
+		else {
+			return surname;
+		}
+	}
 }
