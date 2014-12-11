@@ -192,4 +192,43 @@ public class RegistrationTests {
 		        //ignore, this exception is expected.
 		    }
 	}
+	
+	@Test
+	public void DOBValidationTestOver18() throws SQLException{
+		assertEquals("1994-12-18", regservlet.DOBValidation("1994-12-18"));
+	}
+	
+	@Test
+	public void DOBUnder18() {
+		 try{
+			 regservlet.DOBValidation("1997-10-02");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void DOBValidationTestOver18EqaulYear() throws SQLException{
+		assertEquals("1996-10-18", regservlet.DOBValidation("1996-10-18"));
+	}
+	
+	@Test
+	public void DOBValidationTestOver18EqaulYearEqualMonth() throws SQLException{
+		assertEquals("1996-12-05", regservlet.DOBValidation("1996-12-05"));
+	}
+	
+	@Test
+	public void DOBValidationTestUnder18EqaulYearEqualMonth() {
+		 try{
+			 regservlet.DOBValidation("1996-21-12");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
 }

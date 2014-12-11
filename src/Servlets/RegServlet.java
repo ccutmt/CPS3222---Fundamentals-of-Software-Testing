@@ -2,7 +2,9 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -62,12 +64,12 @@ public class RegServlet extends HttpServlet {
 							+ "\", "
 							+ request.getParameter("account_type")
 							+ ", "
-							+ CVVValidation(request.getParameter("cc_num"))
+							+ request.getParameter("cc_num")
 							+ ", \""
 							+ request.getParameter("cc_exp")
 							+ "-"
 							+ GetMaxDate(request.getParameter("cc_exp"))
-							+ "\", " + request.getParameter("cvv") + " );");
+							+ "\", " + CVVValidation(request.getParameter("cvv") + " );"));
 			writer.println("User added Successfully");
 			System.out.println("Added new User");
 		} catch (MySQLIntegrityConstraintViolationException e1) {
@@ -89,6 +91,44 @@ public class RegServlet extends HttpServlet {
 		String month = date.substring(5, 7);
 		calendar.set(Integer.parseInt(year), Integer.parseInt(month)-1, 1);
 		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+	
+	public String DOBValidation(String dob) throws SQLException {		
+		Calendar pl_dob = Calendar.getInstance();
+
+		String year = dob.substring(0, 4);
+		String month = dob.substring(5, 7);
+		String day = dob.substring(8, 9);
+
+		pl_dob.set(Integer.parseInt(year), Integer.parseInt(month)-1, Integer.parseInt(day));
+
+		int pl_dob_year = pl_dob.get(Calendar.YEAR);
+		int pl_dob_month = pl_dob.get(Calendar.MONTH);
+		int pl_dob_day = pl_dob.get(Calendar.DAY_OF_MONTH);
+
+		Calendar today = Calendar.getInstance();
+
+		int td_year = today.get(Calendar.YEAR);
+		int td_month = today.get(Calendar.MONTH);
+		int td_day = today.get(Calendar.DAY_OF_MONTH);
+
+		if ((td_year - pl_dob_year) > 18) {
+			return dob;
+		} else if ((td_year - pl_dob_year) == 18) {
+			if ((td_month) > pl_dob_month) {
+				return dob;
+			} else if (td_month == pl_dob_month) {
+				if (td_day >= pl_dob_day) {
+					return dob;
+				} else {
+					throw new SQLException();
+				}
+			} else {
+				throw new SQLException();
+			}
+		} else {
+			throw new SQLException();
+		}
 	}
 	
 	public String UsernameValidation(String username) throws SQLException {
