@@ -54,7 +54,7 @@ public class RegistrationTests {
 	}
 	
 	@Test
-	public void ValidateCVVTest() throws SQLException {
+	public void ValidateCVV3DigitTest() throws SQLException {
 		
 		assertEquals("123", regservlet.CVVValidation("123"));
 	}
@@ -62,7 +62,7 @@ public class RegistrationTests {
 	@Test
 	public void LongCVVTest() {
 		 try{
-			 regservlet.CVVValidation("1234");
+			 regservlet.CVVValidation("12345");
 
 		        fail("expected SQLException");
 
@@ -74,7 +74,7 @@ public class RegistrationTests {
 	@Test
 	public void CVVLetterTest() {
 		 try{
-			 regservlet.UsernameValidation("1d2");
+			 regservlet.CVVValidation("1d2");
 
 		        fail("expected SQLException");
 
@@ -223,7 +223,41 @@ public class RegistrationTests {
 	@Test
 	public void DOBValidationTestUnder18EqaulYearEqualMonth() {
 		 try{
-			 regservlet.DOBValidation("1996-21-12");
+			 regservlet.DOBValidation("1996-12-21");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void CCNotExpiredTest() throws SQLException{
+		assertEquals("2016-12-31", regservlet.CCExpiryDateValidation("2016-12-31"));
+	}
+	
+	@Test
+	public void CCExpiredTest() {
+		 try{
+			 regservlet.CCExpiryDateValidation("2012-12-02");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
+	
+	@Test
+	public void CCSameMonthNotExpiredTest() throws SQLException{
+		assertEquals("2014-12-31", regservlet.CCExpiryDateValidation("2014-12-31"));
+	}
+	
+	@Test
+	public void CCSameMonthExpiredTest() {
+		 try{
+			 regservlet.CCExpiryDateValidation("2014-12-02");
 
 		        fail("expected SQLException");
 

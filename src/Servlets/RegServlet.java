@@ -2,9 +2,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -60,22 +58,31 @@ public class RegServlet extends HttpServlet {
 							+ SurnameValidation(request.getParameter("surname"))
 							+ "\", "
 							+ "\""
-							+ request.getParameter("dob")
+							+ DOBValidation(request.getParameter("dob"))
 							+ "\", "
 							+ request.getParameter("account_type")
 							+ ", "
 							+ request.getParameter("cc_num")
 							+ ", \""
-							+ request.getParameter("cc_exp")
+							+ CCExpiryDateValidation(request.getParameter("cc_exp")
 							+ "-"
-							+ GetMaxDate(request.getParameter("cc_exp"))
-							+ "\", " + CVVValidation(request.getParameter("cvv") + " );"));
+							+ GetMaxDate(request.getParameter("cc_exp")))
+							+ "\", " + CVVValidation(request.getParameter("cvv")) + " );");
 			writer.println("User added Successfully");
 			System.out.println("Added new User");
+			
+			// Set response content type
+			response.setContentType("text/html");
+
+			// New location to be redirected
+			String site = new String("http://localhost:8080/SoftwareTesting/BetPage.jsp");
+
+			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", site);  
 		} catch (MySQLIntegrityConstraintViolationException e1) {
 			writer.println("User already Exists!");
 			System.out.println("User already exists");
-			e1.printStackTrace();
+			e1.printStackTrace();						
 		} catch (SQLException e2) {
 			writer.println("Cannot add new user to db");
 			System.out.println("Failed to add new user");
@@ -93,44 +100,6 @@ public class RegServlet extends HttpServlet {
 		return calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 	
-	public String DOBValidation(String dob) throws SQLException {		
-		Calendar pl_dob = Calendar.getInstance();
-
-		String year = dob.substring(0, 4);
-		String month = dob.substring(5, 7);
-		String day = dob.substring(8, 9);
-
-		pl_dob.set(Integer.parseInt(year), Integer.parseInt(month)-1, Integer.parseInt(day));
-
-		int pl_dob_year = pl_dob.get(Calendar.YEAR);
-		int pl_dob_month = pl_dob.get(Calendar.MONTH);
-		int pl_dob_day = pl_dob.get(Calendar.DAY_OF_MONTH);
-
-		Calendar today = Calendar.getInstance();
-
-		int td_year = today.get(Calendar.YEAR);
-		int td_month = today.get(Calendar.MONTH);
-		int td_day = today.get(Calendar.DAY_OF_MONTH);
-
-		if ((td_year - pl_dob_year) > 18) {
-			return dob;
-		} else if ((td_year - pl_dob_year) == 18) {
-			if ((td_month) > pl_dob_month) {
-				return dob;
-			} else if (td_month == pl_dob_month) {
-				if (td_day >= pl_dob_day) {
-					return dob;
-				} else {
-					throw new SQLException();
-				}
-			} else {
-				throw new SQLException();
-			}
-		} else {
-			throw new SQLException();
-		}
-	}
-	
 	public String UsernameValidation(String username) throws SQLException {
 		Pattern p = Pattern.compile("^[A-Za-z0-9]+$");
 		Matcher m = p.matcher(username);
@@ -144,7 +113,7 @@ public class RegServlet extends HttpServlet {
 	}
 
 	public String CVVValidation(String cvv)  throws SQLException {
-		Pattern p = Pattern.compile("^[0-9]{3}+$");
+		Pattern p = Pattern.compile("^[0-9]{3}$");
 		Matcher m = p.matcher(cvv);
 		boolean b = m.find();
 		if (b == true) {
@@ -152,7 +121,7 @@ public class RegServlet extends HttpServlet {
 		}
 		else {
 			throw new SQLException();
-		}
+		}			
 	}
 	
 	public String PasswordValidation(String password) throws SQLException {
@@ -197,6 +166,75 @@ public class RegServlet extends HttpServlet {
 		} 
 		else {
 			return surname;
+		}
+	}
+
+	
+	public String DOBValidation(String dob) throws SQLException {		
+		Calendar pl_dob = Calendar.getInstance();
+
+		String year = dob.substring(0, 4);
+		String month = dob.substring(5, 7);
+		String day = dob.substring(8, 9);
+
+		pl_dob.set(Integer.parseInt(year), Integer.parseInt(month)-1, Integer.parseInt(day));
+
+		int pl_dob_year = pl_dob.get(Calendar.YEAR);
+		int pl_dob_month = pl_dob.get(Calendar.MONTH);
+		int pl_dob_day = pl_dob.get(Calendar.DAY_OF_MONTH);
+
+		Calendar today = Calendar.getInstance();
+
+		int td_year = today.get(Calendar.YEAR);
+		int td_month = today.get(Calendar.MONTH);
+		int td_day = today.get(Calendar.DAY_OF_MONTH);
+
+		if ((td_year - pl_dob_year) > 18) {
+			return dob;
+		} else if ((td_year - pl_dob_year) == 18) {
+			if ((td_month) > pl_dob_month) {
+				return dob;
+			} else if (td_month == pl_dob_month) {
+				if (td_day >= pl_dob_day) {
+					return dob;
+				} else {
+					throw new SQLException();
+				}
+			} else {
+				throw new SQLException();
+			}
+		} else {
+			throw new SQLException();
+		}
+	}
+	
+	public String CCExpiryDateValidation(String cc_exp) throws SQLException {
+		Calendar exp = Calendar.getInstance();
+
+		String year = cc_exp.substring(0, 4);
+		String month = cc_exp.substring(5, 7);
+		String day = cc_exp.substring(8, 9);
+
+		exp.set(Integer.parseInt(year), Integer.parseInt(month)-1, Integer.parseInt(day));
+
+		int exp_year = exp.get(Calendar.YEAR);
+		int exp_month = exp.get(Calendar.MONTH);
+
+		Calendar today = Calendar.getInstance();
+
+		int td_year = today.get(Calendar.YEAR);
+		int td_month = today.get(Calendar.MONTH);
+		
+		if (exp_year > td_year) {
+			return cc_exp;
+		} else if (exp_year == td_year) {
+			if (exp_month >= td_month) {
+				return cc_exp;
+			} else {
+				throw new SQLException();
+			}
+		} else {
+			throw new SQLException();
 		}
 	}
 }
