@@ -77,7 +77,7 @@ public class RegServlet extends HttpServlet {
 			// New location to be redirected
 			String site = new String("http://localhost:8080/SoftwareTesting/BetPage.jsp");
 
-			response.setStatus(response.SC_MOVED_TEMPORARILY);
+			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);  
 		} catch (MySQLIntegrityConstraintViolationException e1) {
 			writer.println("User already Exists!");
@@ -175,7 +175,7 @@ public class RegServlet extends HttpServlet {
 
 		String year = dob.substring(0, 4);
 		String month = dob.substring(5, 7);
-		String day = dob.substring(8, 9);
+		String day = dob.substring(8, 10);
 
 		pl_dob.set(Integer.parseInt(year), Integer.parseInt(month)-1, Integer.parseInt(day));
 

@@ -221,9 +221,9 @@ public class RegistrationTests {
 	}
 	
 	@Test
-	public void DOBValidationTestUnder18EqaulYearEqualMonth() {
+	public void DOBValidationTestUnder18EqualYearEqualMonth() {
 		 try{
-			 regservlet.DOBValidation("1996-12-21");
+			 regservlet.DOBValidation("1996-12-13");
 
 		        fail("expected SQLException");
 
