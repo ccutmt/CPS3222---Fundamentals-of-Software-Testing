@@ -67,7 +67,8 @@ public class RegServlet extends HttpServlet {
 							+ CCExpiryDateValidation(request.getParameter("cc_exp")
 							+ "-"
 							+ GetMaxDate(request.getParameter("cc_exp")))
-							+ "\", " + CVVValidation(request.getParameter("cvv")) + " );");
+							+ "\", " + CVVValidation(request.getParameter("cvv")) + " );");			
+			
 			writer.println("User added Successfully");
 			System.out.println("Added new User");
 			
