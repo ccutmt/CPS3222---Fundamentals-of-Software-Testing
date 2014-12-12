@@ -88,7 +88,7 @@ public class RegServlet extends HttpServlet {
 			response.setContentType("text/html");
 
 			// New location to be redirected
-			String site = new String("http://localhost:8080/SoftwareTesting/ErrorAlreadyExists.html");
+			String site = new String("ErrorPages/ErrorAlreadyExists.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);  
@@ -101,7 +101,7 @@ public class RegServlet extends HttpServlet {
 			response.setContentType("text/html");
 
 			// New location to be redirected
-			String site = new String("http://localhost:8080/SoftwareTesting/AddUserFailed.html");
+			String site = new String("ErrorPages/AddUserFailed.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site); 
