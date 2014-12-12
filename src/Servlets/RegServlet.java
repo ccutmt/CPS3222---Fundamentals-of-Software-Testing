@@ -82,11 +82,29 @@ public class RegServlet extends HttpServlet {
 		} catch (MySQLIntegrityConstraintViolationException e1) {
 			writer.println("User already Exists!");
 			System.out.println("User already exists");
-			e1.printStackTrace();						
+			e1.printStackTrace();
+			
+			// Set response content type
+			response.setContentType("text/html");
+
+			// New location to be redirected
+			String site = new String("http://localhost:8080/SoftwareTesting/ErrorAlreadyExists.html");
+
+			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", site);  
 		} catch (SQLException e2) {
 			writer.println("Cannot add new user to db");
 			System.out.println("Failed to add new user");
 			e2.printStackTrace();
+			
+			// Set response content type
+			response.setContentType("text/html");
+
+			// New location to be redirected
+			String site = new String("http://localhost:8080/SoftwareTesting/AddUserFailed.html");
+
+			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", site); 
 		}
 	}
 
