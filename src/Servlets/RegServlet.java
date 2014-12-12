@@ -75,7 +75,7 @@ public class RegServlet extends HttpServlet {
 			response.setContentType("text/html");
 
 			// New location to be redirected
-			String site = new String("http://localhost:8080/SoftwareTesting/BetPage.jsp");
+			String site = new String("BetPage.jsp");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);  

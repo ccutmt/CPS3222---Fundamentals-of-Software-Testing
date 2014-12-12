@@ -41,13 +41,14 @@ public class DBConnection {
 			stmt.execute(query);
 		} else if (query.contains("SELECT")) {
 			results = stmt.executeQuery(query);
-			results.next();
-			username = results.getString("username");
-			password = results.getString("password");
-			
+			if (results.next()) {
+				username = results.getString("username");
+				password = results.getString("password");
+			}
+
 		} else
 			System.out.println("Query Execution error");
-		
+
 		stmt.close();
 		results.close();
 	}

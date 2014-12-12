@@ -44,15 +44,39 @@ public class LoginServlet extends HttpServlet {
 					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
+			
+			// Set response content type
+			response.setContentType("text/html");
 
-			if (!db.getUsername().isEmpty()
+			if (db.getUsername().isEmpty()){
+				// New location to be redirected
+				String site = new String("UserNotFound.html");
+
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);  
+				
+				System.out.println("User not registered yet");
+			}
+			
+			else if (!db.getUsername().isEmpty()
 					&& (db.getPassword()
 							.contentEquals(PasswordValidation(request
 									.getParameter("password"))))) {
 				System.out.println(db.getUsername()+" logged on");
-				writer.println("Welcome "+ db.getUsername());
+				
+				// New location to be redirected
+				String site = new String("BetPage.jsp");
+
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);  
 			} else {
-				writer.println("Invalid Password");
+				
+				// New location to be redirected
+				String site = new String("LoginFailed.html");
+
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);  
+				
 				System.out.println("Faied to authenticate user");
 			}
 
