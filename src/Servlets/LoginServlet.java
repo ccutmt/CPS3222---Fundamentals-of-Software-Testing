@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 			response.setContentType("text/html");
 
 			if (db.getUsername().isEmpty()){
+				//user not in database
 				// New location to be redirected
 				String site = new String("UserNotFound.html");
 
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
 					&& (db.getPassword()
 							.contentEquals(PasswordValidation(request
 									.getParameter("password"))))) {
+				//user authenticated successfully
 				System.out.println(db.getUsername()+" logged on");
 				
 				// New location to be redirected
@@ -70,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 				response.setHeader("Location", site);  
 			} else {
-				
+				//invalid password
 				// New location to be redirected
 				String site = new String("LoginFailed.html");
 
