@@ -37,7 +37,8 @@ public class DBConnection {
 	public void ExecuteQuery(Connection con, String query) throws SQLException {
 		Statement stmt = con.createStatement();
 		ResultSet results = null;
-		if (query.contains("INSERT")) {
+		if (query.contains("INSERT") || query.contains("UPDATE")
+				|| query.contains("DELETE")) {
 			stmt.execute(query);
 		} else if (query.contains("SELECT")) {
 			results = stmt.executeQuery(query);
@@ -45,12 +46,11 @@ public class DBConnection {
 				username = results.getString("username");
 				password = results.getString("password");
 			}
-
 		} else
 			System.out.println("Query Execution error");
 
+		// results.close();
 		stmt.close();
-		results.close();
 	}
 
 	public boolean InsertElement(String table, String name) {

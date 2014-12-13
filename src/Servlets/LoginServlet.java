@@ -3,6 +3,9 @@ package Servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -13,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Database.DBConnection;
+
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,42 +49,68 @@ public class LoginServlet extends HttpServlet {
 					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
-			
+
 			// Set response content type
 			response.setContentType("text/html");
 
-			if (db.getUsername().isEmpty()){
-				//user not in database
+			if (db.getUsername().isEmpty()) {
+				// user not in database
 				// New location to be redirected
 				String site = new String("ErrorPages/UserNotFound.html");
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);  
-				
+				response.setHeader("Location", site);
+
 				System.out.println("User not registered yet");
 			}
-			
+
 			else if (!db.getUsername().isEmpty()
 					&& (db.getPassword()
 							.contentEquals(PasswordValidation(request
 									.getParameter("password"))))) {
-				//user authenticated successfully
-				System.out.println(db.getUsername()+" logged on");
-				
+				// user authenticated successfully
+				System.out.println(db.getUsername() + " logged on");
+
+				//remove attempted logins for the user
+				new DBConnection(
+						"DELETE FROM attempted_logins WHERE username = \""
+								+ db.getUsername() + "\";");
+
 				// New location to be redirected
 				String site = new String("BetPage.jsp");
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);  
+				response.setHeader("Location", site);
 			} else {
-				//invalid password
+				// invalid password
+				// get current time
+				DateFormat dateFormat = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				Calendar cal = Calendar.getInstance();
+
+				try {
+					new DBConnection(
+							"INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
+									+ db.getUsername()
+									+ "\", \""
+									+ dateFormat.format(cal.getTime())
+									+ "\", \"1\");");
+				} catch (MySQLIntegrityConstraintViolationException e) {
+					new DBConnection(
+							"UPDATE attempted_logins SET last_login = \""
+									+ dateFormat.format(cal.getTime())
+									+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
+									+ db.getUsername() + "\";");
+				}
+
 				// New location to be redirected
+
 				String site = new String("ErrorPages/LoginFailed.html");
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);  
-				
-				System.out.println("Faied to authenticate user");
+				response.setHeader("Location", site);
+
+				System.out.println("Failed to authenticate user");
 			}
 
 		} catch (Exception e) {
