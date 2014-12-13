@@ -1,8 +1,14 @@
 package Database;
 
-import java.sql.*; // for standard JDBC programs
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet; // for standard JDBC programs
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConnection {
+
+	private ResultSet results;
 
 	private String username = "";
 	private String password = "";
@@ -36,21 +42,34 @@ public class DBConnection {
 
 	public void ExecuteQuery(Connection con, String query) throws SQLException {
 		Statement stmt = con.createStatement();
-		ResultSet results = null;
+		// ResultSet results = null;
 		if (query.contains("INSERT") || query.contains("UPDATE")
 				|| query.contains("DELETE")) {
 			stmt.execute(query);
 		} else if (query.contains("SELECT")) {
 			results = stmt.executeQuery(query);
+
 			if (results.next()) {
 				username = results.getString("username");
 				password = results.getString("password");
 			}
+
 		} else
 			System.out.println("Query Execution error");
 
 		// results.close();
-		stmt.close();
+
+		//stmt.close();
+		
+		// testing start
+		int size = 0;
+		if (results != null) {
+			results.beforeFirst();
+			results.last();
+			size = results.getRow();
+		}
+		System.out.println("Testing result set locally: " + size);
+		// testing end
 	}
 
 	public boolean InsertElement(String table, String name) {
@@ -67,6 +86,12 @@ public class DBConnection {
 
 	public String getPassword() {
 		return this.password;
+	}
+
+	public ResultSet getResults() {
+		// System.out.println("Testing result set from getter: "+
+		// this.results.getFetchSize());
+		return this.results;
 	}
 
 	// public static Connection getConnection(String URL, String username,

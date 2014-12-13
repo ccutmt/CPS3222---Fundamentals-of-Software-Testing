@@ -68,10 +68,22 @@ public class LoginServlet extends HttpServlet {
 					&& (db.getPassword()
 							.contentEquals(PasswordValidation(request
 									.getParameter("password"))))) {
+				
+				// testing start
+//				ResultSet results = db.getResults();
+//				int size = 0;
+//				if (results != null) {
+//					results.beforeFirst();
+//					results.last();
+//					size = results.getRow();
+//				}
+//				System.out.println("Testing result set: " + size);
+				// testing end
+				
 				// user authenticated successfully
 				System.out.println(db.getUsername() + " logged on");
 
-				//remove attempted logins for the user
+				// remove attempted logins for the user
 				new DBConnection(
 						"DELETE FROM attempted_logins WHERE username = \""
 								+ db.getUsername() + "\";");
