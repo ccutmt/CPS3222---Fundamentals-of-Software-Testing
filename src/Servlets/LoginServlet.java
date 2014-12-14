@@ -155,7 +155,7 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	private Boolean CheckforFiveMinutes(String last_login)
+	public Boolean CheckforFiveMinutes(String last_login)
 			throws ParseException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();

@@ -1,6 +1,9 @@
 package tests;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import Servlets.RegServlet;
 import static org.junit.Assert.*;
@@ -221,9 +224,13 @@ public class RegistrationTests {
 	}
 	
 	@Test
-	public void DOBValidationTestUnder18EqualYearEqualMonth() {
+	public void DOBValidationTestUnder18EqualYearEqualMonth(){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -18);
+		cal.add(Calendar.DAY_OF_MONTH, +1);
 		 try{
-			 regservlet.DOBValidation("1996-12-13");
+			 regservlet.DOBValidation(dateFormat.format(cal.getTime()));
 
 		        fail("expected SQLException");
 
