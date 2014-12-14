@@ -76,7 +76,7 @@
 					<span class="error">Invalid CVV</span>
 				</div>
 				
-				<div id="register">
+				<div id="submitform">
 					<input type="submit" value="Register"></input>
 				</div>
 

@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 			// Set response content type
 			response.setContentType("text/html");
 
-			if (results.get(0).isEmpty()) {
+			if (results.size() == 0) {
 				// user not in database
 				// New location to be redirected
 				String site = new String("ErrorPages/UserNotFound.html");
@@ -155,16 +155,15 @@ public class LoginServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	public Boolean CheckforFiveMinutes(String last_login)
-			throws ParseException {
+	public Boolean CheckforFiveMinutes(String last_login) throws ParseException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		long time_diff = cal.getTimeInMillis()
 				- dateFormat.parse(last_login).getTime();
 		long diffMinutes = time_diff / (60 * 1000) % 60;
-		
-		System.out.println("Remaining time: "+diffMinutes);
-		
+
+		System.out.println("Remaining time: " + diffMinutes);
+
 		if (diffMinutes >= 5)
 			return true;
 		else

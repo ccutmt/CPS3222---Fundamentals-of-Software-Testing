@@ -15,22 +15,26 @@
 		<div class='fieldset'>
 			<legend>Login</legend>
 			<form id="register_form" action="LoginServlet" method="GET">
-			
+
 				<div class="row">
-					<label for="username">Username</label>
-					<input type="text" name="username" id="username" placeholder="Username"/>
-					<span class="error">Invalid Username</span>
+					<label for="username">Username</label> <input type="text"
+						name="username" id="username" placeholder="Username" /> <span
+						class="error">Invalid Username</span>
+				</div>
+
+				<div class="row">
+					<label for="password"><br>Password</label> <input
+						type="password" placeholder="Password" name="password"
+						id="password" /> <span class="error">Invalid Password</span>
+				</div>
+
+				<div id="submitform">
+					<input type="submit" value="Login">
 				</div>
 				
-				<div class="row">
-					<label for="password"><br>Password</label> 
-					<input type="password" placeholder="Password" name="password" id="password"/>
-					<span class="error">Invalid Password</span>
-				</div>
-				
-				<input type="submit" value="Login">
 				<div class='row'>
-					<br><a href="Register.jsp">Register</a>
+					<br>
+					<a href="Register.jsp">Register</a>
 				</div>
 			</form>
 		</div>
