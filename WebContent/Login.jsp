@@ -28,7 +28,7 @@
 						id="password" /> <span class="error">Invalid Password</span>
 				</div>
 
-				<div id="submitform">
+				<div id="register">
 					<input type="submit" value="Login">
 				</div>
 				

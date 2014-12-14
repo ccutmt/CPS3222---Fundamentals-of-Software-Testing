@@ -133,7 +133,7 @@ $(document).ready(function() {
 	// Register button, checks that all fields are correct before submitting the
 	// data
 
-	$("#submitform").click(function(event) {
+	$("#register").click(function(event) {
 		var form_data = $("#register_form").serializeArray();
 		var error_free = true;
 		for ( var input in form_data) {
