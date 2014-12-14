@@ -3,15 +3,15 @@ package Database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet; // for standard JDBC programs
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class DBConnection {
 
-	private ResultSet results;
-
-	private String username = "";
-	private String password = "";
+	// stores a single record with any amount of fields
+	private ArrayList<String> result = new ArrayList<>();
 
 	public DBConnection(String query) throws SQLException {
 		try {
@@ -42,34 +42,39 @@ public class DBConnection {
 
 	public void ExecuteQuery(Connection con, String query) throws SQLException {
 		Statement stmt = con.createStatement();
-		// ResultSet results = null;
 		if (query.contains("INSERT") || query.contains("UPDATE")
 				|| query.contains("DELETE")) {
 			stmt.execute(query);
 		} else if (query.contains("SELECT")) {
-			results = stmt.executeQuery(query);
+			ResultSet results = stmt.executeQuery(query);
 
 			if (results.next()) {
-				username = results.getString("username");
-				password = results.getString("password");
+				// get number of columns
+				ResultSetMetaData rsmd = results.getMetaData();
+				int columnsNumber = rsmd.getColumnCount();
+
+				// add all columns to arraylist
+				for (int i = 1; i <= columnsNumber; i++) {
+					result.add(results.getString(i));
+				}
 			}
+			results.close();
 
 		} else
 			System.out.println("Query Execution error");
 
-		// results.close();
+		stmt.close();
 
-		//stmt.close();
-		
-		// testing start
-		int size = 0;
-		if (results != null) {
-			results.beforeFirst();
-			results.last();
-			size = results.getRow();
-		}
-		System.out.println("Testing result set locally: " + size);
-		// testing end
+		// // testing start
+		// int size = 0;
+		// if (results != null) {
+		// results.beforeFirst();
+		// results.last();
+		// size = results.getRow();
+		// }
+		//
+		// System.out.println("Testing result set locally: " + size);
+		// // testing end
 	}
 
 	public boolean InsertElement(String table, String name) {
@@ -80,18 +85,16 @@ public class DBConnection {
 		con.close();
 	}
 
-	public String getUsername() {
-		return this.username;
-	}
+	// public String getUsername() {
+	// return this.username;
+	// }
+	//
+	// public String getPassword() {
+	// return this.password;
+	// }
 
-	public String getPassword() {
-		return this.password;
-	}
-
-	public ResultSet getResults() {
-		// System.out.println("Testing result set from getter: "+
-		// this.results.getFetchSize());
-		return this.results;
+	public ArrayList<String> getResults() {
+		return this.result;
 	}
 
 	// public static Connection getConnection(String URL, String username,

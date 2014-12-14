@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -50,10 +52,12 @@ public class LoginServlet extends HttpServlet {
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
+			ArrayList<String> results = db.getResults();
+
 			// Set response content type
 			response.setContentType("text/html");
 
-			if (db.getUsername().isEmpty()) {
+			if (results.get(0).isEmpty()) {
 				// user not in database
 				// New location to be redirected
 				String site = new String("ErrorPages/UserNotFound.html");
@@ -62,67 +66,75 @@ public class LoginServlet extends HttpServlet {
 				response.setHeader("Location", site);
 
 				System.out.println("User not registered yet");
-			}
-
-			else if (!db.getUsername().isEmpty()
-					&& (db.getPassword()
-							.contentEquals(PasswordValidation(request
-									.getParameter("password"))))) {
-				
-				// testing start
-//				ResultSet results = db.getResults();
-//				int size = 0;
-//				if (results != null) {
-//					results.beforeFirst();
-//					results.last();
-//					size = results.getRow();
-//				}
-//				System.out.println("Testing result set: " + size);
-				// testing end
-				
-				// user authenticated successfully
-				System.out.println(db.getUsername() + " logged on");
-
-				// remove attempted logins for the user
-				new DBConnection(
-						"DELETE FROM attempted_logins WHERE username = \""
-								+ db.getUsername() + "\";");
-
-				// New location to be redirected
-				String site = new String("BetPage.jsp");
-
-				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);
 			} else {
-				// invalid password
-				// get current time
-				DateFormat dateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				Calendar cal = Calendar.getInstance();
+				// check for any attempted logins
+				DBConnection check_logins = new DBConnection(
+						"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+								+ UsernameValidation(request
+										.getParameter("username")) + "\";");
 
-				try {
-					new DBConnection(
-							"INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
-									+ db.getUsername()
-									+ "\", \""
-									+ dateFormat.format(cal.getTime())
-									+ "\", \"1\");");
-				} catch (MySQLIntegrityConstraintViolationException e) {
-					new DBConnection(
-							"UPDATE attempted_logins SET last_login = \""
-									+ dateFormat.format(cal.getTime())
-									+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
-									+ db.getUsername() + "\";");
+				if (check_logins.getResults().size() == 0
+						|| Integer.parseInt(check_logins.getResults().get(1)) < 3
+						|| CheckforFiveMinutes(check_logins.getResults().get(0))) {
+					// authenticate user
+
+					if (!results.get(0).isEmpty()
+							&& (results.get(1)
+									.contentEquals(PasswordValidation(request
+											.getParameter("password"))))) {
+
+						// user authenticated successfully
+						System.out.println(results.get(0) + " logged on");
+
+						// remove attempted logins for the user
+						new DBConnection(
+								"DELETE FROM attempted_logins WHERE username = \""
+										+ results.get(0) + "\";");
+
+						// New location to be redirected
+						String site = new String("BetPage.jsp");
+
+						response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", site);
+					} else {
+						// invalid password
+						// get current time
+						DateFormat dateFormat = new SimpleDateFormat(
+								"yyyy-MM-dd HH:mm:ss");
+						Calendar cal = Calendar.getInstance();
+
+						try {
+							new DBConnection(
+									"INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
+											+ results.get(0)
+											+ "\", \""
+											+ dateFormat.format(cal.getTime())
+											+ "\", \"1\");");
+						} catch (MySQLIntegrityConstraintViolationException e) {
+							new DBConnection(
+									"UPDATE attempted_logins SET last_login = \""
+											+ dateFormat.format(cal.getTime())
+											+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
+											+ results.get(0) + "\";");
+						}
+
+						// New location to be redirected
+
+						String site = new String("ErrorPages/LoginFailed.html");
+
+						response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+						response.setHeader("Location", site);
+
+						System.out.println("Failed to authenticate user");
+					}
+				} else {
+					// user has to wait 5 minutes
+					// New location to be redirected
+					String site = new String("ErrorPages/LoginTimeout.html");
+
+					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", site);
 				}
-
-				// New location to be redirected
-
-				String site = new String("ErrorPages/LoginFailed.html");
-
-				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);
-
-				System.out.println("Failed to authenticate user");
 			}
 
 		} catch (Exception e) {
@@ -141,6 +153,22 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+
+	private Boolean CheckforFiveMinutes(String last_login)
+			throws ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		long time_diff = cal.getTimeInMillis()
+				- dateFormat.parse(last_login).getTime();
+		long diffMinutes = time_diff / (60 * 1000) % 60;
+		
+		System.out.println("Remaining time: "+diffMinutes);
+		
+		if (diffMinutes >= 5)
+			return true;
+		else
+			return false;
 	}
 
 	public String UsernameValidation(String username) throws SQLException {
