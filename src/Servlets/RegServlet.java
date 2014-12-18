@@ -255,4 +255,85 @@ public class RegServlet extends HttpServlet {
 			throw new SQLException();
 		}
 	}
+	
+	public int validateCCType(String ccnum) {
+
+			// if type remains 0, card type not accepted
+			int cctype = 0;
+
+			// eliminate non-digit characters
+			ccnum = ccnum.replaceAll("[^0-9]", "");
+			
+			Pattern vp = Pattern.compile("^4[0-9]{12,15}$");
+			Matcher vm = vp.matcher(ccnum);
+			boolean v = vm.find();
+			
+			Pattern mcp = Pattern.compile("^5[1-5][0-9]{14}$");
+			Matcher mcm = mcp.matcher(ccnum);
+			boolean mc = mcm.find();
+			
+			Pattern aep = Pattern.compile("^3[47][0-9]{13}$");
+			Matcher aem = aep.matcher(ccnum);
+			boolean ae = aem.find();
+			
+			if (v == true) {
+				// VISA: 4 and 12/15 digits
+				cctype = 1;
+			} else if (mc == true) {
+				// Mastercard
+				cctype = 2;
+			} else if (ae == true) {
+				// American Express
+				cctype = 3;
+			}
+			
+			return cctype;
+	}
+	
+	/*public String CreditCardNum_Luhm(String ccnum) throws SQLException {
+		// accept only digits, dashes or spaces, RegEx expression
+		Pattern p = Pattern.compile("[^0-9- \t\n\r\f]+");
+		Matcher m = p.matcher(ccnum);
+		boolean b = m.find();
+		
+		if (b == true) {
+			throw new SQLException();
+		}
+		else {
+			int result = 0;
+			int intNum = 0;
+			boolean even = false;
+
+			// select all non digit string and eliminate
+			ccnum = ccnum.replaceAll("[^0-9]", "");
+
+			// start from the back of number
+			for (int n = ccnum.length() - 1; n >= 0; n--) {
+				char strNum = ccnum.charAt(n);
+
+				// convert back to digit
+				intNum = Integer.parseInt(strNum, 10);
+
+				// alternate numbers
+				if (even) {
+					if ((intNum *= 2) > 9)
+						// same result as summing the digits of the product
+						intNum -= 9;
+				}
+
+				result += intNum;
+				even = !even;
+			}
+
+			// if no remainder true else false
+			int remainder = (result % 10);
+			
+			if(remainder == 0) {
+				return ccnum;
+			} else {
+				throw new SQLException();
+			}
+		}
+	}*/
+
 }
