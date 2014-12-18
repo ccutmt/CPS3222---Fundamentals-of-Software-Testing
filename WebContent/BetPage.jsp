@@ -18,7 +18,7 @@
 		<div class="fieldset">
 
 			<legend>Bets</legend>
-			<form id="bet_form" action="BetServlet" method="GET">
+			<form id="register_form" action="BetServlet" method="GET">
 
 				<div class="row">
 					<label for="risk"><br></label> Risk Level <br>
@@ -34,9 +34,10 @@
 					<span class="error">Error in the Bet Amount field </span>
 				</div>
 				
-				Username is <%= session.getAttribute( "usernameforbet" ) %>
+				<%= session.getAttribute( "usernameforbet" ) %>
+				<input type="hidden" name="username" value=<%= session.getAttribute( "usernameforbet" ) %> />
 				
-				<div id="place_bet">
+				<div id="register">
 					<input type="submit" value="Place Bet"></input>
 				</div>
 				<div class='row'>

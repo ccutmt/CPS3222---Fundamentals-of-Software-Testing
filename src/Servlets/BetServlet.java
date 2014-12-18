@@ -1,6 +1,8 @@
 package Servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +28,12 @@ public class BetServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		System.out.println("Placing bet...");
+		
+		PrintWriter writer = response.getWriter();
+		writer.println(request.getParameter("username"));
+		writer.println(request.getParameter("risk_lvl"));
+		writer.println(request.getParameter("bet_amt"));
 	}
 
 	/**
@@ -35,5 +42,15 @@ public class BetServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
+	
+	public String ValidateRiskLevel(){
+		return "";
+	}
+	
+	public int ValidateBetAmount(){
+		return 0;
+	}
 
 }
+
+

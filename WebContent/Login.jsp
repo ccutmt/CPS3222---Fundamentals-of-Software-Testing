@@ -14,7 +14,7 @@
 	<div id="register-form">
 		<div class='fieldset'>
 			<legend>Login</legend>
-			<form id="register_form" action="LoginServlet" method="post">
+			<form id="register_form" action="LoginServlet" method="GET">
 
 				<div class="row">
 					<label for="username">Username</label> <input type="text"
