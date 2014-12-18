@@ -21,6 +21,8 @@
 			<legend>Register</legend>
 			<form id="register_form" action="ServletRegistration" method="GET">
 			
+				<%session.invalidate(); %>
+			
 				<div class="row">
 					<label for="username">Username</label>
 					<input type="text" name="username" id="username" placeholder="Username"/>

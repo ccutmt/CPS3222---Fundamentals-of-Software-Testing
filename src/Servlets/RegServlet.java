@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Database.DBConnection;
 
@@ -73,6 +74,9 @@ public class RegServlet extends HttpServlet {
 			
 			// Set response content type
 			response.setContentType("text/html");
+			
+			HttpSession session = request.getSession(true);
+			session.setAttribute("usernameforbet", request.getParameter("username"));
 
 			// New location to be redirected
 			String site = new String("BetPage.jsp");
