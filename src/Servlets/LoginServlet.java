@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Database.DBConnection;
 
@@ -40,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
+	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
 
@@ -90,6 +91,9 @@ public class LoginServlet extends HttpServlet {
 						new DBConnection(
 								"DELETE FROM attempted_logins WHERE username = \""
 										+ results.get(0) + "\";");
+						
+						HttpSession session = request.getSession(true);
+						session.setAttribute("usernameforbet", results.get(0));
 
 						// New location to be redirected
 						String site = new String("BetPage.jsp");
@@ -144,15 +148,6 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		writer.println("Login Servlet");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	public Boolean CheckforFiveMinutes(String last_login) throws ParseException {

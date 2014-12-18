@@ -18,29 +18,33 @@
 		<div class="fieldset">
 
 			<legend>Bets</legend>
-			<form id="bet_form" action="" method="post">
+			<form id="bet_form" action="BetServlet" method="GET">
 
 				<div class="row">
-					<label for="risk"><br></label> Risk Level <br><br> Low
-					<input type="radio" name="risk_lvl" id="risk_lvl" value="0" checked/> Medium
-					<input type="radio" name="risk_lvl" id="risk_lvl" value="1"/> High 
-					<input type="radio" name="risk_lvl" id="risk_lvl" value="2"/> 
+					<label for="risk"><br></label> Risk Level <br>
+					<br> Low <input type="radio" name="risk_lvl" id="risk_lvl"
+						value="0" checked /> Medium <input type="radio" name="risk_lvl"
+						id="risk_lvl" value="1" /> High <input type="radio"
+						name="risk_lvl" id="risk_lvl" value="2" />
 				</div>
 
 				<div class="row">
-					<label for="BetAmount"><br>Bet Amount </label> 
-					<input type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt"/>
+					<label for="BetAmount"><br>Bet Amount </label> <input
+						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
 					<span class="error">Error in the Bet Amount field </span>
 				</div>
-								
+				
+				Username is <%= session.getAttribute( "usernameforbet" ) %>
+				
 				<div id="place_bet">
 					<input type="submit" value="Place Bet"></input>
 				</div>
 				<div class='row'>
-					<br><a href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
+					<br>
+					<a href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
 				</div>
 			</form>
-			
+
 		</div>
 	</div>
 </body>
