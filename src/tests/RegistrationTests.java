@@ -241,7 +241,10 @@ public class RegistrationTests {
 	
 	@Test
 	public void CCNotExpiredTest() throws SQLException{
-		assertEquals("2016-12-31", regservlet.CCExpiryDateValidation("2016-12-31"));
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, +2);
+		assertEquals(dateFormat.format(cal.getTime()), regservlet.CCExpiryDateValidation(dateFormat.format(cal.getTime())));
 	}
 	
 	@Test
@@ -258,13 +261,18 @@ public class RegistrationTests {
 	
 	@Test
 	public void CCSameMonthNotExpiredTest() throws SQLException{
-		assertEquals("2014-12-31", regservlet.CCExpiryDateValidation("2014-12-31"));
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		assertEquals(dateFormat.format(cal.getTime()), regservlet.CCExpiryDateValidation(dateFormat.format(cal.getTime())));
 	}
 	
 	@Test
-	public void CCSameMonthExpiredTest() {
+	public void CCSameYearMonthExpiredTest() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MONTH, -2);
 		 try{
-			 regservlet.CCExpiryDateValidation("2014-12-02");
+			 regservlet.CCExpiryDateValidation(dateFormat.format(cal.getTime()));
 
 		        fail("expected SQLException");
 
