@@ -294,7 +294,7 @@ public class RegServlet extends HttpServlet {
 			return cctype;
 	}
 	
-	/*public String CreditCardNum_Luhm(String ccnum) throws SQLException {
+	public String CreditCardNum_Luhm(String ccnum) throws SQLException {
 		// accept only digits, dashes or spaces, RegEx expression
 		Pattern p = Pattern.compile("[^0-9- \t\n\r\f]+");
 		Matcher m = p.matcher(ccnum);
@@ -316,7 +316,7 @@ public class RegServlet extends HttpServlet {
 				char strNum = ccnum.charAt(n);
 
 				// convert back to digit
-				intNum = Integer.parseInt(strNum, 10);
+				intNum = Integer.parseInt(""+strNum, 10);
 
 				// alternate numbers
 				if (even) {
@@ -338,6 +338,6 @@ public class RegServlet extends HttpServlet {
 				throw new SQLException();
 			}
 		}
-	}*/
+	}
 
 }
