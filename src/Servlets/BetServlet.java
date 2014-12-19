@@ -53,7 +53,7 @@ public class BetServlet extends HttpServlet {
 									.getParameter("username")) + "\";");
 
 			new DBConnection(
-					"INSERT INTO bets (username, Bet_ID, RiskLevel, amount) VALUES (\""
+					"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
 							+ UsernameValidation(request
 									.getParameter("username"))
 							+ "\", \""
@@ -67,7 +67,7 @@ public class BetServlet extends HttpServlet {
 									.getResults().get(0)), Integer
 									.parseInt(request.getParameter("bet_amt")),
 									getTotalBetAmount(total_bets.getResults()))
-							+ "\", \"1\");");
+							+ "\");");
 			
 			PrintWriter writer = response.getWriter();
 			writer.println("Bet Placed Successfully");
