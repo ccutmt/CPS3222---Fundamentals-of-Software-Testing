@@ -41,9 +41,10 @@ public class BetServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Placing bet...");
+		PrintWriter writer = response.getWriter();
 		try {
-			DBConnection account_type = new DBConnection(
-					"SELECT account FROM players WHERE Username = \""
+			DBConnection account_details = new DBConnection(
+					"SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
@@ -52,28 +53,43 @@ public class BetServlet extends HttpServlet {
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			new DBConnection(
-					"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
-							+ UsernameValidation(request
-									.getParameter("username"))
-							+ "\", \""
-							+ GenerateBetID()
-							+ "\", \""
-							+ ValidateRiskLevel(Integer.parseInt(account_type
-									.getResults().get(0)), Integer
-									.parseInt(request.getParameter("risk_lvl")))
-							+ "\", \""
-							+ ValidateBetAmount(Integer.parseInt(account_type
-									.getResults().get(0)), Integer
-									.parseInt(request.getParameter("bet_amt")),
-									getTotalBetAmount(total_bets.getResults()))
-							+ "\");");
-			
-			PrintWriter writer = response.getWriter();
-			writer.println("Bet Placed Successfully");
-			writer.println(request.getParameter("username"));
-			writer.println(request.getParameter("risk_lvl"));
-			writer.println(request.getParameter("bet_amt"));
+			if (Integer.parseInt(account_details.getResults().get(0)) == 0
+					&& Integer.parseInt(account_details.getResults().get(1)) < 3) {
+
+				new DBConnection(
+						"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
+								+ UsernameValidation(request
+										.getParameter("username"))
+								+ "\", \""
+								+ GenerateBetID()
+								+ "\", \""
+								+ ValidateRiskLevel(Integer
+										.parseInt(account_details.getResults()
+												.get(0)), Integer
+										.parseInt(request
+												.getParameter("risk_lvl")))
+								+ "\", \""
+								+ ValidateBetAmount(Integer
+										.parseInt(account_details.getResults()
+												.get(0)), Integer
+										.parseInt(request
+												.getParameter("bet_amt")),
+										getTotalBetAmount(total_bets
+												.getResults())) + "\");");
+
+				writer.println("Bet Placed Successfully");
+				
+				new DBConnection(
+						"UPDATE players SET Bets = Bets+1 WHERE username = \""
+								+ request.getParameter("username") + "\";");
+				
+				writer.println(request.getParameter("username"));
+				writer.println(request.getParameter("risk_lvl"));
+				writer.println(request.getParameter("bet_amt"));
+			} else {
+				// free users cannot make more than 3 bets
+				writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
+			}
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {
 			BetServlet.this.CurrentBetID--;
@@ -84,11 +100,10 @@ public class BetServlet extends HttpServlet {
 			se.printStackTrace();
 		}
 	}
-	
-	public void destroy(){
+
+	public void destroy() {
 		try {
-			new DBConnection(
-					"DELETE FROM bets;");
+			new DBConnection("DELETE FROM bets;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
