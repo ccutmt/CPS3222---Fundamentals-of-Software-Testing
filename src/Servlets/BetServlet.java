@@ -76,10 +76,22 @@ public class BetServlet extends HttpServlet {
 			writer.println(request.getParameter("bet_amt"));
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {
+			BetServlet.this.CurrentBetID--;
 			System.out.println("There exists a bet with the same bet ID!");
 		} catch (SQLException se) {
+			BetServlet.this.CurrentBetID--;
 			System.out.println("Invalid Bet Parameters");
 			se.printStackTrace();
+		}
+	}
+	
+	public void destroy(){
+		try {
+			new DBConnection(
+					"DELETE FROM bets;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -127,7 +139,7 @@ public class BetServlet extends HttpServlet {
 		try {
 			BetServlet.this.CurrentBetID++;
 		} catch (Exception e) {
-			BetServlet.this.CurrentBetID = 0;
+			BetServlet.this.CurrentBetID = 1;
 		}
 
 		return CurrentBetID;
