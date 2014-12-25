@@ -42,11 +42,6 @@ public class RegServlet extends HttpServlet {
 		System.out.println("Executing Registration Servlet");
 		PrintWriter writer = response.getWriter();
 		try {
-			/*
-			 * if (UsernameValidation(request.getParameter("username")) ==
-			 * false) { throw new SQLException(); }
-			 */
-
 			new DBConnection(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \""
@@ -66,7 +61,7 @@ public class RegServlet extends HttpServlet {
 							+ "\", "
 							+ request.getParameter("account_type")
 							+ ", "
-							+ request.getParameter("cc_num")
+							+ CCNumValidation(request.getParameter("cc_num"))
 							+ ", \""
 							+ CCExpiryDateValidation(request
 									.getParameter("cc_exp")
@@ -295,14 +290,14 @@ public class RegServlet extends HttpServlet {
 		return cctype;
 	}
 
-	public String CreditCardNum_Luhm(String ccnum) throws SQLException {
+	public boolean CreditCardNum_Luhm(String ccnum) {
 		// accept only digits, dashes or spaces, RegEx expression
 		Pattern p = Pattern.compile("[^0-9- \t\n\r\f]+");
 		Matcher m = p.matcher(ccnum);
 		boolean b = m.find();
 
 		if (b == true) {
-			throw new SQLException();
+			return false;
 		} else {
 			int result = 0;
 			int intNum = 0;
@@ -333,10 +328,18 @@ public class RegServlet extends HttpServlet {
 			int remainder = (result % 10);
 
 			if (remainder == 0) {
-				return ccnum;
+				return true;
 			} else {
-				throw new SQLException();
+				return false;
 			}
+		}
+	}
+	
+	public String CCNumValidation(String ccnum) throws SQLException {
+		if ((validateCCType(ccnum) != 0) && (CreditCardNum_Luhm(ccnum) == true)) {
+			return ccnum;
+		} else {
+			throw new SQLException();
 		}
 	}
 

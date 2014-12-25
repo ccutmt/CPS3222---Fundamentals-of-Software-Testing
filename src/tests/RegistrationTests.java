@@ -282,55 +282,86 @@ public class RegistrationTests {
 	}
 	
 	@Test
-	public void CCType_VisaTest1() throws SQLException{
+	public void CCType_VisaTest1() {
 		assertEquals(1, regservlet.validateCCType("4111111111111111"));
 	}
 	
 	@Test
-	public void CCType_VisaTest2() throws SQLException{
+	public void CCType_VisaTest2() {
 		assertEquals(1, regservlet.validateCCType("4012888888881881"));
 	}
 	
 	@Test
-	public void CCType_VisaTest3() throws SQLException{
+	public void CCType_VisaTest3() {
 		assertEquals(1, regservlet.validateCCType("4222222222222"));
 	}
 	
 	@Test
-	public void CCType_MasterCardTest1() throws SQLException{
+	public void CCType_MasterCardTest1() {
 		assertEquals(2, regservlet.validateCCType("5555555555554444"));
 	}
 	
 	@Test
-	public void CCType_MasterCardTest2() throws SQLException{
+	public void CCType_MasterCardTest2() {
 		assertEquals(2, regservlet.validateCCType("5105105105105100"));
 	}
 	
 	@Test
-	public void CCType_AmericanExpressTest1() throws SQLException{
+	public void CCType_AmericanExpressTest1() {
 		assertEquals(3, regservlet.validateCCType("378282246310005"));
 	}
 	
 	@Test
-	public void CCType_AmericanExpressTest2() throws SQLException{
+	public void CCType_AmericanExpressTest2() {
 		assertEquals(3, regservlet.validateCCType("371449635398431"));
 	}
 	
 	@Test
-	public void CCType_AustralianBankCardTest() throws SQLException{
+	public void CCType_AustralianBankCardTest() {
 		assertEquals(0, regservlet.validateCCType("5610591081018250"));
 	}
 	
 	@Test
-	public void CCType_RandomNumberTest() throws SQLException{
+	public void CCType_RandomNumberTest() {
 		assertEquals(0, regservlet.validateCCType("1259874635148965"));
 	}
 	
+	@Test
+	public void CCLuhm_AmericanExpress_ValidationTest() {
+		assertTrue(regservlet.CreditCardNum_Luhm("378282246310005"));
+	}
 	
-	/*@Test
-	public void CC_AmericanExpress_ValidationTest() throws SQLException{
-		assertEquals("378282246310005", regservlet.CreditCardNum_Luhm("378282246310005"));
-	}*/
+	@Test
+	public void CCLuhm_Visa_ValidationTest() throws SQLException{
+		assertTrue("4012888888881881", regservlet.CreditCardNum_Luhm("4012888888881881"));
+	}
 	
+	@Test
+	public void CCLuhm_AustralianBank_ValidationTest() {
+		assertTrue(regservlet.CreditCardNum_Luhm("5610591081018250"));
+	}
+	
+	@Test
+	public void CCLuhm_RandomNumberTest() {
+		assertTrue(regservlet.CreditCardNum_Luhm("5610591081018250"));
+	}
+	
+	
+	@Test
+	public void CC_Visa_ValidationTest() throws SQLException{
+		assertEquals("4012888888881881", regservlet.CCNumValidation("4012888888881881"));
+	}
+	
+	@Test
+	public void CC_RandomNumberTest() throws SQLException {
+		 try{
+			 regservlet.CCNumValidation("1259874635148965");
+
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
+	}
 	
 }
