@@ -143,6 +143,14 @@ public class LoginServlet extends HttpServlet {
 			}
 
 		} catch (Exception e) {
+			
+			// New location to be redirected
+
+			String site = new String("Pages/LoginFailed.html");
+
+			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", site);
+			
 			writer.println("Unable to Login");
 			System.out.println("Failed to login user");
 			e.printStackTrace();
