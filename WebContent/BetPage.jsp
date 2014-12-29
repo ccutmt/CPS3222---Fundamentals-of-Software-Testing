@@ -1,3 +1,4 @@
+<%@page import="Functions.BettingFunctions"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,22 +21,30 @@
 			<legend>Bets</legend>
 			<form id="register_form" action="BetServlet" method="GET">
 
+				<%=session.getAttribute("usernameforbet")%>
+				<input type="hidden" name="username"
+					value=<%=session.getAttribute("usernameforbet")%> />
+
 				<div class="row">
-					<table style="width:100%">
-  						<tr>
-    						<td>Username</td>
-    						<td>Risk Level</td> 
-    						<td>Amount</td>
-  						</tr>
-  						<tr>
-  							<% %>
-  						</tr>
+					<table style="width: 100%">
+						<tr>
+							<td>BetID</td>
+							<td>Risk Level</td>
+							<td>Amount</td>
+						</tr>
+						<tr>
+							<%
+								BettingFunctions bf = new BettingFunctions();
+								bf.getAllBets(session.getAttribute("usernameforbet").toString());
+							%>
+
+						</tr>
 					</table>
 				</div>
 				<div class="row">
-					<label for="risk"><br></label> Risk Level <br>
-					<br> Low <input type="radio" name="risk_lvl" id="risk_lvl"
-						value="0" checked /> Medium <input type="radio" name="risk_lvl"
+					<label for="risk"><br></label> Risk Level <br> <br>
+					Low <input type="radio" name="risk_lvl" id="risk_lvl" value="0"
+						checked /> Medium <input type="radio" name="risk_lvl"
 						id="risk_lvl" value="1" /> High <input type="radio"
 						name="risk_lvl" id="risk_lvl" value="2" />
 				</div>
@@ -45,16 +54,13 @@
 						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
 					<span class="error">Error in the Bet Amount field </span>
 				</div>
-				
-				<%= session.getAttribute( "usernameforbet" ) %>
-				<input type="hidden" name="username" value=<%= session.getAttribute( "usernameforbet" ) %> />
-				
+
 				<div id="register">
 					<input type="submit" value="Place Bet"></input>
 				</div>
 				<div class='row'>
-					<br>
-					<a href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
+					<br> <a
+						href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
 				</div>
 			</form>
 

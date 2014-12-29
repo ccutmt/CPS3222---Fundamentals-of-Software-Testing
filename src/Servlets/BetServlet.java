@@ -52,7 +52,7 @@ public class BetServlet extends HttpServlet {
 					"SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
-
+				
 			if (Integer.parseInt(account_details.getResults().get(0).get(0)) == 0
 					&& Integer.parseInt(account_details.getResults().get(0)
 							.get(1)) >= 3) {
