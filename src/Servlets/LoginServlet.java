@@ -41,11 +41,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
+	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
 
-		PrintWriter writer = response.getWriter();
+		//PrintWriter writer = response.getWriter();
 
 		try {
 			DBConnection db = new DBConnection(
@@ -93,7 +93,7 @@ public class LoginServlet extends HttpServlet {
 								"DELETE FROM attempted_logins WHERE username = \""
 										+ results.get(0) + "\";");
 						
-						HttpSession session = request.getSession(true);
+						HttpSession session = request.getSession();
 						session.setAttribute("usernameforbet", results.get(0));
 
 						// New location to be redirected
@@ -151,12 +151,12 @@ public class LoginServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
 			
-			writer.println("Unable to Login");
+			//writer.println("Unable to Login");
 			System.out.println("Failed to login user");
 			e.printStackTrace();
 		}
 
-		writer.println("Login Servlet");
+		//writer.println("Login Servlet");
 	}
 
 	public Boolean CheckforFiveMinutes(String last_login) throws ParseException {

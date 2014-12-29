@@ -72,9 +72,10 @@ public class RegisterServletTest {
 		Mockito.verify(response).setHeader("Location", "Pages/RegistrationSuccess.html");
 	}
 	
-	@Test
+	@Test(expected=Exception.class)
 	public void UserAlreadyExistsTest() throws ServletException, IOException {		
 		Mockito.doReturn("useralreadyexiststest").when(request).getParameter("username"); //already in database
+		//Mockito.when().thenThrow(new Exception());
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");
@@ -102,6 +103,11 @@ public class RegisterServletTest {
 		Mockito.doReturn("123").when(request).getParameter("cvv");
 		
 		regservlet.doGet(request, response);
+		
+		/* Mockito.when(bdao.create(bet)).thenThrow(new Exception());
+                doReturn(true).when((bc)).betConstraints(request, user,bet);
+               
+                bc.doPost(request,response);*/
 		
 		Mockito.verify(response).setHeader("Location", "Pages/AddUserFailed.html");
 	}
