@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 			if (db.getResults().size() == 0) {
 				// user not in database
 				// New location to be redirected
-				String site = new String("ErrorPages/UserNotFound.html");
+				String site = new String("Pages/UserNotFound.html");
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 				response.setHeader("Location", site);
@@ -125,7 +125,7 @@ public class LoginServlet extends HttpServlet {
 
 						// New location to be redirected
 
-						String site = new String("ErrorPages/LoginFailed.html");
+						String site = new String("Pages/LoginFailed.html");
 
 						response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 						response.setHeader("Location", site);
@@ -135,7 +135,7 @@ public class LoginServlet extends HttpServlet {
 				} else {
 					// user has to wait 5 minutes
 					// New location to be redirected
-					String site = new String("ErrorPages/LoginTimeout.html");
+					String site = new String("Pages/LoginTimeout.html");
 
 					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 					response.setHeader("Location", site);

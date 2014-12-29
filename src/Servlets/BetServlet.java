@@ -59,7 +59,7 @@ public class BetServlet extends HttpServlet {
 
 				// free users cannot make more than 3 bets
 				// New location to be redirected
-				String site = new String("ErrorPages/MoreThan3Bets.html");
+				String site = new String("Pages/MoreThan3Bets.html");
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 				response.setHeader("Location", site);
@@ -105,7 +105,7 @@ public class BetServlet extends HttpServlet {
 			BetServlet.this.CurrentBetID--;
 
 			// New location to be redirected
-			String site = new String("ErrorPages/InvalidBetParam.html");
+			String site = new String("Pages/InvalidBetParam.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
