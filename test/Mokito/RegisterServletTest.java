@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -33,6 +34,13 @@ public class RegisterServletTest {
 	public void setUp() throws Exception {
 		try{
 			new DBConnection("DELETE from Players where username=\"chris1994\";");
+		}catch(SQLException se){
+			se.printStackTrace();
+		}
+		
+		try{
+			new DBConnection("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+					+ "VALUES ( \"useralreadyexiststest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
@@ -66,7 +74,7 @@ public class RegisterServletTest {
 	
 	@Test
 	public void UserAlreadyExistsTest() throws ServletException, IOException {		
-		Mockito.doReturn("ChrisTest").when(request).getParameter("username"); //already in database
+		Mockito.doReturn("useralreadyexiststest").when(request).getParameter("username"); //already in database
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");
@@ -83,7 +91,7 @@ public class RegisterServletTest {
 
 	@Test
 	public void UserNotAddedTest() throws ServletException, IOException {		
-		Mockito.doReturn("chris").when(request).getParameter("username"); //short username
+		Mockito.doReturn("few").when(request).getParameter("username"); //short username
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");
@@ -98,4 +106,12 @@ public class RegisterServletTest {
 		Mockito.verify(response).setHeader("Location", "Pages/AddUserFailed.html");
 	}
 	
+	@After
+	public void teardown() throws Exception{		
+		try{
+			new DBConnection("DELETE from Players where username=\"useralreadyexiststest\";");
+		}catch(SQLException se){
+			se.printStackTrace();
+		}
+	}
 }
