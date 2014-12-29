@@ -4,10 +4,9 @@ import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
 import Database.DBConnection;
 
-public class BettingFunctions {	
+public class BettingFunctions {
 	public String getAllBets(String username) {
 		String html = "";
 		try {
@@ -15,25 +14,23 @@ public class BettingFunctions {
 					"SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
 							+ UsernameValidation(username) + "\";");
 
-			for(int i = 0; i < bets.getResults().size(); i++) {
+			for (int i = 0; i < bets.getResults().size(); i++) {
 				html += "<tr>";
 				html += "<td>" + bets.getResults().get(i).get(0) + "</td>";
-				if(bets.getResults().get(i).get(1).equals("0")) {
+				if (bets.getResults().get(i).get(1).equals("0")) {
 					html += "<td>" + "Low" + "</td>";
-				} else if(bets.getResults().get(i).get(1).equals("1")) {
+				} else if (bets.getResults().get(i).get(1).equals("1")) {
 					html += "<td>" + "Middle" + "</td>";
-				}else {
+				} else {
 					html += "<td>" + "High" + "</td>";
 				}
 				html += "<td>" + bets.getResults().get(i).get(2) + "</td>\n";
 				html += "</tr>";
-				System.out.println(bets.getResults().get(i).get(0) + " " + bets.getResults().get(i).get(1) + " " + bets.getResults().get(i).get(2));
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
-		
-		System.out.println(html);
+
 		return html;
 	}
 

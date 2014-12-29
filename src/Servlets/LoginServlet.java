@@ -53,12 +53,12 @@ public class LoginServlet extends HttpServlet {
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			ArrayList<String> results = db.getResults().get(0);
+			
 
 			// Set response content type
 			response.setContentType("text/html");
 
-			if (results.size() == 0) {
+			if (db.getResults().size() == 0) {
 				// user not in database
 				// New location to be redirected
 				String site = new String("ErrorPages/UserNotFound.html");
@@ -68,6 +68,7 @@ public class LoginServlet extends HttpServlet {
 
 				System.out.println("User not registered yet");
 			} else {
+				ArrayList<String> results = db.getResults().get(0);
 				// check for any attempted logins
 				DBConnection check_logins = new DBConnection(
 						"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
