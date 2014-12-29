@@ -353,6 +353,26 @@ public class RegistrationTests {
 	}
 	
 	@Test
+	public void CC_AmericanExpress_ValidationTest1() throws SQLException{
+		assertEquals("378282246310005", regservlet.CCNumValidation("378282246310005"));
+	}
+	
+	@Test
+	public void CC_AmericanExpress_ValidationTest2() throws SQLException{
+		assertEquals("371449635398431", regservlet.CCNumValidation("371449635398431"));
+	}
+	
+	@Test
+	public void CC_MasterCard_ValidationTest1() throws SQLException{
+		assertEquals("5555555555554444", regservlet.CCNumValidation("5555555555554444"));
+	}
+	
+	@Test
+	public void CC_MasterCard_ValidationTest2() throws SQLException{
+		assertEquals("5105105105105100", regservlet.CCNumValidation("5105105105105100"));
+	}
+	
+	@Test
 	public void CC_RandomNumberTest() throws SQLException {
 		 try{
 			 regservlet.CCNumValidation("1259874635148965");
