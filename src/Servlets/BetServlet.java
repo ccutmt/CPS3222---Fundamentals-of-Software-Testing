@@ -89,6 +89,11 @@ public class BetServlet extends HttpServlet {
 				writer.println(request.getParameter("bet_amt"));
 			} else {
 				// free users cannot make more than 3 bets
+				// New location to be redirected
+				String site = new String("ErrorPages/MoreThan3Bets.html");
+
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);				
 				writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
 			}
 
@@ -97,6 +102,13 @@ public class BetServlet extends HttpServlet {
 			System.out.println("There exists a bet with the same bet ID!");
 		} catch (SQLException se) {
 			BetServlet.this.CurrentBetID--;
+			
+			// New location to be redirected
+			String site = new String("ErrorPages/InvalidBetParam.html");
+
+			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+			response.setHeader("Location", site);
+			
 			System.out.println("Invalid Bet Parameters");
 			se.printStackTrace();
 		}
