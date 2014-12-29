@@ -14,6 +14,7 @@ public class DBConnection {
 	private ArrayList<ArrayList<String>> result = new ArrayList<>();
 
 	public DBConnection(String query) throws SQLException {
+		this.result.clear();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(

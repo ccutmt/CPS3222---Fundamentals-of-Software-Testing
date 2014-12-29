@@ -18,6 +18,8 @@
 			<form>
 				<legend>Assignment Betting Company</legend>
 				
+				<%session.invalidate(); %>
+				
 				<a href="Register.jsp"><input type="button" value="Register"></a>
 				
 				<a href="Login.jsp"><input type="button" value="Login"></a>

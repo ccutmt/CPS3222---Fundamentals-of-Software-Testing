@@ -55,8 +55,17 @@ public class BetServlet extends HttpServlet {
 
 			if (Integer.parseInt(account_details.getResults().get(0).get(0)) == 0
 					&& Integer.parseInt(account_details.getResults().get(0)
-							.get(1)) < 3) {
+							.get(1)) >= 3) {
 
+				// free users cannot make more than 3 bets
+				// New location to be redirected
+				String site = new String("ErrorPages/MoreThan3Bets.html");
+
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);
+				// writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
+				System.out.println("Free user trying to make more than 3 bets");
+			} else {
 				new DBConnection(
 						"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
 								+ UsernameValidation(request
@@ -87,14 +96,6 @@ public class BetServlet extends HttpServlet {
 				writer.println(request.getParameter("username"));
 				writer.println(request.getParameter("risk_lvl"));
 				writer.println(request.getParameter("bet_amt"));
-			} else {
-				// free users cannot make more than 3 bets
-				// New location to be redirected
-				String site = new String("ErrorPages/MoreThan3Bets.html");
-
-				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);				
-				writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {
@@ -102,13 +103,13 @@ public class BetServlet extends HttpServlet {
 			System.out.println("There exists a bet with the same bet ID!");
 		} catch (SQLException se) {
 			BetServlet.this.CurrentBetID--;
-			
+
 			// New location to be redirected
 			String site = new String("ErrorPages/InvalidBetParam.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
-			
+
 			System.out.println("Invalid Bet Parameters");
 			se.printStackTrace();
 		}
