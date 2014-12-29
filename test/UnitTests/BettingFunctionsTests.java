@@ -13,7 +13,7 @@ import Functions.BettingFunctions;
 
 public class BettingFunctionsTests {
 	private BettingFunctions betfunctions;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		betfunctions = new BettingFunctions();

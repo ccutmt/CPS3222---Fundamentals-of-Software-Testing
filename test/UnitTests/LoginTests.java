@@ -17,7 +17,7 @@ import Servlets.LoginServlet;
 
 public class LoginTests {
 	private LoginServlet loginservlet;
-
+	
 	@Before
 	public void setUp() throws Exception {
 		loginservlet = new LoginServlet();

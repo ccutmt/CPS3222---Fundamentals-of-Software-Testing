@@ -81,7 +81,7 @@ public class RegServlet extends HttpServlet {
 					request.getParameter("username"));
 
 			// New location to be redirected
-			String site = new String("RegistrationSuccess.html");
+			String site = new String("Pages/RegistrationSuccess.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
