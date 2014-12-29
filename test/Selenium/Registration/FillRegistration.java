@@ -40,13 +40,13 @@ public class FillRegistration implements FillRegistrationInterface {
 		field.sendKeys("Friggieri");
 
 		field = browser.findElement(By.id("dob"));
-		field.sendKeys("12/12/1994");
+		field.sendKeys("1994/12/12");
 
 		field = browser.findElement(By.id("cc_num"));
 		field.sendKeys("371449635398431");
 
 		field = browser.findElement(By.id("cc_exp"));
-		field.sendKeys("2\t2018");
+		field.sendKeys("2018/12");
 
 		field = browser.findElement(By.id("cvv"));
 		field.sendKeys("123");
@@ -81,7 +81,7 @@ public class FillRegistration implements FillRegistrationInterface {
 		field.sendKeys("371449635398431");
 
 		field = browser.findElement(By.id("cc_exp"));
-		field.sendKeys("2\t2018");
+		field.sendKeys("2018/12");
 
 		field = browser.findElement(By.id("cvv"));
 		field.sendKeys("123");
@@ -101,7 +101,7 @@ public class FillRegistration implements FillRegistrationInterface {
 	}
 
 	@Override
-	public List<WebElement> findById(String name) {
+	public List<WebElement> findByID(String name) {
 		List<WebElement> list = browser.findElements(By.id(name));
 		return list;
 	}

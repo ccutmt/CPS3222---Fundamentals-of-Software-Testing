@@ -55,4 +55,18 @@ public class StepDefinitions {
 		assertEquals(form.findByClass("message").get(0).getText(),
 				"Registration Successful! - Proceed to Login Page");
 	}
+	
+	@When("^I fill in a form with correct data and I change the \"(.*?)\" field to have incorrect input$")
+	public void i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(
+			String arg1) throws Throwable {
+		form.fillForm();
+		form.clearField(arg1);
+		form.findByID(arg1).get(0).sendKeys("6\t \t");
+	}
+
+	@Then("^I  should  be  told in \"(.*?)\"  that  the  data  in  \"(.*?)\"  is \"(.*?)\"$")
+	public void i_should_be_told_in_that_the_data_in_is(String arg1,
+			String arg2, String arg3) throws Throwable {
+		assertEquals(form.findByID(arg1).get(0).getText(), arg3);
+	}
 }

@@ -12,6 +12,6 @@ public interface FillRegistrationInterface {
 	public void fillForm(String user, String password, String type);
 	public void submitForm(String button);
 	public void clearField(String field);
-	public List<WebElement> findById(String name);
+	public List<WebElement> findByID(String name);
 	public List<WebElement> findByClass(String classname);
 }
