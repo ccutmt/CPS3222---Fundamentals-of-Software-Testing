@@ -14,7 +14,7 @@ public class FillRegistration implements FillRegistrationInterface {
 	}
 	
 	@Override
-	public void visitPage() {
+	public void visitRegister() {
 		browser.get("http://localhost:8080/SoftwareTesting/Register.jsp");
 	}
 

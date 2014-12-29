@@ -5,7 +5,7 @@ import java.util.List;
 import org.openqa.selenium.WebElement;
 
 public interface FillRegistrationInterface {
-	public void visitPage();
+	public void visitRegister();
 	
 	public void closeBrowser();
 	public void fillForm();

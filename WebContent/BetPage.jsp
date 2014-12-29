@@ -40,20 +40,20 @@
 				</div>
 				<div class="row">
 					<label for="risk"><br></label> Risk Level <br> <br>
-					Low <input type="radio" name="risk_lvl" id="risk_lvl" value="0"
-						checked /> Medium <input type="radio" name="risk_lvl"
+					Low <input type="radio" name="risk_lvl" id="low" value="0"
+						checked /> Medium <input type="radio" name="medium"
 						id="risk_lvl" value="1" /> High <input type="radio"
-						name="risk_lvl" id="risk_lvl" value="2" />
+						name="risk_lvl" id="high" value="2" />
 				</div>
 
 				<div class="row">
 					<label for="BetAmount"><br>Bet Amount </label> <input
 						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
-					<span class="error">Error in the Bet Amount field </span>
+					<span id="error_bet_amt" class="error">Error in the Bet Amount field </span>
 				</div>
 
 				<div id="register">
-					<input type="submit" value="Place Bet"></input>
+					<input type="submit" value="Place Bet" id="bet"></input>
 				</div>
 				<div class='row'>
 					<br> <a

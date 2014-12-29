@@ -40,7 +40,7 @@ public class StepDefinitions {
 	@Given("^I am a user trying to register$")
 	public void i_am_a_user_trying_to_register() throws Throwable {
 		form = new FillRegistration(browser);
-		form.visitPage();
+		form.visitRegister();
 	}
 
 	@When("^I register providing correct information$")
@@ -68,5 +68,20 @@ public class StepDefinitions {
 	public void i_should_be_told_in_that_the_data_in_is(String arg1,
 			String arg2, String arg3) throws Throwable {
 		assertEquals(form.findByID(arg1).get(0).getText(), arg3);
+	}
+	
+	@Given("^I am a user with a free account$")
+	public void i_am_a_user_with_a_free_account() throws Throwable{
+		
+	}
+	
+	@When("^I try to place a bet of 5 euros$")
+	public void i_try_to_place_a_bet_of_5_euros(){
+		
+	}
+	
+	@Then("I should be told the bet was successfully placed$")
+	public void i_should_be_told_the_bet_was_successfully_placed(){
+		
 	}
 }

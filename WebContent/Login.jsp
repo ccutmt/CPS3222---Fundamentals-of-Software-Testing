@@ -19,13 +19,13 @@
 				<div class="row">
 					<label for="username">Username</label> <input type="text"
 						name="username" id="username" placeholder="Username" /> <span
-						class="error">Invalid Username</span>
+						id = "error_username" class="error">Invalid Username</span>
 				</div>
 
 				<div class="row">
 					<label for="password"><br>Password</label> <input
 						type="password" placeholder="Password" name="password"
-						id="password" /> <span class="error">Invalid Password</span>
+						id="password" /> <span id = "error_password" class="error">Invalid Password</span>
 				</div>
 
 				<div id="register">
