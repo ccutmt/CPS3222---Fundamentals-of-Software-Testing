@@ -8,18 +8,33 @@ import java.util.regex.Pattern;
 import Database.DBConnection;
 
 public class BettingFunctions {	
-	public void getAllBets(String username) {
+	public String getAllBets(String username) {
+		String html = "";
 		try {
 			DBConnection bets = new DBConnection(
 					"SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
 							+ UsernameValidation(username) + "\";");
 
 			for(int i = 0; i < bets.getResults().size(); i++) {
-				System.out.println(bets.getResults().get(i).get(0) + " " + bets.getResults().get(i).get(1) + " " + bets.getResults().get(i).get(2));				
+				html += "<tr>";
+				html += "<td>" + bets.getResults().get(i).get(0) + "</td>";
+				if(bets.getResults().get(i).get(1).equals("0")) {
+					html += "<td>" + "Low" + "</td>";
+				} else if(bets.getResults().get(i).get(1).equals("1")) {
+					html += "<td>" + "Middle" + "</td>";
+				}else {
+					html += "<td>" + "High" + "</td>";
+				}
+				html += "<td>" + bets.getResults().get(i).get(2) + "</td>\n";
+				html += "</tr>";
+				System.out.println(bets.getResults().get(i).get(0) + " " + bets.getResults().get(i).get(1) + " " + bets.getResults().get(i).get(2));
 			}
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
+		
+		System.out.println(html);
+		return html;
 	}
 
 	public String UsernameValidation(String username) throws SQLException {

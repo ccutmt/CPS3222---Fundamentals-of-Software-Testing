@@ -32,13 +32,10 @@
 							<td>Risk Level</td>
 							<td>Amount</td>
 						</tr>
-						<tr>
 							<%
 								BettingFunctions bf = new BettingFunctions();
-								bf.getAllBets(session.getAttribute("usernameforbet").toString());
+								out.print(bf.getAllBets(session.getAttribute("usernameforbet").toString()));
 							%>
-
-						</tr>
 					</table>
 				</div>
 				<div class="row">
