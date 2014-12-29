@@ -1,6 +1,5 @@
 package UnitTests;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -13,17 +12,12 @@ import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 
 import Servlets.RegServlet;
-import Database.DBConnection;
 
 public class RegistrationTests {
 
 	private RegServlet regservlet;
-	
-	@Mock
-	private DBConnection db;
 	
 	@Before
 	public void setUp() throws Exception {
