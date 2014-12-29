@@ -29,7 +29,7 @@
 				</div>
 
 				<div id="register">
-					<input type="submit" value="Login">
+					<input type="submit" value="Login" id="login">
 				</div>
 				
 				<div class='row'>

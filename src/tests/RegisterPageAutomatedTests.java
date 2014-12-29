@@ -1,5 +1,7 @@
 package tests;
 
+import java.sql.SQLException;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +9,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import Database.DBConnection;
 
 public class RegisterPageAutomatedTests {
 
@@ -14,7 +19,8 @@ public class RegisterPageAutomatedTests {
 
 	@Before
 	public void setUp() throws Exception {
-		browser = new FirefoxDriver();
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		browser = new ChromeDriver();
 	}
 
 	@After
@@ -24,11 +30,40 @@ public class RegisterPageAutomatedTests {
 
 	@Test
 	public void UserNameField(){
+		try{
+			new DBConnection("DELETE from Players where username=\"Afriggieri3\";");
+		}catch(SQLException se){
+			se.printStackTrace();
+		}
+		
 		browser.get("http://localhost:8080/SoftwareTesting/Register.jsp");
 		
 		WebElement searchbox = browser.findElement(By.id("username"));
-		searchbox.sendKeys("ccut0018");
-		searchbox.submit();
+		searchbox.sendKeys("Afriggieri3");
+		
+		searchbox = browser.findElement(By.id("password"));
+		searchbox.sendKeys("testing123");
+		
+		searchbox = browser.findElement(By.id("name"));
+		searchbox.sendKeys("Andreas");
+		
+		searchbox = browser.findElement(By.id("surname"));
+		searchbox.sendKeys("Friggieri");
+		
+		searchbox = browser.findElement(By.id("dob"));
+		searchbox.sendKeys("12/12/1994");
+		
+		WebElement radiobutton = browser.findElement(By.id("account_type1"));
+		radiobutton.click();
+		
+		searchbox = browser.findElement(By.id("cc_num"));
+		searchbox.sendKeys("371449635398431");
+		
+		searchbox = browser.findElement(By.id("cc_exp"));
+		searchbox.sendKeys("2\t2018");
+		
+		searchbox = browser.findElement(By.id("cvv"));
+		searchbox.sendKeys("123");
 		
 		WebElement registerbutton = browser.findElement(By.id("register"));
 		registerbutton.click();
@@ -37,21 +72,5 @@ public class RegisterPageAutomatedTests {
 			Thread.sleep(1000);
 		}catch(Exception e){}
 	}
-	
-	/*@Test
-	public void searchForBook(){
-		browser.get("http://www.play.com");
-		
-		WebElement searchbox = browser.findElement(By.id("searchstring"));
-		searchbox.sendKeys("Charlie and the Choclate Factory");
-		searchbox.submit();
-		
-		WebElement searchbutton = browser.findElement(By.id("searchSubmit"));
-		searchbutton.click();
-		
-		try{
-			Thread.sleep(1000);
-		}catch(Exception e){}
-	}*/
 
 }

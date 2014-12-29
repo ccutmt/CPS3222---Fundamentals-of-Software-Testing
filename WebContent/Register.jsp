@@ -56,8 +56,8 @@
 
 				<div class="row">
 					<label for="Account"><br></label> Free Account
-					<input type="radio" name="account_type" id="account_type" value="0" checked/> Premium Account
-					<input type="radio" name="account_type" id="account_type" value="1"/> 
+					<input type="radio" name="account_type" id="account_type0" value="0" checked/> Premium Account
+					<input type="radio" name="account_type" id="account_type1" value="1"/> 
 				</div>
 
 				<div class="row">
@@ -79,7 +79,7 @@
 				</div>
 				
 				<div id="register">
-					<input type="submit" value="Register"></input>
+					<input type="submit" value="Register" id="register"></input>
 				</div>
 
 				<!-- <div id="register">
