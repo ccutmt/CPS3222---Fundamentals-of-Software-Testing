@@ -21,6 +21,20 @@
 			<form id="register_form" action="BetServlet" method="GET">
 
 				<div class="row">
+					<table style="width:100%">
+  						<tr>
+    						<td>Username</td>
+    						<td>Risk Level</td> 
+    						<td>Amount</td>
+  						</tr>
+  						<tr>
+  							<td>test</td>
+  							<td>test</td>
+  							<td>test</td>
+  						</tr>
+					</table>
+				</div>
+				<div class="row">
 					<label for="risk"><br></label> Risk Level <br>
 					<br> Low <input type="radio" name="risk_lvl" id="risk_lvl"
 						value="0" checked /> Medium <input type="radio" name="risk_lvl"
