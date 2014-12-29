@@ -108,7 +108,7 @@ public class FillRegistration implements FillRegistrationInterface {
 
 	@Override
 	public List<WebElement> findByClass(String classname) {
-		return browser.findElements(By.className("status"));
+		return browser.findElements(By.className(classname));
 	}
 
 }

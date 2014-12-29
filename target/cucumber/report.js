@@ -7,7 +7,7 @@ formatter.feature({
   "keyword": "Feature"
 });
 formatter.before({
-  "duration": 3316896043,
+  "duration": 3815088074,
   "status": "passed"
 });
 formatter.scenario({
@@ -37,22 +37,21 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2581991179,
+  "duration": 7487295372,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_register_providing_correct_information()"
 });
 formatter.result({
-  "duration": 1917973516,
+  "duration": 2071261604,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_that_the_registration_was_successful()"
 });
 formatter.result({
-  "duration": 84137011,
-  "error_message": "java.lang.IndexOutOfBoundsException: Index: 0, Size: 0\r\n\tat java.util.ArrayList.rangeCheck(Unknown Source)\r\n\tat java.util.ArrayList.get(Unknown Source)\r\n\tat Cucumber.stepdefs.StepDefinitions.i_should_be_told_that_the_registration_was_successful(StepDefinitions.java:55)\r\n\tat ✽.Then I should be told that the registration was successful(test/resources/features/resources.feature:8)\r\n",
-  "status": "failed"
+  "duration": 158716096,
+  "status": "passed"
 });
 });

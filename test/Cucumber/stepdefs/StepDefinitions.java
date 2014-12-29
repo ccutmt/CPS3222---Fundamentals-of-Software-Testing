@@ -52,7 +52,7 @@ public class StepDefinitions {
 	@Then("^I should be told that the registration was successful$")
 	public void i_should_be_told_that_the_registration_was_successful()
 			throws Throwable {
-		assertEquals(form.findByClass("logo").get(0).getText(),
+		assertEquals(form.findByClass("message").get(0).getText(),
 				"Registration Successful! - Proceed to Login Page");
 	}
 }
