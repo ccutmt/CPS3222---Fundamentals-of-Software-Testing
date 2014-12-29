@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class DBConnection {
 
 	// stores a single record with any amount of fields
-	private ArrayList<String> result = new ArrayList<>();
+	private ArrayList<ArrayList<String>> result = new ArrayList<>();
 
 	public DBConnection(String query) throws SQLException {
 		try {
@@ -48,15 +48,18 @@ public class DBConnection {
 		} else if (query.contains("SELECT")) {
 			ResultSet results = stmt.executeQuery(query);
 
-			if (results.next()) {
+			//loop for all records using the while
+			while(results.next()) {
 				// get number of columns
 				ResultSetMetaData rsmd = results.getMetaData();
 				int columnsNumber = rsmd.getColumnCount();
 
+				ArrayList<String> record = new ArrayList<>();
 				// add all columns to arraylist
 				for (int i = 1; i <= columnsNumber; i++) {
-					result.add(results.getString(i));
+					record.add(results.getString(i));
 				}
+				result.add(record);
 			}
 			results.close();
 
@@ -93,7 +96,7 @@ public class DBConnection {
 	// return this.password;
 	// }
 
-	public ArrayList<String> getResults() {
+	public ArrayList<ArrayList<String>> getResults() {
 		return this.result;
 	}
 

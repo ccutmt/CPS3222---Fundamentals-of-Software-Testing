@@ -53,8 +53,9 @@ public class BetServlet extends HttpServlet {
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			if (Integer.parseInt(account_details.getResults().get(0)) == 0
-					&& Integer.parseInt(account_details.getResults().get(1)) < 3) {
+			if (Integer.parseInt(account_details.getResults().get(0).get(0)) == 0
+					&& Integer.parseInt(account_details.getResults().get(0)
+							.get(1)) < 3) {
 
 				new DBConnection(
 						"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
@@ -65,24 +66,24 @@ public class BetServlet extends HttpServlet {
 								+ "\", \""
 								+ ValidateRiskLevel(Integer
 										.parseInt(account_details.getResults()
-												.get(0)), Integer
+												.get(0).get(0)), Integer
 										.parseInt(request
 												.getParameter("risk_lvl")))
 								+ "\", \""
 								+ ValidateBetAmount(Integer
 										.parseInt(account_details.getResults()
-												.get(0)), Integer
+												.get(0).get(0)), Integer
 										.parseInt(request
 												.getParameter("bet_amt")),
 										getTotalBetAmount(total_bets
-												.getResults())) + "\");");
+												.getResults().get(0))) + "\");");
 
 				writer.println("Bet Placed Successfully");
-				
+
 				new DBConnection(
 						"UPDATE players SET Bets = Bets+1 WHERE username = \""
 								+ request.getParameter("username") + "\";");
-				
+
 				writer.println(request.getParameter("username"));
 				writer.println(request.getParameter("risk_lvl"));
 				writer.println(request.getParameter("bet_amt"));

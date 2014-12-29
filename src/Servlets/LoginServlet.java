@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			ArrayList<String> results = db.getResults();
+			ArrayList<String> results = db.getResults().get(0);
 
 			// Set response content type
 			response.setContentType("text/html");
@@ -75,8 +75,8 @@ public class LoginServlet extends HttpServlet {
 										.getParameter("username")) + "\";");
 
 				if (check_logins.getResults().size() == 0
-						|| Integer.parseInt(check_logins.getResults().get(1)) < 3
-						|| CheckforFiveMinutes(check_logins.getResults().get(0))) {
+						|| Integer.parseInt(check_logins.getResults().get(0).get(1)) < 3
+						|| CheckforFiveMinutes(check_logins.getResults().get(0).get(0))) {
 					// authenticate user
 
 					if (!results.get(0).isEmpty()
