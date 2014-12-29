@@ -1,4 +1,5 @@
-package tests;
+package Selenium;
+
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,5 @@
-package tests;
+package Selenium;
+
 
 import java.sql.SQLException;
 

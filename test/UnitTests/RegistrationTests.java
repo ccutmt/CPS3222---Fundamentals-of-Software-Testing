@@ -1,4 +1,5 @@
-package tests;
+package UnitTests;
+
 
 import java.sql.SQLException;
 import java.text.DateFormat;
