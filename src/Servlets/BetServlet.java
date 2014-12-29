@@ -22,7 +22,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
  */
 @WebServlet("/BetServlet")
 public class BetServlet extends HttpServlet {
-	long CurrentBetID;
+	long CurrentBetID = 0;
 
 	private static final long serialVersionUID = 1L;
 
@@ -115,14 +115,27 @@ public class BetServlet extends HttpServlet {
 		}
 	}
 
-	public void destroy() {
+	public void init() {
 		try {
-			new DBConnection("DELETE FROM bets;");
+			DBConnection initID = new DBConnection(
+					"SELECT max(BetID) FROM bets;");
+			if (initID.getResults().get(0).get(0) != null)
+				this.CurrentBetID = Long.parseLong(initID.getResults().get(0)
+						.get(0));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	// public void destroy() {
+	// try {
+	// new DBConnection("DELETE FROM bets;");
+	// } catch (SQLException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
