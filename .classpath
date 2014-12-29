@@ -53,5 +53,14 @@
 	<classpathentry kind="lib" path="/WebTestingTutorial/lib/xercesImpl-2.11.0.jar"/>
 	<classpathentry kind="lib" path="/WebTestingTutorial/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/jre1.8.0_20/lib/ext/mysql-connector.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/cucumber-core-1.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/cucumber-html-0.2.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/cucumber-java-1.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/cucumber-junit-1.1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/cucumber-jvm-deps-1.0.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/gherkin-2.12.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/jchronic-0.2.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/andre_000/workspace/CucumberSample/lib/junit-4.11.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
