@@ -10,4 +10,5 @@ public interface FillBetInterface {
 	public void submitForm(String button);
 	public void clearField(String field);
 	public List<WebElement> findByID(String name);
+	public List<WebElement> findByClass(String classname);
 }

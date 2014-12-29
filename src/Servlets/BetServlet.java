@@ -85,17 +85,18 @@ public class BetServlet extends HttpServlet {
 										.parseInt(request
 												.getParameter("bet_amt")),
 										getTotalBetAmount(total_bets
-												.getResults().get(0))) + "\");");
-
-				writer.println("Bet Placed Successfully");
+												.getResults().get(0))) + "\");");			
 
 				new DBConnection(
 						"UPDATE players SET Bets = Bets+1 WHERE username = \""
 								+ request.getParameter("username") + "\";");
+				
+				// New location to be redirected
+				String site = new String("Pages/BetSuccess.html");
 
-				writer.println(request.getParameter("username"));
-				writer.println(request.getParameter("risk_lvl"));
-				writer.println(request.getParameter("bet_amt"));
+				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+				response.setHeader("Location", site);
+
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {

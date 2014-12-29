@@ -5,7 +5,6 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-mport org.openqa.selenium.WebElement;
 
 public class FillBet implements FillBetInterface {
 	WebDriver browser;
@@ -45,6 +44,11 @@ public class FillBet implements FillBetInterface {
 	public List<WebElement> findByID(String name) {
 		List<WebElement> list = browser.findElements(By.id(name));
 		return list;
+	}
+	
+	@Override
+	public List<WebElement> findByClass(String classname) {
+		return browser.findElements(By.className(classname));
 	}
 
 }
