@@ -28,7 +28,7 @@ public class FillRegistration implements FillRegistrationInterface {
 	public void fillForm() {
 		WebElement field;
 		field = browser.findElement(By.id("username"));
-		field.sendKeys("Afriggieri3");
+		field.sendKeys("Afriggieri4");
 
 		field = browser.findElement(By.id("password"));
 		field.sendKeys("testing123");
