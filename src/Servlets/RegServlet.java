@@ -81,7 +81,7 @@ public class RegServlet extends HttpServlet {
 					request.getParameter("username"));
 
 			// New location to be redirected
-			String site = new String("BetPage.jsp");
+			String site = new String("RegistrationSuccess.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
@@ -114,10 +114,10 @@ public class RegServlet extends HttpServlet {
 		}
 	}
 
-	private int GetMaxDate(String date) {
+	public int GetMaxDate(String date) {
 		// method used for cc expiry date to find the maximum date for the
 		// particular month, in order to fit in db field
-		System.out.println((date));
+		//System.out.println((date));
 		Calendar calendar = Calendar.getInstance();
 		String year = date.substring(0, 4);
 		String month = date.substring(5, 7);
@@ -209,9 +209,7 @@ public class RegServlet extends HttpServlet {
 		if ((td_year - pl_dob_year) > 18) {
 			return dob;
 		} else if ((td_year - pl_dob_year) == 18) {
-			if ((td_month) > pl_dob_month) {
-				return dob;
-			} else if (td_month == pl_dob_month) {
+			if ((td_month) >= pl_dob_month) {
 				if (td_day >= pl_dob_day) {
 					return dob;
 				} else {

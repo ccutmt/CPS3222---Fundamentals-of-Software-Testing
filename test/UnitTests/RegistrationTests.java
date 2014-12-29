@@ -22,6 +22,26 @@ public class RegistrationTests {
 	}
 
 	@Test
+	public void MaxDate31Test() {
+		assertEquals(31, regservlet.GetMaxDate("2014-12-14"));
+	}
+	
+	@Test
+	public void MaxDate30Test() {
+		assertEquals(30, regservlet.GetMaxDate("2014-11-14"));
+	}
+	
+	@Test
+	public void MaxDate28Test() {
+		assertEquals(28, regservlet.GetMaxDate("2014-02-14"));
+	}
+	
+	@Test
+	public void MaxDate29Test() {
+		assertEquals(29, regservlet.GetMaxDate("2016-02-14"));
+	}
+	
+	@Test
 	public void ValidateUsernameTest() throws SQLException {
 		
 		assertEquals("UsernameTesting", regservlet.UsernameValidation("UsernameTesting"));
@@ -216,12 +236,38 @@ public class RegistrationTests {
 	
 	@Test
 	public void DOBValidationTestOver18EqaulYear() throws SQLException{
-		assertEquals("1996-10-18", regservlet.DOBValidation("1996-10-18"));
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -18);
+		
+		assertEquals(dateFormat.format(cal.getTime()), regservlet.DOBValidation(dateFormat.format(cal.getTime())));
+	}
+	
+	@Test
+	public void DOBValidationTestOver18EqaulYearNotMonth() throws SQLException{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -18);
+		cal.add(Calendar.MONTH, +2);
+		
+		 try{
+			 regservlet.DOBValidation(dateFormat.format(cal.getTime()));
+			 
+		        fail("expected SQLException");
+
+		    } catch(SQLException e){
+		        //ignore, this exception is expected.
+		    }
 	}
 	
 	@Test
 	public void DOBValidationTestOver18EqaulYearEqualMonth() throws SQLException{
-		assertEquals("1996-12-05", regservlet.DOBValidation("1996-12-05"));
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.YEAR, -18);
+		cal.add(Calendar.DAY_OF_MONTH, -2);
+		
+		assertEquals(dateFormat.format(cal.getTime()), regservlet.DOBValidation(dateFormat.format(cal.getTime())));
 	}
 	
 	@Test
@@ -344,7 +390,12 @@ public class RegistrationTests {
 	
 	@Test
 	public void CCLuhm_RandomNumberTest() {
-		assertTrue(regservlet.CreditCardNum_Luhm("5610591081018250"));
+		assertFalse(regservlet.CreditCardNum_Luhm("546489731489614164"));
+	}
+	
+	@Test
+	public void CCLuhm_SpecialCharTest() {
+		assertFalse(regservlet.CreditCardNum_Luhm("54648973148961/*4164"));
 	}
 	
 	

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -267,8 +268,22 @@ public class BetTests {
 	public void GenerateBetID1() throws SQLException {
 		assertEquals(1, betservlet.GenerateBetID());
 	}
-
+	
 	@Test
+	public void TotalBetAmountNullTest() {
+		ArrayList<String> bets_list = new ArrayList<String>();
+		bets_list.add(null);
+		assertEquals(0, betservlet.getTotalBetAmount(bets_list));
+	}
+	
+	@Test
+	public void TotalBetAmountTest() {
+		ArrayList<String> bets_list = new ArrayList<String>();
+		bets_list.add("23");
+		assertEquals(23, betservlet.getTotalBetAmount(bets_list));
+	}
+
+	/*@Test
 	public void GenerateBetID2() throws SQLException {
 		assertEquals(2, betservlet.GenerateBetID());
 	}
@@ -276,5 +291,5 @@ public class BetTests {
 	@Test
 	public void GenerateBetID3() throws SQLException {
 		assertEquals(3, betservlet.GenerateBetID());
-	}
+	}*/
 }
