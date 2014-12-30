@@ -1,7 +1,6 @@
 package Servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -41,7 +40,6 @@ public class BetServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Placing bet...");
-		PrintWriter writer = response.getWriter();
 		try {
 			DBConnection account_details = new DBConnection(
 					"SELECT account, Bets FROM players WHERE Username = \""
@@ -106,7 +104,7 @@ public class BetServlet extends HttpServlet {
 			BetServlet.this.CurrentBetID--;
 
 			// New location to be redirected
-			String site = new String("Pages/InvalidBetParam.html");
+			String site = new String("Pages/MaxCumulativeBets.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);

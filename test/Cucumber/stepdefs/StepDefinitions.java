@@ -31,11 +31,11 @@ public class StepDefinitions {
 
 		try {
 			new DBConnection(
-					"DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\");");
-			
+					"DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+
 			new DBConnection(
-					"DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\");");
-			
+					"DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -97,14 +97,45 @@ public class StepDefinitions {
 
 	@Then("^I should be told the bet was successfully placed$")
 	public void i_should_be_told_the_bet_was_successfully_placed() {
-		assertEquals(bet_form.findByClass("message").get(0).getText(), "Bet Successful!");
+		assertEquals(bet_form.findByClass("message").get(0).getText(),
+				"Bet Successful!");
 		browser.findElement(By.className("sub")).click();
 	}
-	
+
 	@Then("^I should be told that I have reached the maximum number of bets$")
-	public void i_should_be_told_that_i_have_reached_the_maximum_number_of_bets(){
-		assertEquals("Error occured! - You are not allowed to make more than 3 bets!\n\nPlease register as a premium user", bet_form.findByID("error").get(0).getText()
-				);
+	public void i_should_be_told_that_i_have_reached_the_maximum_number_of_bets() {
+		assertEquals(
+				"Error occured! - You are not allowed to make more than 3 bets!\n\nPlease register as a premium user",
+				bet_form.findByID("error").get(0).getText());
+	}
+
+	@Given("^I am a user with a premium account$")
+	public void i_am_a_user_with_a_premium_account() throws Throwable {
+		CreatePremiumAccount();
+		log_form = new FillLogin(browser);
+		log_form.visitLogin();
+		log_form.fillForm("Afriggieri6", "testing123");
+		log_form.submitForm("login");
+	}
+
+	@When("^I try to place a bet of 5000 euros$")
+	public void i_try_to_place_a_bet_of_5000_euros() {
+		bet_form = new FillBet(browser);
+		bet_form.fillForm("5000", "low");
+		bet_form.submitForm("bet");
+	}
+
+	@When("^I try to place a bet of 1 euros$")
+	public void i_try_to_place_a_bet_of_1_euros() {
+		bet_form = new FillBet(browser);
+		bet_form.fillForm("1", "low");
+		bet_form.submitForm("bet");
+	}
+
+	@Then("^I should be told that I have reached the maximum cumulative betting amount$")
+	public void i_should_be_told_that_i_have_reached_the_maximum_cumulative_betting_amount() {
+		assertEquals("Bet Unsuccessful - Cumulative Betting Amount Reached",
+				bet_form.findByClass("message").get(0).getText());
 	}
 
 	private void CreateFreeAccount() {
@@ -112,6 +143,16 @@ public class StepDefinitions {
 			new DBConnection(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \"Afriggieri5\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 0, 371449635398431, \"2018/05/30\", 123, 0 );");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void CreatePremiumAccount() {
+		try {
+			new DBConnection(
+					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+							+ " VALUES ( \"Afriggieri6\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 1, 371449635398431, \"2018/05/30\", 123, 0 );");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -26,7 +26,7 @@ Given I am a user with a free account
 When I try to place a bet of 5 euros
 Then I should be told the bet was successfully placed
 
-Scenario: Verify maximum bets for fre accounts
+Scenario: Verify maximum bets for free accounts
 Given I am a user with a free account
 When I try to place a bet of 5 euros
 Then I should be told the bet was successfully placed
@@ -36,3 +36,10 @@ When I try to place a bet of 5 euros
 Then I should be told the bet was successfully placed
 When I try to place a bet of 5 euros
 Then I should be told that I have reached the maximum number of bets
+
+Scenario: Verify maximum cumulative bet for premium accounts
+Given I am a user with a premium account
+When I try to place a bet of 5000 euros
+Then I should be told the bet was successfully placed
+When I try to place a bet of 1 euros
+Then I should be told that I have reached the maximum cumulative betting amount
