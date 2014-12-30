@@ -50,7 +50,7 @@ public class BetServlet extends HttpServlet {
 					"SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
-				
+
 			if (Integer.parseInt(account_details.getResults().get(0).get(0)) == 0
 					&& Integer.parseInt(account_details.getResults().get(0)
 							.get(1)) >= 3) {
@@ -64,37 +64,47 @@ public class BetServlet extends HttpServlet {
 				// writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
 				System.out.println("Free user trying to make more than 3 bets");
 			} else {
-				new DBConnection(
-						"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
-								+ UsernameValidation(request
-										.getParameter("username"))
-								+ "\", \""
-								+ GenerateBetID()
-								+ "\", \""
-								+ ValidateRiskLevel(Integer
-										.parseInt(account_details.getResults()
-												.get(0).get(0)), Integer
-										.parseInt(request
-												.getParameter("risk_lvl")))
-								+ "\", \""
-								+ ValidateBetAmount(Integer
-										.parseInt(account_details.getResults()
-												.get(0).get(0)), Integer
-										.parseInt(request
-												.getParameter("bet_amt")),
-										getTotalBetAmount(total_bets
-												.getResults().get(0))) + "\");");			
+				try {
+					new DBConnection(
+							"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
+									+ UsernameValidation(request
+											.getParameter("username"))
+									+ "\", \""
+									+ GenerateBetID()
+									+ "\", \""
+									+ ValidateRiskLevel(
+											Integer.parseInt(account_details
+													.getResults().get(0).get(0)),
+											Integer.parseInt(request
+													.getParameter("risk_lvl")))
+									+ "\", \""
+									+ ValidateBetAmount(
+											Integer.parseInt(account_details
+													.getResults().get(0).get(0)),
+											Integer.parseInt(request
+													.getParameter("bet_amt")),
+											getTotalBetAmount(total_bets
+													.getResults().get(0)))
+									+ "\");");
 
-				new DBConnection(
-						"UPDATE players SET Bets = Bets+1 WHERE username = \""
-								+ request.getParameter("username") + "\";");
-				
-				// New location to be redirected
-				String site = new String("Pages/BetSuccess.html");
+					new DBConnection(
+							"UPDATE players SET Bets = Bets+1 WHERE username = \""
+									+ request.getParameter("username") + "\";");
 
-				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-				response.setHeader("Location", site);
+					// New location to be redirected
+					String site = new String("Pages/BetSuccess.html");
 
+					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", site);
+				} catch (UnsupportedOperationException oe) {
+					// New location to be redirected
+					
+					String site = new String("Pages/InvalidRisk.html");
+
+					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", site);
+					oe.printStackTrace();
+				}
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {
@@ -157,12 +167,12 @@ public class BetServlet extends HttpServlet {
 	}
 
 	public int ValidateRiskLevel(int account_type, int risk_level)
-			throws SQLException {
+			throws UnsupportedOperationException {
 		if (((account_type == 0) && (risk_level == 0))
 				|| ((account_type == 1) && (risk_level >= 0) && (risk_level < 3))) {
 			return risk_level;
 		} else
-			throw new SQLException();
+			throw new UnsupportedOperationException();
 	}
 
 	public int ValidateBetAmount(int account_type, int bet_amount,

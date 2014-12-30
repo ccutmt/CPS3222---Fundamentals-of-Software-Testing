@@ -70,7 +70,7 @@ public class BetTests {
 
 			fail("expected SQLException");
 
-		} catch (SQLException e) {
+		} catch (UnsupportedOperationException e) {
 			// ignore, this exception is expected.
 		}
 	}
@@ -82,7 +82,7 @@ public class BetTests {
 
 			fail("expected SQLException");
 
-		} catch (SQLException e) {
+		} catch (UnsupportedOperationException e) {
 			// ignore, this exception is expected.
 		}
 	}
@@ -110,7 +110,7 @@ public class BetTests {
 
 			fail("expected SQLException");
 
-		} catch (SQLException e) {
+		} catch (UnsupportedOperationException e) {
 			// ignore, this exception is expected.
 		}
 	}
@@ -123,7 +123,7 @@ public class BetTests {
 
 			fail("expected SQLException");
 
-		} catch (SQLException e) {
+		} catch (UnsupportedOperationException e) {
 			// ignore, this exception is expected.
 		}
 	}

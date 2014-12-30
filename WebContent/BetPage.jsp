@@ -49,7 +49,7 @@
 				<div class="row">
 					<label for="risk"><br></label> Risk Level <br> <br>
 					Low <input type="radio" name="risk_lvl" id="low" value="0" checked />
-					Medium <input type="radio" name="medium" id="risk_lvl" value="1" />
+					Medium <input type="radio" name="risk_lvl" id="medium" value="1" />
 					High <input type="radio" name="risk_lvl" id="high" value="2" />
 				</div>
 

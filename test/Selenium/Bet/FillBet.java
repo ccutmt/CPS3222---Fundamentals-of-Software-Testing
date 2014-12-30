@@ -26,6 +26,7 @@ public class FillBet implements FillBetInterface {
 		WebElement field;
 		field = browser.findElement(By.id("bet_amt"));
 		field.sendKeys(amount);
+		
 	}
 
 	@Override

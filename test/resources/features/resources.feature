@@ -48,3 +48,15 @@ Scenario: Verify access restriction for guest users
 Given I am a user who has not yet logged on
 When I try to access the betting screen
 Then I should be refused access
+
+Scenario Outline: Verify that free users can only place low-risk bets
+Given I am a user with a free account
+When I try to place a "<risk-level>" bet of 5 euros
+Then I should be "<expected-result>" to bet
+
+Examples:
+
+|risk-level	|expected-result	|
+|low		|Bet Successful!	|
+|medium		|You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user	|
+|high		|You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user	|
