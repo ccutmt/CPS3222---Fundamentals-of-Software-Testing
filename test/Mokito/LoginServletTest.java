@@ -87,32 +87,66 @@ public class LoginServletTest {
 	
 	@Test
 	public void UserFailedLoginTimeoutTest() throws ServletException, IOException, SQLException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar test_cal = Calendar.getInstance();
+		test_cal.add(Calendar.MINUTE, -2);
+		//System.out.println(dateFormat.format(test_cal.getTime()));
+		
+		Mockito.doReturn("logintest").when(request).getParameter("username");
+		Mockito.doReturn("testing123").when(request).getParameter("password");
+		
 		try {
-			new DBConnection(
-					"UPDATE attempted_logins SET attempts_amount = 3 WHERE username = \"logintest\";");
+			new DBConnection("UPDATE attempted_logins SET last_login = \""
+					+ dateFormat.format(test_cal.getTime())
+					+ "\", attempts_amount = 3 WHERE username = \"logintest\";");
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		}
-		
-		Mockito.doReturn("logintest").when(request).getParameter("username");
-		Mockito.doReturn("testing1234564").when(request).getParameter("password");
 		
 		logservlet.doGet(request, response);
 		
 		Mockito.verify(response).setHeader("Location", "Pages/LoginTimeout.html");
 	}
-
-	@Test
-	public void UserLoginAfterTimeoutTest() throws ServletException, IOException, SQLException {
+	
+	/*@Test
+	public void UserLoginFailedAfterTimeoutTest() throws ServletException, IOException, SQLException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MINUTE, -8);
+		System.out.println(dateFormat.format(cal.getTime()));
+		
+		Mockito.doReturn("logintest").when(request).getParameter("username");
+		Mockito.doReturn("testing123898").when(request).getParameter("password");
+		
 		try {
-			new DBConnection(
-					"UPDATE attempted_logins SET attempts_amount = 3 WHERE username = \"logintest\";");
+			new DBConnection("UPDATE attempted_logins SET last_login = \""
+					+ dateFormat.format(cal.getTime())
+					+ "\", attempts_amount = 4 WHERE username = \"logintest\";");
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		}
 		
+		logservlet.doGet(request, response);
+		
+		Mockito.verify(response).setHeader("Location", "Pages/LoginTimeout.html");
+	}*/
+
+	@Test
+	public void UserLoginAfterTimeoutTest() throws ServletException, IOException, SQLException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MINUTE, -8);
+		
 		Mockito.doReturn("logintest").when(request).getParameter("username");
 		Mockito.doReturn("testing123").when(request).getParameter("password");
+		
+		try {
+			new DBConnection("UPDATE attempted_logins SET last_login = \""
+					+ dateFormat.format(cal.getTime())
+					+ "\", attempts_amount = 3 WHERE username = \"logintest\";");
+		} catch (MySQLIntegrityConstraintViolationException e) {
+			e.printStackTrace();
+		}
 		
 		logservlet.doGet(request, response);
 		

@@ -79,7 +79,7 @@ public class LoginServlet extends HttpServlet {
 						|| Integer.parseInt(check_logins.getResults().get(0).get(1)) < 3
 						|| CheckforFiveMinutes(check_logins.getResults().get(0).get(0))) {
 					// authenticate user
-
+					
 					if (!results.get(0).isEmpty()
 							&& (results.get(1)
 									.contentEquals(PasswordValidation(request
