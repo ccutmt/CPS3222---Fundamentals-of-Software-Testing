@@ -7,7 +7,7 @@ formatter.feature({
   "keyword": "Feature"
 });
 formatter.before({
-  "duration": 1999825525,
+  "duration": 2301544327,
   "status": "passed"
 });
 formatter.scenario({
@@ -37,25 +37,25 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 1847816645,
+  "duration": 2240490927,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_register_providing_correct_information()"
 });
 formatter.result({
-  "duration": 1018364996,
+  "duration": 995150015,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_that_the_registration_was_successful()"
 });
 formatter.result({
-  "duration": 43537787,
+  "duration": 44441361,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1322751822,
+  "duration": 1310854704,
   "status": "passed"
 });
 formatter.scenario({
@@ -93,7 +93,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2022875063,
+  "duration": 2478269901,
   "status": "passed"
 });
 formatter.match({
@@ -106,7 +106,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 686900115,
+  "duration": 699693417,
   "status": "passed"
 });
 formatter.match({
@@ -127,11 +127,11 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 39784325,
+  "duration": 38823688,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1339196776,
+  "duration": 822181187,
   "status": "passed"
 });
 formatter.scenario({
@@ -169,7 +169,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2006457615,
+  "duration": 2508962249,
   "status": "passed"
 });
 formatter.match({
@@ -182,7 +182,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 687915763,
+  "duration": 706303749,
   "status": "passed"
 });
 formatter.match({
@@ -203,11 +203,11 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 41598450,
+  "duration": 39354912,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1307286801,
+  "duration": 1326398548,
   "status": "passed"
 });
 formatter.scenario({
@@ -245,7 +245,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2043218807,
+  "duration": 2451800660,
   "status": "passed"
 });
 formatter.match({
@@ -258,7 +258,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 695784775,
+  "duration": 691665530,
   "status": "passed"
 });
 formatter.match({
@@ -279,11 +279,11 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 36848635,
+  "duration": 36108862,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1355441392,
+  "duration": 1341478084,
   "status": "passed"
 });
 formatter.scenario({
@@ -321,7 +321,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 1994453349,
+  "duration": 4061991868,
   "status": "passed"
 });
 formatter.match({
@@ -334,7 +334,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 702074894,
+  "duration": 693355266,
   "status": "passed"
 });
 formatter.match({
@@ -355,11 +355,11 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 40427623,
+  "duration": 40887415,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1353426518,
+  "duration": 1424484499,
   "status": "passed"
 });
 formatter.scenario({
@@ -397,7 +397,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 3623837177,
+  "duration": 4190905642,
   "status": "passed"
 });
 formatter.match({
@@ -410,7 +410,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 697537731,
+  "duration": 691376929,
   "status": "passed"
 });
 formatter.match({
@@ -431,11 +431,11 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 37170079,
+  "duration": 38569160,
   "status": "passed"
 });
 formatter.before({
-  "duration": 914100999,
+  "duration": 1045877801,
   "status": "passed"
 });
 formatter.scenario({
@@ -465,21 +465,141 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
 });
 formatter.result({
-  "duration": 4083440755,
+  "duration": 4387788171,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 465987297,
+  "duration": 436131195,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
 });
 formatter.result({
-  "duration": 36668413,
+  "duration": 165814546,
+  "status": "passed"
+});
+formatter.before({
+  "duration": 1475974636,
+  "status": "passed"
+});
+formatter.scenario({
+  "line": 29,
+  "name": "Verify maximum bets for fre accounts",
+  "description": "",
+  "id": "basic-betting-functionality;verify-maximum-bets-for-fre-accounts",
+  "type": "scenario",
+  "keyword": "Scenario"
+});
+formatter.step({
+  "line": 30,
+  "name": "I am a user with a free account",
+  "keyword": "Given "
+});
+formatter.step({
+  "line": 31,
+  "name": "I try to place a bet of 5 euros",
+  "keyword": "When "
+});
+formatter.step({
+  "line": 32,
+  "name": "I should be told the bet was successfully placed",
+  "keyword": "Then "
+});
+formatter.step({
+  "line": 33,
+  "name": "I try to place a bet of 5 euros",
+  "keyword": "When "
+});
+formatter.step({
+  "line": 34,
+  "name": "I should be told the bet was successfully placed",
+  "keyword": "Then "
+});
+formatter.step({
+  "line": 35,
+  "name": "I try to place a bet of 5 euros",
+  "keyword": "When "
+});
+formatter.step({
+  "line": 36,
+  "name": "I should be told the bet was successfully placed",
+  "keyword": "Then "
+});
+formatter.step({
+  "line": 37,
+  "name": "I try to place a bet of 5 euros",
+  "keyword": "When "
+});
+formatter.step({
+  "line": 38,
+  "name": "I should be told that I have reached the maximum number of bets",
+  "keyword": "Then "
+});
+formatter.match({
+  "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
+});
+formatter.result({
+  "duration": 4460314613,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
+});
+formatter.result({
+  "duration": 426044508,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
+});
+formatter.result({
+  "duration": 152853337,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
+});
+formatter.result({
+  "duration": 239796312,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
+});
+formatter.result({
+  "duration": 113366646,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
+});
+formatter.result({
+  "duration": 178992514,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
+});
+formatter.result({
+  "duration": 118404653,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
+});
+formatter.result({
+  "duration": 170539730,
+  "status": "passed"
+});
+formatter.match({
+  "location": "StepDefinitions.i_should_be_told_that_i_have_reached_the_maximum_number_of_bets()"
+});
+formatter.result({
+  "duration": 34432674,
   "status": "passed"
 });
 });

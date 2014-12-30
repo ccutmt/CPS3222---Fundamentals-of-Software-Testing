@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.sql.SQLException;
 
 import org.junit.After;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -94,12 +95,17 @@ public class StepDefinitions {
 		bet_form.submitForm("bet");
 	}
 
-	@Then("I should be told the bet was successfully placed$")
+	@Then("^I should be told the bet was successfully placed$")
 	public void i_should_be_told_the_bet_was_successfully_placed() {
 		assertEquals(bet_form.findByClass("message").get(0).getText(), "Bet Successful!");
+		browser.findElement(By.className("sub")).click();
 	}
 	
-	
+	@Then("^I should be told that I have reached the maximum number of bets$")
+	public void i_should_be_told_that_i_have_reached_the_maximum_number_of_bets(){
+		assertEquals("Error occured! - You are not allowed to make more than 3 bets!\n\nPlease register as a premium user", bet_form.findByID("error").get(0).getText()
+				);
+	}
 
 	private void CreateFreeAccount() {
 		try {
