@@ -43,3 +43,8 @@ When I try to place a bet of 5000 euros
 Then I should be told the bet was successfully placed
 When I try to place a bet of 1 euros
 Then I should be told that I have reached the maximum cumulative betting amount
+
+Scenario: Verify access restriction for guest users
+Given I am a user who has not yet logged on
+When I try to access the betting screen
+Then I should be refused access

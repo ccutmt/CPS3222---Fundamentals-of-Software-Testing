@@ -137,6 +137,22 @@ public class StepDefinitions {
 		assertEquals("Bet Unsuccessful - Cumulative Betting Amount Reached",
 				bet_form.findByClass("message").get(0).getText());
 	}
+	
+	@Given("^I am a user who has not yet logged on$")
+	public void i_am_a_user_who_has_not_yet_logged_on(){
+		bet_form = new FillBet(browser);
+	}
+	
+	@When("^I try to access the betting screen$")
+	public void i_try_to_access_the_betting_screen(){
+		bet_form.visitBet();
+	}
+	
+	@Then("^I should be refused access$")
+	public void i_should_be_refused_access(){
+		assertEquals("Please login before trying to make a bet!",
+				bet_form.findByClass("message").get(0).getText());
+	}
 
 	private void CreateFreeAccount() {
 		try {

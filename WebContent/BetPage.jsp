@@ -21,6 +21,13 @@
 			<legend>Bets</legend>
 			<form id="register_form" action="BetServlet" method="GET">
 
+				<%
+					if (session.getAttribute("usernameforbet") == null) {
+						response.sendRedirect("Pages/NullUserBet.html");
+						return;
+					}
+				%>
+
 				<%=session.getAttribute("usernameforbet")%>
 				<input type="hidden" name="username"
 					value=<%=session.getAttribute("usernameforbet")%> />
@@ -32,24 +39,25 @@
 							<td>Risk Level</td>
 							<td>Amount</td>
 						</tr>
-							<%
-								BettingFunctions bf = new BettingFunctions();
-								out.print(bf.getAllBets(session.getAttribute("usernameforbet").toString()));
-							%>
+						<%
+							BettingFunctions bf = new BettingFunctions();
+							out.print(bf.getAllBets(session.getAttribute("usernameforbet")
+									.toString()));
+						%>
 					</table>
 				</div>
 				<div class="row">
 					<label for="risk"><br></label> Risk Level <br> <br>
-					Low <input type="radio" name="risk_lvl" id="low" value="0"
-						checked /> Medium <input type="radio" name="medium"
-						id="risk_lvl" value="1" /> High <input type="radio"
-						name="risk_lvl" id="high" value="2" />
+					Low <input type="radio" name="risk_lvl" id="low" value="0" checked />
+					Medium <input type="radio" name="medium" id="risk_lvl" value="1" />
+					High <input type="radio" name="risk_lvl" id="high" value="2" />
 				</div>
 
 				<div class="row">
 					<label for="BetAmount"><br>Bet Amount </label> <input
 						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
-					<span id="error_bet_amt" class="error">Error in the Bet Amount field </span>
+					<span id="error_bet_amt" class="error">Error in the Bet
+						Amount field </span>
 				</div>
 
 				<div id="register">
