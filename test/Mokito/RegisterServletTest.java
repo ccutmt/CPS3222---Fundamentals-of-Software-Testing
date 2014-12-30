@@ -1,6 +1,7 @@
 package Mokito;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -17,6 +18,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import Database.DBConnection;
 import Servlets.RegServlet;
@@ -72,7 +75,7 @@ public class RegisterServletTest {
 		Mockito.verify(response).setHeader("Location", "Pages/RegistrationSuccess.html");
 	}
 	
-	@Test(expected=Exception.class)
+	@Test
 	public void UserAlreadyExistsTest() throws ServletException, IOException {		
 		Mockito.doReturn("useralreadyexiststest").when(request).getParameter("username"); //already in database
 		//Mockito.when().thenThrow(new Exception());
