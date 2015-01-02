@@ -31,6 +31,7 @@ public class Model implements FsmModel, Runnable {
 	String acount_type;
 	int amountOfBets;
 	int attempted_logins;
+	
 	ArrayList<Long> responseTimes = new ArrayList<>();
 
 	public Model(ArrayList<Long> response) {
@@ -89,14 +90,6 @@ public class Model implements FsmModel, Runnable {
 		browser.get("http://localhost:8080/SoftwareTesting/");
 		long timeAfter = cal.getTimeInMillis();
 		responseTimes.add(timeAfter - timeBefore);
-
-		try {
-			new DBConnection("DELETE FROM bets WHERE username = \"Test123\"");
-			new DBConnection("DELETE FROM attempted_logins WHERE username = \"Test123\"");
-			new DBConnection("DELETE FROM PLAYERS WHERE username = \"Test123\"");
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
 	}
 
 	public boolean proceedToRegisterGuard() {
@@ -121,7 +114,7 @@ public class Model implements FsmModel, Runnable {
 	public void proceedToRegisterSuccessful() {
 		FillRegistration reg_form = new FillRegistration(browser);
 		double prob = Math.random();
-		this.username = "Test123";
+		this.username = generateUsername();
 		this.password = "testing123";
 		if (prob > 0.25) {
 			this.acount_type = "free";
@@ -167,7 +160,7 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToLoginFailed() {
 		FillLogin log_form = new FillLogin(browser);
-		log_form.fillForm("Test123", "testing12");
+		log_form.fillForm(this.username, "testing12");
 		this.attempted_logins++;
 		long timeBefore = cal.getTimeInMillis();
 		log_form.submitForm();
@@ -205,7 +198,7 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToBet() {
 		FillLogin log_form = new FillLogin(browser);
-		log_form.fillForm("Test123", "testing123");
+		log_form.fillForm(this.username, "testing123");
 		long timeBefore = cal.getTimeInMillis();
 		log_form.submitForm();
 		assertEquals("http://localhost:8080/SoftwareTesting/BetPage.jsp",
@@ -293,6 +286,12 @@ public class Model implements FsmModel, Runnable {
 				browser.getCurrentUrl());
 		long timeAfter = cal.getTimeInMillis();
 		responseTimes.add(timeAfter - timeBefore);
+	}
+	
+	public String generateUsername(){
+		Random rand = new Random();
+		int randomNum = rand.nextInt((5000)) + 1;
+		return "TestUser"+randomNum;
 	}
 
 	@Override
