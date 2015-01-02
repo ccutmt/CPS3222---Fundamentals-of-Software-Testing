@@ -37,8 +37,8 @@ public class BetServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	public void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Placing bet...");
 		try {
 			DBConnection account_details = new DBConnection(
@@ -98,19 +98,27 @@ public class BetServlet extends HttpServlet {
 					response.setHeader("Location", site);
 				} catch (UnsupportedOperationException oe) {
 					// New location to be redirected
-					
+					BetServlet.this.CurrentBetID--;
 					String site = new String("Pages/InvalidRisk.html");
 
 					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 					response.setHeader("Location", site);
 					oe.printStackTrace();
+				} catch (SQLException se) {
+					// New location to be redirected
+					BetServlet.this.CurrentBetID--;
+					String site = new String("Pages/InvalidBetAmount.html");
+
+					response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+					response.setHeader("Location", site);
+					se.printStackTrace();
 				}
 			}
 
 		} catch (MySQLIntegrityConstraintViolationException primarykey_violation) {
 			BetServlet.this.CurrentBetID--;
 			System.out.println("There exists a bet with the same bet ID!");
-		} catch (SQLException se) {
+		} catch (Exception e) {
 			BetServlet.this.CurrentBetID--;
 
 			// New location to be redirected
@@ -120,7 +128,7 @@ public class BetServlet extends HttpServlet {
 			response.setHeader("Location", site);
 
 			System.out.println("Invalid Bet Parameters");
-			se.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
@@ -176,13 +184,18 @@ public class BetServlet extends HttpServlet {
 	}
 
 	public int ValidateBetAmount(int account_type, int bet_amount,
-			int total_bets) throws SQLException {
+			int total_bets) throws SQLException, Exception {
 		if (bet_amount > 0
 				&& total_bets >= 0
 				&& (((account_type == 0) && (bet_amount <= 5) && (total_bets
 						+ bet_amount <= 15)) || ((account_type == 1) && ((total_bets + bet_amount) <= 5000)))) {
 			return bet_amount;
-		} else
+
+		} else if ((account_type == 1) && ((total_bets + bet_amount) > 5000)) {
+			throw new Exception();
+		}
+
+		else
 			throw new SQLException();
 	}
 

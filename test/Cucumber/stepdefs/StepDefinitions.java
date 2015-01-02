@@ -96,8 +96,8 @@ public class StepDefinitions {
 
 	@Then("^I should be told the bet was successfully placed$")
 	public void i_should_be_told_the_bet_was_successfully_placed() {
-		assertEquals(bet_form.findByClass("message").get(0).getText(),
-				"Bet Successful!");
+		assertEquals("Bet Successful!", bet_form.findByClass("message").get(0)
+				.getText());
 		browser.findElement(By.className("sub")).click();
 	}
 
