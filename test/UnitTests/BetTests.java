@@ -129,7 +129,7 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidateBetAmountFreeZeroBet() throws SQLException {
+	public void ValidateBetAmountFreeZeroBet() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(0, 0, 0);
 
@@ -141,7 +141,7 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidateBetAmountFreeOverLimit() throws SQLException {
+	public void ValidateBetAmountFreeOverLimit() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(0, 10, 0);
 
@@ -153,22 +153,22 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidatBetAmountFreeValid1() throws SQLException {
+	public void ValidatBetAmountFreeValid1() throws SQLException, Exception {
 		assertEquals(5, betservlet.ValidateBetAmount(0, 5, 0));
 	}
 
 	@Test
-	public void ValidatBetAmountFreeValid2() throws SQLException {
+	public void ValidatBetAmountFreeValid2() throws SQLException, Exception {
 		assertEquals(3, betservlet.ValidateBetAmount(0, 3, 0));
 	}
 
 	@Test
-	public void ValidatBetAmountFreeValid3() throws SQLException {
+	public void ValidatBetAmountFreeValid3() throws SQLException, Exception {
 		assertEquals(1, betservlet.ValidateBetAmount(0, 1, 0));
 	}
 
 	@Test
-	public void ValidateBetAmountFreeOverTotal() throws SQLException {
+	public void ValidateBetAmountFreeOverTotal() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(0, 5, 15);
 
@@ -180,12 +180,12 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidatBetAmountFreeMaxCumulatuveBets() throws SQLException {
+	public void ValidatBetAmountFreeMaxCumulatuveBets() throws SQLException, Exception {
 		assertEquals(5, betservlet.ValidateBetAmount(0, 5, 10));
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumZeroBet() throws SQLException {
+	public void ValidateBetAmountPremiumZeroBet() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(1, 0, 0);
 
@@ -197,51 +197,51 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumOverLimit() throws SQLException {
+	public void ValidateBetAmountPremiumOverLimit() throws SQLException, Exception{
 		try {
 			betservlet.ValidateBetAmount(1, 5001, 0);
 
-			fail("expected SQLException");
+			fail("expected Exception");
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// ignore, this exception is expected.
 		}
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumValidBet1() throws SQLException {
+	public void ValidateBetAmountPremiumValidBet1() throws SQLException, Exception {
 		assertEquals(1, betservlet.ValidateBetAmount(1, 1, 0));
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumValidBet2() throws SQLException {
+	public void ValidateBetAmountPremiumValidBet2() throws SQLException, Exception {
 		assertEquals(2000, betservlet.ValidateBetAmount(1, 2000, 0));
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumValidBet3() throws SQLException {
+	public void ValidateBetAmountPremiumValidBet3() throws SQLException, Exception {
 		assertEquals(5000, betservlet.ValidateBetAmount(1, 5000, 0));
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumMaxCumulativeBets() throws SQLException {
+	public void ValidateBetAmountPremiumMaxCumulativeBets() throws SQLException, Exception {
 		assertEquals(2000, betservlet.ValidateBetAmount(1, 2000, 3000));
 	}
 
 	@Test
-	public void ValidateBetAmountPremiumOverTotal() throws SQLException {
+	public void ValidateBetAmountPremiumOverTotal() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(1, 2001, 3000);
 
 			fail("expected SQLException");
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// ignore, this exception is expected.
 		}
 	}
 
 	@Test
-	public void ValidateBetAmountAccountOutofBounds() throws SQLException {
+	public void ValidateBetAmountAccountOutofBounds() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(2, 0, 0);
 
@@ -253,7 +253,7 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidateBetAmountTotalOutofBounds() throws SQLException {
+	public void ValidateBetAmountTotalOutofBounds() throws SQLException, Exception {
 		try {
 			betservlet.ValidateBetAmount(1, 0, -2000);
 
