@@ -123,13 +123,26 @@ public class LoginServlet extends HttpServlet {
 											+ results.get(0) + "\";");
 						}
 
+						//last update
+						/*if(CheckforFiveMinutes(check_logins.getResults().get(0).get(0)) 
+								&& !(results.get(1)
+										.contentEquals(PasswordValidation(request
+												.getParameter("password"))))) {
+							//5minutes passed but password is incorrect
+							// New location to be redirected
+							String site = new String("Pages/LoginTimeout.html");
+
+							response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
+							response.setHeader("Location", site);
+							
+						} else {*/
 						// New location to be redirected
 
 						String site = new String("Pages/LoginFailed.html");
 
 						response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 						response.setHeader("Location", site);
-
+						//}
 						System.out.println("Failed to authenticate user");
 					}
 				} else {
