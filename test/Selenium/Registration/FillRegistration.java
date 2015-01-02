@@ -69,7 +69,7 @@ public class FillRegistration implements FillRegistrationInterface {
 		field.sendKeys("Friggieri");
 
 		field = browser.findElement(By.id("dob"));
-		field.sendKeys("12/12/1994");
+		field.sendKeys("1994/12/12");
 
 		if (type == "premium" || type == "Premium") {
 			WebElement radiobutton = browser
