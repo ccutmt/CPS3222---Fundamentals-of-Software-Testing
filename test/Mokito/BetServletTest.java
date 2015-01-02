@@ -42,6 +42,7 @@ public class BetServletTest {
 		try{
 			new DBConnection("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 					+ "VALUES ( \"bettest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
+			new DBConnection("DELETE from Bets where BetID=\"1\";");
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
@@ -154,7 +155,7 @@ public class BetServletTest {
 		
 		betservlet.doGet(request, response);
 		
-		Mockito.verify(response).setHeader("Location", "Pages/MaxCumulativeBets.html");
+		Mockito.verify(response).setHeader("Location", "Pages/InvalidBetAmount.html");
 	}
 	
 	@Test
@@ -191,6 +192,7 @@ public class BetServletTest {
 		
 		Mockito.verify(response).setHeader("Location", "Pages/MaxCumulativeBets.html");
 	}
+	
 	@After
 	public void tearDown() throws Exception {
 		try {
