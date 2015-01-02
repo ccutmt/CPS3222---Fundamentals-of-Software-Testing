@@ -10,7 +10,7 @@ public interface FillRegistrationInterface {
 	public void closeBrowser();
 	public void fillForm();
 	public void fillForm(String user, String password, String type);
-	public void submitForm(String button);
+	public void submitForm();
 	public void clearField(String field);
 	public List<WebElement> findByID(String name);
 	public List<WebElement> findByClass(String classname);

@@ -89,7 +89,7 @@ public class FillRegistration implements FillRegistrationInterface {
 	}
 
 	@Override
-	public void submitForm(String button) {
+	public void submitForm() {
 		WebElement registerbutton = browser.findElement(By.id("register"));
 		registerbutton.click();
 

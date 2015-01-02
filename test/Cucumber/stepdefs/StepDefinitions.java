@@ -55,7 +55,7 @@ public class StepDefinitions {
 	@When("^I register providing correct information$")
 	public void i_register_providing_correct_information() {
 		reg_form.fillForm();
-		reg_form.submitForm("register");
+		reg_form.submitForm();
 	}
 
 	@Then("^I should be told that the registration was successful$")
@@ -84,14 +84,14 @@ public class StepDefinitions {
 		log_form = new FillLogin(browser);
 		log_form.visitLogin();
 		log_form.fillForm("Afriggieri5", "testing123");
-		log_form.submitForm("login");
+		log_form.submitForm();
 	}
 
 	@When("^I try to place a bet of 5 euros$")
 	public void i_try_to_place_a_bet_of_5_euros() {
 		bet_form = new FillBet(browser);
 		bet_form.fillForm("5", "low");
-		bet_form.submitForm("bet");
+		bet_form.submitForm();
 	}
 
 	@Then("^I should be told the bet was successfully placed$")
@@ -114,21 +114,21 @@ public class StepDefinitions {
 		log_form = new FillLogin(browser);
 		log_form.visitLogin();
 		log_form.fillForm("Afriggieri6", "testing123");
-		log_form.submitForm("login");
+		log_form.submitForm();
 	}
 
 	@When("^I try to place a bet of 5000 euros$")
 	public void i_try_to_place_a_bet_of_5000_euros() {
 		bet_form = new FillBet(browser);
 		bet_form.fillForm("5000", "low");
-		bet_form.submitForm("bet");
+		bet_form.submitForm();
 	}
 
 	@When("^I try to place a bet of 1 euros$")
 	public void i_try_to_place_a_bet_of_1_euros() {
 		bet_form = new FillBet(browser);
 		bet_form.fillForm("1", "low");
-		bet_form.submitForm("bet");
+		bet_form.submitForm();
 	}
 
 	@Then("^I should be told that I have reached the maximum cumulative betting amount$")
@@ -158,7 +158,7 @@ public class StepDefinitions {
 			throws Throwable {
 		bet_form = new FillBet(browser);
 		bet_form.fillForm(arg2, arg1);
-		bet_form.submitForm("bet");
+		bet_form.submitForm();
 	}
 
 	@Then("^I should be \"([^\"]*)\" to bet$")

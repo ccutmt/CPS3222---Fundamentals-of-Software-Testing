@@ -20,9 +20,9 @@
 				
 				<%session.invalidate(); %>
 				
-				<a href="Register.jsp"><input type="button" value="Register"></a>
+				<a href="Register.jsp"><input type="button" value="Register" id="register"></a>
 				
-				<a href="Login.jsp"><input type="button" value="Login"></a>
+				<a href="Login.jsp"><input type="button" value="Login" id="login"></a>
 
 			</form>
 		</div>

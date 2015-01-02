@@ -30,7 +30,7 @@ public class FillLogin implements FillLoginInterface {
 	}
 
 	@Override
-	public void submitForm(String button) {
+	public void submitForm() {
 		WebElement Loginbutton = browser.findElement(By.id("login"));
 		Loginbutton.click();
 

@@ -30,7 +30,7 @@ public class FillBet implements FillBetInterface {
 	}
 
 	@Override
-	public void submitForm(String button) {
+	public void submitForm() {
 		WebElement Betbutton = browser.findElement(By.id("bet"));
 		Betbutton.click();
 	}

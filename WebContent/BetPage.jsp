@@ -63,7 +63,7 @@
 				<div id="register">
 					<input type="submit" value="Place Bet" id="bet"></input>
 				</div>
-				<div class='row'>
+				<div class='row' id="logout">
 					<br> <a
 						href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
 				</div>
