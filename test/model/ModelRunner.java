@@ -11,7 +11,7 @@ import Database.DBConnection;
 
 public class ModelRunner {
 
-	private final int USERS = 5;
+	private final int USERS = 10;
 
 	@Test
 	public void runner() {
@@ -38,6 +38,7 @@ public class ModelRunner {
 		long total = 0;
 		for (int i = 0; i < loadTimes.size(); i++) {
 			total += loadTimes.get(i);
+			System.out.println(i);
 		}
 
 		System.out.println("Total execution time for the test: "
