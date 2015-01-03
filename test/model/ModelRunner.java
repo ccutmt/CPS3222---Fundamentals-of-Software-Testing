@@ -18,7 +18,7 @@ public class ModelRunner {
 		long start_time = System.currentTimeMillis();
 		ArrayList<Long> loadTimes = new ArrayList<>();
 		ExecutorService executor = Executors.newFixedThreadPool(USERS);
-		
+
 		try {
 			new DBConnection("DELETE FROM bets;");
 			new DBConnection("DELETE FROM attempted_logins;");
@@ -26,7 +26,7 @@ public class ModelRunner {
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
-		
+
 		for (int i = 0; i < USERS; i++) {
 			Runnable ptest = new Model(loadTimes);
 			executor.execute(ptest);
@@ -36,15 +36,15 @@ public class ModelRunner {
 		}
 		long end_time = System.currentTimeMillis();
 		long total = 0;
-		for (long i : loadTimes) {
-			total += i;
+		for (int i = 0; i < loadTimes.size(); i++) {
+			total += loadTimes.get(i);
 		}
 
 		System.out.println("Total execution time for the test: "
-				+ (start_time - end_time));
+				+ ((end_time - start_time) / 1000) + " seconds");
 
-		System.out.println("Average response time per page: " + total
-				/ loadTimes.size());
+		System.out.println("Average response time per page: " + (total
+				/ loadTimes.size())+" milliseconds");
 	}
 
 }

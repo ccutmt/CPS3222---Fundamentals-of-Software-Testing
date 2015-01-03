@@ -22,7 +22,6 @@ import Selenium.Login.FillLogin;
 import Selenium.Registration.FillRegistration;
 
 public class Model implements FsmModel, Runnable {
-	Calendar cal = Calendar.getInstance();
 
 	ChromeDriver browser;
 	String url;
@@ -31,7 +30,8 @@ public class Model implements FsmModel, Runnable {
 	String acount_type;
 	int amountOfBets;
 	int attempted_logins;
-	
+	boolean atLeastOneBet;
+
 	ArrayList<Long> responseTimes = new ArrayList<>();
 
 	public Model(ArrayList<Long> response) {
@@ -74,8 +74,11 @@ public class Model implements FsmModel, Runnable {
 		} else if (url
 				.compareTo("http://localhost:8080/SoftwareTesting/Pages/InvalidRisk.html") == 0) {
 			return States.Bet_Risk_Error;
-		} else
+		} else if (url
+				.compareTo("http://localhost:8080/SoftwareTesting/Pages/InvalidBetAmount.html") == 0) {
 			return States.Bet_Amount_Error;
+		} else
+			return null;
 	}
 
 	@Override
@@ -86,9 +89,12 @@ public class Model implements FsmModel, Runnable {
 		this.acount_type = "";
 		this.amountOfBets = 0;
 		this.attempted_logins = 0;
-		long timeBefore = cal.getTimeInMillis();
+		this.atLeastOneBet = false;
+		long timeBefore = System.currentTimeMillis();
+		;
 		browser.get("http://localhost:8080/SoftwareTesting/");
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -98,11 +104,13 @@ public class Model implements FsmModel, Runnable {
 
 	@Action
 	public void proceedToRegister() {
-		long timeBefore = cal.getTimeInMillis();
+		long timeBefore = System.currentTimeMillis();
+		;
 		browser.findElement(By.id("register")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/Register.jsp",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -114,22 +122,37 @@ public class Model implements FsmModel, Runnable {
 	public void proceedToRegisterSuccessful() {
 		FillRegistration reg_form = new FillRegistration(browser);
 		double prob = Math.random();
-		this.username = generateUsername();
-		this.password = "testing123";
-		if (prob > 0.25) {
-			this.acount_type = "free";
-			reg_form.fillForm(this.username, this.password, this.acount_type);
-		} else {
-			this.acount_type = "premium";
-			reg_form.fillForm(this.username, this.password, this.acount_type);
-		}
-		long timeBefore = cal.getTimeInMillis();
-		reg_form.submitForm();
+		do {
+			//do until a unique username is generated
+			if (browser.getCurrentUrl().compareTo("http://localhost:8080/SoftwareTesting/Pages/ErrorAlreadyExists.html")==0){
+				browser.findElement(By.id("back")).click();
+			}
+			
+			this.username = generateUsername();
+			this.password = "testing123";
+			if (prob > 0.25) {
+				this.acount_type = "free";
+				reg_form.fillForm(this.username, this.password,
+						this.acount_type);
+			} else {
+				this.acount_type = "premium";
+				reg_form.fillForm(this.username, this.password,
+						this.acount_type);
+			}
+			long timeBefore = System.currentTimeMillis();
+			;
+			reg_form.submitForm();
+			
+			long timeAfter = System.currentTimeMillis();
+			responseTimes.add(timeAfter - timeBefore);
+		} while (browser
+				.getCurrentUrl()
+				.compareTo(
+						"http://localhost:8080/SoftwareTesting/Pages/RegistrationSuccess.html") != 0);
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/RegistrationSuccess.html",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
-		responseTimes.add(timeAfter - timeBefore);
+
 	}
 
 	public boolean proceedToLoginGuard() {
@@ -140,11 +163,13 @@ public class Model implements FsmModel, Runnable {
 
 	@Action
 	public void proceedToLogin() {
-		long timeBefore = cal.getTimeInMillis();
-		browser.findElement(By.className("sub")).click();
+		long timeBefore = System.currentTimeMillis();
+		;
+		browser.findElement(By.id("login")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/Login.jsp",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -160,36 +185,38 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToLoginFailed() {
 		FillLogin log_form = new FillLogin(browser);
-		log_form.fillForm(this.username, "testing12");
+		log_form.fillForm(this.username, this.password + " ");
 		this.attempted_logins++;
-		long timeBefore = cal.getTimeInMillis();
+		long timeBefore = System.currentTimeMillis();
+		;
 		log_form.submitForm();
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/LoginFailed.html",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
-	public boolean proceedToLoginTimeoutGuard() {
-		return getState().equals(States.LoginPage);
-	}
-
-	@Action
-	public void proceedToLoginTimeout() {
-
-	}
+	// public boolean proceedToLoginTimeoutGuard() {
+	// return getState().equals(States.LoginPage);
+	// }
+	//
+	// @Action
+	// public void proceedToLoginTimeout() {
+	//
+	// }
 
 	public boolean proceedToBetGuard() {
-		double prob = Math.random();
-		if (prob > 0.25 && getState().equals(States.LoginPage)) {
+		// double prob = Math.random();
+		if (/* prob > 0.25 && */getState().equals(States.LoginPage)) {
 			return true;
 		} else if (getState().equals(States.Bet_Amount_Error)
 				|| getState().equals(States.Bet_Cumulative_Error)
 				|| getState().equals(States.Bet_Exceeded3Bets_Error)
 				|| getState().equals(States.Bet_Risk_Error)
 				|| getState().equals(States.Bet_Successful)) {
-			browser.findElement(By.className("sub")).click();
+			browser.findElement(By.id("bet")).click();
 			return true;
 		} else
 			return false;
@@ -198,28 +225,30 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToBet() {
 		FillLogin log_form = new FillLogin(browser);
-		log_form.fillForm(this.username, "testing123");
-		long timeBefore = cal.getTimeInMillis();
+		log_form.fillForm(this.username, this.password);
+		long timeBefore = System.currentTimeMillis();
+		;
 		log_form.submitForm();
 		assertEquals("http://localhost:8080/SoftwareTesting/BetPage.jsp",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
-	public boolean proceedToMoreThan3BetsErrorGuard() {
-		return (getState().equals(States.BettingPage));
-	}
-
-	@Action
-	public void proceedToMoreThan3BetsError() {
-
-	}
+	// public boolean proceedToMoreThan3BetsErrorGuard() {
+	// return (getState().equals(States.BettingPage));
+	// }
+	//
+	// @Action
+	// public void proceedToMoreThan3BetsError() {
+	//
+	// }
 
 	public boolean proceedToBetSuccessGuard() {
-		double prob = Math.random();
+		// double prob = Math.random();
 		double probInvalidBetAmount = Math.random();
-		if ((prob > 0.5 && getState().equals(States.BettingPage))
+		if ((/* prob > 0.5 && */getState().equals(States.BettingPage))
 				&& ((this.acount_type.compareTo("premium") == 0) || (probInvalidBetAmount > (1 / 6)))) {
 			return true;
 		} else
@@ -237,61 +266,67 @@ public class Model implements FsmModel, Runnable {
 			int randomAmount = random.nextInt(2000) + 100;
 			bet_form.fillForm(randomAmount + "", "medium");
 		}
-		long timeBefore = cal.getTimeInMillis();
+		long timeBefore = System.currentTimeMillis();
+		;
 		bet_form.submitForm();
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/BetSuccess.html",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
+		this.atLeastOneBet = true;
 	}
 
-	public boolean proceedToCumulativeErrorGuard() {
-		return getState().equals(States.BettingPage);
-	}
-
-	@Action
-	public void proceedToCumulativeError() {
-
-	}
-
-	public boolean proceedToRiskErrorGuard() {
-		return getState().equals(States.BettingPage);
-	}
-
-	@Action
-	public void proceedToRiskError() {
-
-	}
-
-	public boolean proceedToBetAmountErrorGuard() {
-		return getState().equals(States.BettingPage);
-	}
-
-	@Action
-	public void proceedToBetAmountError() {
-
-	}
+	// public boolean proceedToCumulativeErrorGuard() {
+	// return getState().equals(States.BettingPage);
+	// }
+	//
+	// @Action
+	// public void proceedToCumulativeError() {
+	//
+	// }
+	//
+	// public boolean proceedToRiskErrorGuard() {
+	// return getState().equals(States.BettingPage);
+	// }
+	//
+	// @Action
+	// public void proceedToRiskError() {
+	//
+	// }
+	//
+	// public boolean proceedToBetAmountErrorGuard() {
+	// return getState().equals(States.BettingPage);
+	// }
+	//
+	// @Action
+	// public void proceedToBetAmountError() {
+	//
+	// }
 
 	public boolean logoutGuard() {
 		double ran = Math.random();
-		return (ran <= 0.5 && getState().equals(States.BettingPage));
+		return (ran <= 0.5 && this.atLeastOneBet && getState().equals(
+				States.BettingPage));
 	}
 
 	@Action
 	public void logout() {
-		long timeBefore = cal.getTimeInMillis();
+		long timeBefore = System.currentTimeMillis();
+		;
 		browser.findElement(By.id("logout")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/HomePage.jsp",
 				browser.getCurrentUrl());
-		long timeAfter = cal.getTimeInMillis();
+		long timeAfter = System.currentTimeMillis();
+		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
-	
-	public String generateUsername(){
+
+	public String generateUsername() {
 		Random rand = new Random();
 		int randomNum = rand.nextInt((5000)) + 1;
-		return "TestUser"+randomNum;
+		return "TestUser" + randomNum;
 	}
 
 	@Override
@@ -300,7 +335,7 @@ public class Model implements FsmModel, Runnable {
 		browser = new ChromeDriver();
 		Tester t = new AllRoundTester(this);
 		t.addListener(new VerboseListener());
-		t.generate(10);
+		t.generate(5);
 		t.buildGraph();
 		browser.close();
 	}

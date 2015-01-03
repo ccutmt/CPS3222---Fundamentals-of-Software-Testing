@@ -20,7 +20,7 @@ public class BettingFunctions {
 				if (bets.getResults().get(i).get(1).equals("0")) {
 					html += "<td>" + "Low" + "</td>";
 				} else if (bets.getResults().get(i).get(1).equals("1")) {
-					html += "<td>" + "Middle" + "</td>";
+					html += "<td>" + "Medium" + "</td>";
 				} else {
 					html += "<td>" + "High" + "</td>";
 				}
