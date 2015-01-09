@@ -24,33 +24,33 @@
 				<%session.invalidate(); %>
 			
 				<div class="row">
-					<label for="username">Username</label>
+					<label for="username"></label>
 					<input type="text" name="username" id="username" placeholder="Username"/>
 					<span id="error_username" class="error">Invalid Username</span>
 				</div>
 
 				<div class="row">
-					<label for="password"><br>Password</label> 
+					<label for="password"></label> 
 					<input type="password" placeholder="Password" name="password" id="password"/>
 					<span id="error_password" class="error">Invalid Password</span>
 				</div>
 
 
 				<div class="row">
-					<label for="Name"><br>Name</label> 
+					<label for="Name"></label> 
 					<input type="text" placeholder="Name" name="name" id="name"></input>
 					<span id="error_name" class="error">Invalid Name</span>
 				</div>
 
 				 <div class="row">
-					<label for="Surname"><br>Surname</label> 
+					<label for="Surname"></label> 
 					<input type="text" placeholder="Surname" name="surname" id="surname"/>
 					<span id="error_surname" class="error">Invalid Surname</span>
 				</div>
 
 				<div class="row">
-					<label for="DOB"><br>Date of Birth</label> 
-					<input type="text" name="dob" id="dob"/>
+					<label for="DOB"></label> 
+					<input type="text" placeholder="Date of Birth" name="dob" id="dob"/>
 					<span id="error_dob" class="error">Invalid Date of Birth</span>	
 				</div>
 
@@ -61,19 +61,19 @@
 				</div>
 
 				<div class="row">
-					<label for="CCNumber"><br>CreditCard Number </label> 
+					<label for="CCNumber"><br></label> 
 					<input type="number" placeholder="CreditCard Number" name="cc_num" id="cc_num"/>
 					<span id="error_cc_num" class="error">Invalid Credit Card</span>
 				</div>
 
 				<div class="row">
-					<label for="ccexpiry"><br>CreditCard Expiry Date</label> 
-					<input type="text" name="cc_exp" id="cc_exp" />
+					<label for="ccexpiry"></label> 
+					<input type="text" placeholder="Credit Card Expiry Date" name="cc_exp" id="cc_exp" />
 					<span id="error_cc_exp" class="error">Invalid Credit Card Expiry Date</span>	
 				</div>
 
 				<div class="row">
-					<label for="CCV"><br>CVV</label> 
+					<label for="CCV"></label> 
 					<input type="number" placeholder="CVV" name="cvv" id="cvv" />
 					<span id="error_cvv" class="error">Invalid CVV</span>
 				</div>
