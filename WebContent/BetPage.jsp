@@ -54,7 +54,7 @@
 				</div>
 
 				<div class="row">
-					<label for="BetAmount"><br>Bet Amount </label> <input
+					<label for="BetAmount"></label> <input
 						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
 					<span id="error_bet_amt" class="error">Error in the Bet
 						Amount field </span>
@@ -63,9 +63,11 @@
 				<div id="register">
 					<input type="submit" value="Place Bet" id="bet"></input>
 				</div>
-				<div class='row' >
-					<br> <a
-						id="logout" href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
+				<div class='sub'>
+					<p>
+						<br> <a id="logout"
+							href="http://localhost:8080/SoftwareTesting/HomePage.jsp">Logout</a>
+					</p>
 				</div>
 			</form>
 

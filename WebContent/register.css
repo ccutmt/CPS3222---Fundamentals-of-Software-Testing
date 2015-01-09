@@ -12,16 +12,16 @@ body {
 }
 
 #register-form .fieldset {
-	background-color: #d5d5d5;
+	background-color: #C8C8C8 ;
 	border-radius: 3px;
 }
 
 #register-form legend {
 	text-align: center;
-	background: #364351;
+	background: linear-gradient(#606060  ,#303030  );
 	width: 100%;
 	padding: 30px 0;
-	border-radius: 3px 3px 0 0;
+	border-radius: 5px 5px 0 0;
 	color: white;
 	font-size: 2em;
 }
@@ -33,7 +33,7 @@ body {
 	width: 100%;
 	padding: 30px 20px;
 	box-sizing: border-box;
-	border-radius: 0 0 3px 3px;
+	border-radius: 0 0 5px 5px;
 }
 
 .placeholder #register-form label {
@@ -283,4 +283,17 @@ body {
 
 ::-moz-focus-inner {
 	border: 0;
+}
+
+.sub a {
+	color: white;
+	background: linear-gradient(#300000, #800000 );
+	text-decoration: none;
+	padding: 4px 25px;
+	font-size: 13px;
+	font-family: arial, serif;
+	font-weight: bold;
+	-webkit-border-radius: 3em;
+	-moz-border-radius: .1em;
+	-border-radius: .1em;
 }
