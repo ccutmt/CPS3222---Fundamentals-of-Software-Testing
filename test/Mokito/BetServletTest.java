@@ -54,7 +54,7 @@ public class BetServletTest {
 			new DBConnection("UPDATE players SET Bets = 3 WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}	
 		
 		Mockito.doReturn("bettest").when(request).getParameter("username");
 		
