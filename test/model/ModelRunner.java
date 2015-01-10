@@ -11,7 +11,7 @@ import Database.DBConnection;
 
 public class ModelRunner {
 
-	private final int USERS = 5;
+	private final int USERS = 10;
 
 	@Test
 	public void runner() {

@@ -5,28 +5,28 @@ $(document).ready(function() {
 		var element = $("#username");
 		if (validateUsername(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Password real-time validation
-	$("#password").blur(function() {		
+	$("#password").blur(function() {
 		var element = $("#password");
 		if (validatePassword(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
-			error_element.removeClass('error_show').addClass('error');			
+			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -37,13 +37,13 @@ $(document).ready(function() {
 		var element = $("#name");
 		if (validateName(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid');// .addClass('invalid');
 			element.addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -54,12 +54,12 @@ $(document).ready(function() {
 		var element = $("#surname");
 		if (validateSurname(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -70,12 +70,12 @@ $(document).ready(function() {
 		var element = $("#dob");
 		if (validateDOB(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -87,28 +87,28 @@ $(document).ready(function() {
 		var cctype = validateCCType(element.val());
 		if ((cctype != 0) && LuhnAlgorithm(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
 	// Credit Card Expiry Date real-time validation
-	$("#cc_exp").blur(function() {		
+	$("#cc_exp").blur(function() {
 		var element = $("#cc_exp");
 		if (validateCCExpiryDate(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -119,12 +119,12 @@ $(document).ready(function() {
 		var element = $("#cvv");
 		if (validateCVV(element.val())) {
 			element.removeClass('invalid').addClass('valid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error_show').addClass('error');
 		} else {
 			element.removeClass('valid').addClass('invalid');
-			
+
 			var error_element = $("span", element.parent());
 			error_element.removeClass('error').addClass('error_show');
 		}
@@ -141,15 +141,17 @@ $(document).ready(function() {
 			var valid = element.hasClass('valid');
 			var error_element = $("span", element.parent());
 			if (form_data[input]['name'] != "account_type") {
-				//account type can never be invalid
+				// account type can never be invalid
 				if (!valid) {
 					element.removeClass('valid').addClass('invalid');
 					error_element.removeClass('error').addClass('error_show');
 					error_free = false;
 				} else {
 					error_element.removeClass('error_show').addClass('error');
-					//document.getElementById("register").href = "http://localhost:8080/SoftwareTesting/BetPage.jsp";
-					//document.href = "http://localhost:8080/SoftwareTesting/BetPage.jsp>;
+					// document.getElementById("register").href =
+					// "http://localhost:8080/SoftwareTesting/BetPage.jsp";
+					// document.href =
+					// "http://localhost:8080/SoftwareTesting/BetPage.jsp>;
 				}
 			}
 		}
@@ -272,6 +274,10 @@ function validateSurname(surname) {
 
 // Function to check whether the player registering is bigger than 18-years old
 function validateDOB(dob) {
+	if ((dob[4] != '/'))
+		return false;
+	if (dob[7] != '/')
+		return false;
 	var pl_dob = new Date(dob); // date the player inserted in the DOB field
 	var today = new Date(); // current date
 	if ((today.getFullYear() - pl_dob.getFullYear()) > 18) {
@@ -305,6 +311,8 @@ function validateAccountType(acc_type) {
 // This function checks whether the credit card expiry date given by the user is
 // in the future or not
 function validateCCExpiryDate(exp_dt) {
+	if ((exp_dt[4] != '/'))
+		return false;
 	var today = new Date();
 	var expiry_date = new Date(exp_dt)
 	if (expiry_date.getFullYear() > today.getFullYear()) {
