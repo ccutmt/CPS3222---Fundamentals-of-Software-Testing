@@ -7,6 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 
 <link rel="stylesheet" type="text/css" href="register.css">
+<link rel="stylesheet" type="text/css" href="table.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="betvalidation.js"></script>
 
@@ -28,11 +29,12 @@
 					}
 				%>
 
-				<%=session.getAttribute("usernameforbet")%>
+				<p>User Logged in as: <b><%=session.getAttribute("usernameforbet")%> </b><br></p>
 				<input type="hidden" name="username"
-					value=<%=session.getAttribute("usernameforbet")%> />
+					value=<%=session.getAttribute("usernameforbet")%> /> 
 
 				<div class="row">
+				<div class="CSSTableGenerator">
 					<table style="width: 100%">
 						<tr>
 							<td>BetID</td>
@@ -45,6 +47,7 @@
 									.toString()));
 						%>
 					</table>
+					</div>
 				</div>
 				<div class="row">
 					<label for="risk"><br></label> Risk Level <br> <br>
