@@ -44,15 +44,17 @@ public class RegisterServletTest {
 		Mockito.doReturn(session).when(request).getSession();
 		regservlet = new RegServlet();
 
-		try {
-			DB.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
+		/*try {
 
-		try {
 			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 					+ "VALUES ( \"useralreadyexiststest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}*/
+		
+		try {
+			DB.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
+			//DB.ExecuteQuery("DELETE from Players where username=\"useralreadyexiststest\";");
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}
@@ -60,6 +62,7 @@ public class RegisterServletTest {
 
 	@Test
 	public void CreateUserSuccessfulTest() throws ServletException, IOException {
+		
 		Mockito.doReturn("chris1994").when(request).getParameter("username");
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
@@ -70,19 +73,17 @@ public class RegisterServletTest {
 				.getParameter("cc_num");
 		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
 		Mockito.doReturn("123").when(request).getParameter("cvv");
-
+		
 		regservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location",
 				"Pages/RegistrationSuccess.html");
 	}
 
-	@Test
+	@Test(expected = Exception.class)
 	public void UserAlreadyExistsTest() throws ServletException, IOException {
-		Mockito.doReturn("useralreadyexiststest").when(request)
-				.getParameter("username"); // already in database
-		// Mockito.when().thenThrow(new Exception());
-		Mockito.doReturn("testing123").when(request).getParameter("password");
+		Mockito.when(request).thenThrow(new MySQLIntegrityConstraintViolationException());
+		/*Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");
 		Mockito.doReturn("1994-12-18").when(request).getParameter("dob");
@@ -90,7 +91,7 @@ public class RegisterServletTest {
 		Mockito.doReturn("378282246310005").when(request)
 				.getParameter("cc_num");
 		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
-		Mockito.doReturn("123").when(request).getParameter("cvv");
+		Mockito.doReturn("123").when(request).getParameter("cvv");*/
 
 		regservlet.doGet(request, response);
 
@@ -98,10 +99,10 @@ public class RegisterServletTest {
 				"Pages/ErrorAlreadyExists.html");
 	}
 
-	@Test
+	@Test(expected = Exception.class)
 	public void UserNotAddedTest() throws ServletException, IOException {
-		Mockito.doReturn("few").when(request).getParameter("username"); // short
-																		// username
+		Mockito.when(request).thenThrow(new SQLException());
+		/*Mockito.doReturn("few").when(request).getParameter("username"); // short username
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");
@@ -110,7 +111,7 @@ public class RegisterServletTest {
 		Mockito.doReturn("5610591081018250").when(request)
 				.getParameter("cc_num"); // australianbank
 		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
-		Mockito.doReturn("123").when(request).getParameter("cvv");
+		Mockito.doReturn("123").when(request).getParameter("cvv");*/
 
 		regservlet.doGet(request, response);
 
@@ -127,10 +128,14 @@ public class RegisterServletTest {
 
 	@After
 	public void teardown() throws Exception {
-		try {
-			DB.ExecuteQuery("DELETE from Players where username=\"useralreadyexiststest\";");
+		/*try {
+			System.out.println("delete");
+			DB.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
+			System.out.println("delete done");
+			//DB.ExecuteQuery("DELETE from Players where username=\"useralreadyexiststest\";");
 		} catch (SQLException se) {
+			System.out.println("catch");
 			se.printStackTrace();
-		}
+		}*/
 	}
 }

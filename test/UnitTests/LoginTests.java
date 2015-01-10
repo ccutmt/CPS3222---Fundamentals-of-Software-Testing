@@ -81,12 +81,6 @@ public class LoginTests {
 	}
 
 	@Test
-	public void CheckforFiveMinutesPass() throws ParseException {
-		assertEquals(true,
-				loginservlet.CheckforFiveMinutes("2014-12-14 18:00:00"));
-	}
-
-	@Test
 	public void CheckforFiveMinutesUsingSameTime() throws ParseException {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();

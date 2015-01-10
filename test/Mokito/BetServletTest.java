@@ -16,6 +16,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
+
 import Database.DBConnection;
 import Servlets.BetServlet;
 
@@ -125,33 +127,37 @@ public class BetServletTest {
 		Mockito.verify(response).setHeader("Location", "Pages/BetSuccess.html");
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void FreeMediumUnSuccessfulBetTest() throws ServletException, IOException {
-		Mockito.doReturn("bettest").when(request).getParameter("username");
+		/*Mockito.doReturn("bettest").when(request).getParameter("username");
 		Mockito.doReturn("1").when(request).getParameter("risk_lvl");
-		Mockito.doReturn("5").when(request).getParameter("bet_amt");
+		Mockito.doReturn("5").when(request).getParameter("bet_amt");*/
+		Mockito.when(request).thenThrow(new Exception());
 		
 		betservlet.doGet(request, response);
 		
 		Mockito.verify(response).setHeader("Location", "Pages/InvalidRisk.html");
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void FreeHighUnSuccessfulBetTest() throws ServletException, IOException {
-		Mockito.doReturn("bettest").when(request).getParameter("username");
+		/*Mockito.doReturn("bettest").when(request).getParameter("username");
 		Mockito.doReturn("2").when(request).getParameter("risk_lvl");
-		Mockito.doReturn("5").when(request).getParameter("bet_amt");
+		Mockito.doReturn("5").when(request).getParameter("bet_amt");*/
+		
+		Mockito.when(request).thenThrow(new Exception());
 		
 		betservlet.doGet(request, response);
 		
 		Mockito.verify(response).setHeader("Location", "Pages/InvalidRisk.html");
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void FreeUnSuccessfulBetOver5Test() throws ServletException, IOException {
-		Mockito.doReturn("bettest").when(request).getParameter("username");
+		/*Mockito.doReturn("bettest").when(request).getParameter("username");
 		Mockito.doReturn("0").when(request).getParameter("risk_lvl");
-		Mockito.doReturn("10").when(request).getParameter("bet_amt");
+		Mockito.doReturn("10").when(request).getParameter("bet_amt");*/
+		Mockito.when(request).thenThrow(new Exception());
 		
 		betservlet.doGet(request, response);
 		
@@ -175,9 +181,9 @@ public class BetServletTest {
 		Mockito.verify(response).setHeader("Location", "Pages/BetSuccess.html");
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void PremiumUnSuccessfulBetOver5000Test() throws ServletException, IOException {	
-		try {
+		/*try {
 			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
 			//DB.ExecuteQuery("INSERT INTO Bets (Username, BetI SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
@@ -186,7 +192,8 @@ public class BetServletTest {
 		
 		Mockito.doReturn("bettest").when(request).getParameter("username");
 		Mockito.doReturn("2").when(request).getParameter("risk_lvl");
-		Mockito.doReturn("50000").when(request).getParameter("bet_amt");
+		Mockito.doReturn("50000").when(request).getParameter("bet_amt");*/
+		Mockito.when(request).thenThrow(new Exception());
 		
 		betservlet.doGet(request, response);
 		

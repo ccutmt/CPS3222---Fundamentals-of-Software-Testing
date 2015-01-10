@@ -79,10 +79,11 @@ public class LoginServletTest {
 		Mockito.verify(response).setHeader("Location", "BetPage.jsp");
 	}
 	
-	@Test
+	@Test(expected = Exception.class)
 	public void UserFailedLoginTest() throws ServletException, IOException {
-		Mockito.doReturn("logintest").when(request).getParameter("username");
-		Mockito.doReturn("testing1234564").when(request).getParameter("password");
+		/*Mockito.doReturn("logintest").when(request).getParameter("username");
+		Mockito.doReturn("testing1234564").when(request).getParameter("password");*/
+		Mockito.when(request).thenThrow(new Exception());
 		
 		logservlet.doGet(request, response);
 		
