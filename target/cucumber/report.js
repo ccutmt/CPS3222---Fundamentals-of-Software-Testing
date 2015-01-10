@@ -7,7 +7,7 @@ formatter.feature({
   "keyword": "Feature"
 });
 formatter.before({
-  "duration": 2397839800,
+  "duration": 2150158363,
   "status": "passed"
 });
 formatter.scenario({
@@ -37,29 +37,30 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2116634817,
+  "duration": 1002974047,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_register_providing_correct_information()"
 });
 formatter.result({
-  "duration": 864065832,
+  "duration": 1094273945,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_that_the_registration_was_successful()"
 });
 formatter.result({
-  "duration": 45829340,
-  "status": "passed"
+  "duration": 38300282,
+  "error_message": "org.junit.ComparisonFailure: expected:\u003c[Error occured! - User Already Exists]\u003e but was:\u003c[Registration Successful! - Proceed to Login Page]\u003e\r\n\tat org.junit.Assert.assertEquals(Assert.java:115)\r\n\tat org.junit.Assert.assertEquals(Assert.java:144)\r\n\tat Cucumber.stepdefs.StepDefinitions.i_should_be_told_that_the_registration_was_successful(StepDefinitions.java:66)\r\n\tat ✽.Then I should be told that the registration was successful(test/resources/features/resources.feature:8)\r\n",
+  "status": "failed"
 });
 formatter.after({
-  "duration": 1135801567,
+  "duration": 1138323753,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1388848817,
+  "duration": 1364035405,
   "status": "passed"
 });
 formatter.scenario({
@@ -97,7 +98,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2372192037,
+  "duration": 1476313378,
   "status": "passed"
 });
 formatter.match({
@@ -110,7 +111,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 679876513,
+  "duration": 621408052,
   "status": "passed"
 });
 formatter.match({
@@ -131,15 +132,15 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 38487038,
+  "duration": 34785864,
   "status": "passed"
 });
 formatter.after({
-  "duration": 1125657409,
+  "duration": 1179419594,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1360696420,
+  "duration": 1335402003,
   "status": "passed"
 });
 formatter.scenario({
@@ -177,7 +178,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2407054521,
+  "duration": 1134264502,
   "status": "passed"
 });
 formatter.match({
@@ -190,7 +191,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 677412521,
+  "duration": 617094903,
   "status": "passed"
 });
 formatter.match({
@@ -211,15 +212,15 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 40430480,
+  "duration": 37397136,
   "status": "passed"
 });
 formatter.after({
-  "duration": 1123162218,
+  "duration": 1169271691,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1344267484,
+  "duration": 1319296635,
   "status": "passed"
 });
 formatter.scenario({
@@ -257,7 +258,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2373143232,
+  "duration": 1332211986,
   "status": "passed"
 });
 formatter.match({
@@ -270,7 +271,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 656941112,
+  "duration": 599672743,
   "status": "passed"
 });
 formatter.match({
@@ -291,15 +292,15 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 49630421,
+  "duration": 32050991,
   "status": "passed"
 });
 formatter.after({
-  "duration": 1135930062,
+  "duration": 1133558584,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1347615754,
+  "duration": 1306958690,
   "status": "passed"
 });
 formatter.scenario({
@@ -337,7 +338,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2382596059,
+  "duration": 1572230745,
   "status": "passed"
 });
 formatter.match({
@@ -350,7 +351,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 670196664,
+  "duration": 594118214,
   "status": "passed"
 });
 formatter.match({
@@ -371,15 +372,15 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 39478875,
+  "duration": 32300427,
   "status": "passed"
 });
 formatter.after({
-  "duration": 1161691952,
+  "duration": 1139999304,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1399967568,
+  "duration": 1313912115,
   "status": "passed"
 });
 formatter.scenario({
@@ -417,7 +418,7 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_trying_to_register()"
 });
 formatter.result({
-  "duration": 2354125092,
+  "duration": 1184028140,
   "status": "passed"
 });
 formatter.match({
@@ -430,7 +431,7 @@ formatter.match({
   "location": "StepDefinitions.i_fill_in_a_form_with_correct_data_and_I_change_the_field_to_have_incorrect_input(String)"
 });
 formatter.result({
-  "duration": 662574793,
+  "duration": 605151415,
   "status": "passed"
 });
 formatter.match({
@@ -451,15 +452,15 @@ formatter.match({
   "location": "StepDefinitions.i_should_be_told_in_that_the_data_in_is(String,String,String)"
 });
 formatter.result({
-  "duration": 35932731,
+  "duration": 32323630,
   "status": "passed"
 });
 formatter.after({
-  "duration": 1163063527,
+  "duration": 1180480256,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1376193868,
+  "duration": 1328073309,
   "status": "passed"
 });
 formatter.scenario({
@@ -489,29 +490,30 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
 });
 formatter.result({
-  "duration": 2653713127,
+  "duration": 1316128482,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 403153268,
+  "duration": 403426692,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
 });
 formatter.result({
-  "duration": 147552532,
-  "status": "passed"
+  "duration": 34564094,
+  "error_message": "org.junit.ComparisonFailure: expected:\u003c[Bet Successful!]\u003e but was:\u003c[You are not allowed to make more than 3 bets!\n\nPlease register as a premium user]\u003e\r\n\tat org.junit.Assert.assertEquals(Assert.java:115)\r\n\tat org.junit.Assert.assertEquals(Assert.java:144)\r\n\tat Cucumber.stepdefs.StepDefinitions.i_should_be_told_the_bet_was_successfully_placed(StepDefinitions.java:102)\r\n\tat ✽.Then I should be told the bet was successfully placed(test/resources/features/resources.feature:27)\r\n",
+  "status": "failed"
 });
 formatter.after({
-  "duration": 1132774741,
+  "duration": 1126265141,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1408989751,
+  "duration": 1304742322,
   "status": "passed"
 });
 formatter.scenario({
@@ -571,71 +573,66 @@ formatter.match({
   "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
 });
 formatter.result({
-  "duration": 3507319927,
+  "duration": 1292288807,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 343632807,
+  "duration": 426346710,
   "status": "passed"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
 });
 formatter.result({
-  "duration": 119433799,
-  "status": "passed"
+  "duration": 34011229,
+  "error_message": "org.junit.ComparisonFailure: expected:\u003c[Bet Successful!]\u003e but was:\u003c[You are not allowed to make more than 3 bets!\n\nPlease register as a premium user]\u003e\r\n\tat org.junit.Assert.assertEquals(Assert.java:115)\r\n\tat org.junit.Assert.assertEquals(Assert.java:144)\r\n\tat Cucumber.stepdefs.StepDefinitions.i_should_be_told_the_bet_was_successfully_placed(StepDefinitions.java:102)\r\n\tat ✽.Then I should be told the bet was successfully placed(test/resources/features/resources.feature:32)\r\n",
+  "status": "failed"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 224194902,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
 });
 formatter.result({
-  "duration": 120784437,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 193202881,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
 });
 formatter.result({
-  "duration": 112267615,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.match({
   "location": "StepDefinitions.i_try_to_place_a_bet_of_5_euros()"
 });
 formatter.result({
-  "duration": 157940132,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.match({
   "location": "StepDefinitions.i_should_be_told_that_i_have_reached_the_maximum_number_of_bets()"
 });
 formatter.result({
-  "duration": 34362870,
-  "status": "passed"
+  "status": "skipped"
 });
 formatter.after({
-  "duration": 1140245537,
+  "duration": 1129570282,
   "status": "passed"
 });
 formatter.before({
-  "duration": 1394039127,
+  "duration": 1308012658,
   "status": "passed"
 });
 formatter.scenario({
@@ -669,319 +666,4 @@ formatter.step({
 formatter.step({
   "line": 45,
   "name": "I should be told that I have reached the maximum cumulative betting amount",
-  "keyword": "Then "
-});
-formatter.match({
-  "location": "StepDefinitions.i_am_a_user_with_a_premium_account()"
-});
-formatter.result({
-  "duration": 3515064135,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_try_to_place_a_bet_of_5000_euros()"
-});
-formatter.result({
-  "duration": 361534719,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_should_be_told_the_bet_was_successfully_placed()"
-});
-formatter.result({
-  "duration": 133450882,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_try_to_place_a_bet_of_1_euros()"
-});
-formatter.result({
-  "duration": 205895598,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_should_be_told_that_i_have_reached_the_maximum_cumulative_betting_amount()"
-});
-formatter.result({
-  "duration": 121301704,
-  "status": "passed"
-});
-formatter.after({
-  "duration": 1204457928,
-  "status": "passed"
-});
-formatter.before({
-  "duration": 1393530073,
-  "status": "passed"
-});
-formatter.scenario({
-  "line": 47,
-  "name": "Verify access restriction for guest users",
-  "description": "",
-  "id": "basic-betting-functionality;verify-access-restriction-for-guest-users",
-  "type": "scenario",
-  "keyword": "Scenario"
-});
-formatter.step({
-  "line": 48,
-  "name": "I am a user who has not yet logged on",
-  "keyword": "Given "
-});
-formatter.step({
-  "line": 49,
-  "name": "I try to access the betting screen",
-  "keyword": "When "
-});
-formatter.step({
-  "line": 50,
-  "name": "I should be refused access",
-  "keyword": "Then "
-});
-formatter.match({
-  "location": "StepDefinitions.i_am_a_user_who_has_not_yet_logged_on()"
-});
-formatter.result({
-  "duration": 36947,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_try_to_access_the_betting_screen()"
-});
-formatter.result({
-  "duration": 3112387489,
-  "status": "passed"
-});
-formatter.match({
-  "location": "StepDefinitions.i_should_be_refused_access()"
-});
-formatter.result({
-  "duration": 54851111,
-  "status": "passed"
-});
-formatter.after({
-  "duration": 1126672236,
-  "status": "passed"
-});
-formatter.before({
-  "duration": 1374560786,
-  "status": "passed"
-});
-formatter.scenario({
-  "line": 60,
-  "name": "Verify that free users can only place low-risk bets",
-  "description": "",
-  "id": "basic-betting-functionality;verify-that-free-users-can-only-place-low-risk-bets;;2",
-  "type": "scenario",
-  "keyword": "Scenario Outline"
-});
-formatter.step({
-  "line": 53,
-  "name": "I am a user with a free account",
-  "keyword": "Given "
-});
-formatter.step({
-  "line": 54,
-  "name": "I try to place a \"low\" bet of 5 euros",
-  "matchedColumns": [
-    0
-  ],
-  "keyword": "When "
-});
-formatter.step({
-  "line": 55,
-  "name": "I should be \"Bet Successful!\" to bet",
-  "matchedColumns": [
-    1
-  ],
-  "keyword": "Then "
-});
-formatter.match({
-  "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
-});
-formatter.result({
-  "duration": 3428536651,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "low",
-      "offset": 18
-    },
-    {
-      "val": "5",
-      "offset": 30
-    }
-  ],
-  "location": "StepDefinitions.i_try_to_place_a_bet_of_euros(String,String)"
-});
-formatter.result({
-  "duration": 366795641,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "Bet Successful!",
-      "offset": 13
-    }
-  ],
-  "location": "StepDefinitions.i_should_be_to_bet(String)"
-});
-formatter.result({
-  "duration": 40382449,
-  "status": "passed"
-});
-formatter.after({
-  "duration": 1119182145,
-  "status": "passed"
-});
-formatter.before({
-  "duration": 1415016308,
-  "status": "passed"
-});
-formatter.scenario({
-  "line": 61,
-  "name": "Verify that free users can only place low-risk bets",
-  "description": "",
-  "id": "basic-betting-functionality;verify-that-free-users-can-only-place-low-risk-bets;;3",
-  "type": "scenario",
-  "keyword": "Scenario Outline"
-});
-formatter.step({
-  "line": 53,
-  "name": "I am a user with a free account",
-  "keyword": "Given "
-});
-formatter.step({
-  "line": 54,
-  "name": "I try to place a \"medium\" bet of 5 euros",
-  "matchedColumns": [
-    0
-  ],
-  "keyword": "When "
-});
-formatter.step({
-  "line": 55,
-  "name": "I should be \"You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user\" to bet",
-  "matchedColumns": [
-    1
-  ],
-  "keyword": "Then "
-});
-formatter.match({
-  "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
-});
-formatter.result({
-  "duration": 3474251453,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "medium",
-      "offset": 18
-    },
-    {
-      "val": "5",
-      "offset": 33
-    }
-  ],
-  "location": "StepDefinitions.i_try_to_place_a_bet_of_euros(String,String)"
-});
-formatter.result({
-  "duration": 345876756,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user",
-      "offset": 13
-    }
-  ],
-  "location": "StepDefinitions.i_should_be_to_bet(String)"
-});
-formatter.result({
-  "duration": 45664307,
-  "status": "passed"
-});
-formatter.after({
-  "duration": 1123415515,
-  "status": "passed"
-});
-formatter.before({
-  "duration": 1390824690,
-  "status": "passed"
-});
-formatter.scenario({
-  "line": 62,
-  "name": "Verify that free users can only place low-risk bets",
-  "description": "",
-  "id": "basic-betting-functionality;verify-that-free-users-can-only-place-low-risk-bets;;4",
-  "type": "scenario",
-  "keyword": "Scenario Outline"
-});
-formatter.step({
-  "line": 53,
-  "name": "I am a user with a free account",
-  "keyword": "Given "
-});
-formatter.step({
-  "line": 54,
-  "name": "I try to place a \"high\" bet of 5 euros",
-  "matchedColumns": [
-    0
-  ],
-  "keyword": "When "
-});
-formatter.step({
-  "line": 55,
-  "name": "I should be \"You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user\" to bet",
-  "matchedColumns": [
-    1
-  ],
-  "keyword": "Then "
-});
-formatter.match({
-  "location": "StepDefinitions.i_am_a_user_with_a_free_account()"
-});
-formatter.result({
-  "duration": 3485538521,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "high",
-      "offset": 18
-    },
-    {
-      "val": "5",
-      "offset": 31
-    }
-  ],
-  "location": "StepDefinitions.i_try_to_place_a_bet_of_euros(String,String)"
-});
-formatter.result({
-  "duration": 347571006,
-  "status": "passed"
-});
-formatter.match({
-  "arguments": [
-    {
-      "val": "You are not allowed to place bets with risk medium or higher!\n\nPlease register as a premium user",
-      "offset": 13
-    }
-  ],
-  "location": "StepDefinitions.i_should_be_to_bet(String)"
-});
-formatter.result({
-  "duration": 40034731,
-  "status": "passed"
-});
-formatter.after({
-  "duration": 1109283894,
-  "status": "passed"
-});
-});
+  "ke
