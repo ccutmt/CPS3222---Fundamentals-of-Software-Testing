@@ -13,10 +13,21 @@ public class DBConnection {
 	// stores a single record with any amount of fields
 	private ArrayList<ArrayList<String>> result;
 
-	public DBConnection() {
+	private static DBConnection dbConnection = null;
+	
+	private DBConnection() {
 		this.result = new ArrayList<>();
 	}
 
+	
+	public static DBConnection getInstance()
+	{
+		if(dbConnection == null)
+		{
+			dbConnection = new DBConnection();
+		}
+		return dbConnection;
+	}
 	public void ExecuteQuery(String query) throws SQLException {
 		this.result.clear();
 		try {

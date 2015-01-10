@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.Matchers.anyString;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
@@ -43,6 +44,9 @@ public class RegisterServletTest {
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		regservlet = new RegServlet();
+		
+		regservlet.insert_player = Mockito.mock(DBConnection.class);
+		DB = regservlet.insert_player;
 		
 		/*request = Mockito.mock(HttpServletRequest.class);
 		response = Mockito.mock(HttpServletResponse.class);
@@ -80,17 +84,23 @@ public class RegisterServletTest {
 		Mockito.verify(response).setHeader("Location",
 				"Pages/RegistrationSuccess.html");
 		
-		try {
+		/*try {
 			DBConnection delete_player = new DBConnection();
 			delete_player.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
 		} catch (SQLException se) {
 			se.printStackTrace();
-		}
+		}*/
 	}
 
-	@Test(expected = Exception.class)
-	public void UserAlreadyExistsTest() throws ServletException, IOException {
-		Mockito.when(request).thenThrow(new MySQLIntegrityConstraintViolationException());
+	@Test//(expected = Exception.class)
+	public void UserAlreadyExistsTest() throws ServletException, IOException, SQLException {
+		//Mockito.when(request.getParameter(anyString())).thenThrow(new MySQLIntegrityConstraintViolationException());
+		
+		
+		//Mockito.when((DB.ExecuteQuery(anyString()))).thenThrow(new MySQLIntegrityConstraintViolationException());
+		Mockito.doReturn("someString").when(request).getParameter(anyString());
+		Mockito.doReturn("378282246310005").when(request).getParameter("cc_num");
+		Mockito.doThrow(new MySQLIntegrityConstraintViolationException()).when(DB).ExecuteQuery(anyString());
 		/*Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
 		Mockito.doReturn("Cutajar").when(request).getParameter("surname");

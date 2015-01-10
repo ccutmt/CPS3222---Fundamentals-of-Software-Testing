@@ -24,6 +24,7 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 public class RegServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public DBConnection insert_player = DBConnection.getInstance();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -41,7 +42,7 @@ public class RegServlet extends HttpServlet {
 		System.out.println("Executing Registration Servlet");
 		//PrintWriter writer = response.getWriter();
 		try {
-			DBConnection insert_player = new DBConnection();
+			//DBConnection insert_player = new DBConnection();
 			insert_player.ExecuteQuery(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \""
