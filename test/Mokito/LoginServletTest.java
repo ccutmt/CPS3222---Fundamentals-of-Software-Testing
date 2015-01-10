@@ -37,11 +37,17 @@ public class LoginServletTest {
 	@Before
 	public void setUp() throws Exception {		
 		MockitoAnnotations.initMocks(this);
+		logservlet = new LoginServlet();
+		
 		request = Mockito.mock(HttpServletRequest.class);
 		response = Mockito.mock(HttpServletResponse.class);
 		writer = Mockito.mock(PrintWriter.class);
 		session = Mockito.mock(HttpSession.class);
 		DB = Mockito.mock(DBConnection.class);
+		
+		logservlet.login_player = Mockito.mock(DBConnection.class);
+		DB = logservlet.login_player;
+		
 		Mockito.doReturn(session).when(request).getSession();
 		
 		/*String query = "INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
@@ -54,8 +60,6 @@ public class LoginServletTest {
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
-		
-		logservlet = new LoginServlet();
 	}
 	
 	@Test

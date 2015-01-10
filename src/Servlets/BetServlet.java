@@ -25,7 +25,7 @@ public class BetServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
-	DBConnection place_bet = DBConnection.getInstance();
+	public DBConnection place_bet = DBConnection.getInstance();
 
 	/**
 	 * @see HttpServlet#HttpServlet()

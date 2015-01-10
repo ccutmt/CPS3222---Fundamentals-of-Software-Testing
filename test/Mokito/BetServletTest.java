@@ -32,14 +32,18 @@ public class BetServletTest {
 
 	@Before
 	public void setUp() throws Exception {
+		betservlet = new BetServlet();
+		
 		request = Mockito.mock(HttpServletRequest.class);
 		response = Mockito.mock(HttpServletResponse.class);
 		writer = Mockito.mock(PrintWriter.class);
 		session = Mockito.mock(HttpSession.class);
 		DB = Mockito.mock(DBConnection.class);
-		Mockito.doReturn(session).when(request).getSession();
 		
-		betservlet = new BetServlet();
+		betservlet.place_bet = Mockito.mock(DBConnection.class);
+		DB = betservlet.place_bet;
+		
+		Mockito.doReturn(session).when(request).getSession();
 
 		try{
 			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
