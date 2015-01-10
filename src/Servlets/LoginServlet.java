@@ -28,6 +28,8 @@ import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public DBConnection login_player = DBConnection.getInstance();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -45,15 +47,15 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Executing Login Servlet");
 
 		try {
-			DBConnection db = new DBConnection();
-			db.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \""
-					+ UsernameValidation(request.getParameter("username"))
-					+ "\";");
+			ArrayList<ArrayList<String>> users = login_player
+					.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \""
+							+ UsernameValidation(request
+									.getParameter("username")) + "\";");
 
 			// Set response content type
 			response.setContentType("text/html");
 
-			if (db.getResults().size() == 0) {
+			if (users.size() == 0) {
 				// user not in database
 				// New location to be redirected
 				String site = new String("Pages/UserNotFound.html");
@@ -63,37 +65,33 @@ public class LoginServlet extends HttpServlet {
 
 				System.out.println("User not registered yet");
 			} else {
-				ArrayList<String> results = db.getResults().get(0);
+				ArrayList<String> user = users.get(0);
 				// check for any attempted logins
-				DBConnection check_logins = new DBConnection();
-				check_logins
+				ArrayList<ArrayList<String>> check_logins = login_player
 						.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 								+ UsernameValidation(request
 										.getParameter("username")) + "\";");
 
-				if (check_logins.getResults().size() == 0
-						|| Integer.parseInt(check_logins.getResults().get(0)
-								.get(1)) < 3
-						|| CheckforFiveMinutes(check_logins.getResults().get(0)
-								.get(0))) {
+				if (check_logins.size() == 0
+						|| Integer.parseInt(check_logins.get(0).get(1)) < 3
+						|| CheckforFiveMinutes(check_logins.get(0).get(0))) {
 					// authenticate user
-					DBConnection user_authenticated = new DBConnection();
 
-					if (!results.get(0).isEmpty()
-							&& (results.get(1)
+					if (!user.get(0).isEmpty()
+							&& (user.get(1)
 									.contentEquals(PasswordValidation(request
 											.getParameter("password"))))) {
 
 						// user authenticated successfully
-						System.out.println(results.get(0) + " logged on");
+						System.out.println(user.get(0) + " logged on");
 
 						// remove attempted logins for the user
-						user_authenticated
+						login_player
 								.ExecuteQuery("DELETE FROM attempted_logins WHERE username = \""
-										+ results.get(0) + "\";");
+										+ user.get(0) + "\";");
 
 						HttpSession session = request.getSession();
-						session.setAttribute("usernameforbet", results.get(0));
+						session.setAttribute("usernameforbet", user.get(0));
 
 						// New location to be redirected
 						String site = new String("BetPage.jsp");
@@ -108,24 +106,24 @@ public class LoginServlet extends HttpServlet {
 						Calendar cal = Calendar.getInstance();
 
 						try {
-							user_authenticated
+							login_player
 									.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
-											+ results.get(0)
+											+ user.get(0)
 											+ "\", \""
 											+ dateFormat.format(cal.getTime())
 											+ "\", \"1\");");
 						} catch (MySQLIntegrityConstraintViolationException e) {
-							user_authenticated
+							login_player
 									.ExecuteQuery("UPDATE attempted_logins SET last_login = \""
 											+ dateFormat.format(cal.getTime())
 											+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
-											+ results.get(0) + "\";");
+											+ user.get(0) + "\";");
 						}
 
 						// last update
 						/*
 						 * if(CheckforFiveMinutes(check_logins.getResults().get(0
-						 * ).get(0)) && !(results.get(1)
+						 * ).get(0)) && !(user.get(1)
 						 * .contentEquals(PasswordValidation(request
 						 * .getParameter("password"))))) { //5minutes passed but
 						 * password is incorrect // New location to be

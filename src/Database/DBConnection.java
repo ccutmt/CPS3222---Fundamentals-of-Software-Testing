@@ -28,7 +28,7 @@ public class DBConnection {
 		}
 		return dbConnection;
 	}
-	public void ExecuteQuery(String query) throws SQLException {
+	public ArrayList<ArrayList<String>> ExecuteQuery(String query) throws SQLException {
 		this.result.clear();
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -69,9 +69,6 @@ public class DBConnection {
 			ex.printStackTrace();
 			System.exit(1);
 		}
-	}
-
-	public ArrayList<ArrayList<String>> getResults() {
-		return this.result;
+		return result;
 	}
 }

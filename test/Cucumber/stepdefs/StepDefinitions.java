@@ -24,18 +24,22 @@ public class StepDefinitions {
 	FillLogin log_form;
 	FillBet bet_form;
 
+	DBConnection cucumber_connection = DBConnection.getInstance();
+
 	@Before
 	public void setUp() throws Exception {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		browser = new ChromeDriver();
 
-		DBConnection init = new DBConnection();
 		try {
-			init.ExecuteQuery("DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+			cucumber_connection
+					.ExecuteQuery("DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
-			init.ExecuteQuery("DELETE from attempted_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+			cucumber_connection
+					.ExecuteQuery("DELETE from attempted_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
-			init.ExecuteQuery("DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+			cucumber_connection
+					.ExecuteQuery("DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -168,9 +172,8 @@ public class StepDefinitions {
 	}
 
 	private void CreateFreeAccount() {
-		DBConnection free_account = new DBConnection();
 		try {
-			free_account
+			cucumber_connection
 					.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \"Afriggieri5\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 0, 371449635398431, \"2018/05/30\", 123, 0 );");
 		} catch (SQLException e) {
@@ -179,9 +182,8 @@ public class StepDefinitions {
 	}
 
 	private void CreatePremiumAccount() {
-		DBConnection premium_account = new DBConnection();
 		try {
-			premium_account
+			cucumber_connection
 					.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \"Afriggieri6\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 1, 371449635398431, \"2018/05/30\", 123, 0 );");
 		} catch (SQLException e) {

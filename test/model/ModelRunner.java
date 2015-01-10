@@ -18,7 +18,7 @@ public class ModelRunner {
 		long start_time = System.currentTimeMillis();
 		ArrayList<Long> loadTimes = new ArrayList<>();
 		ExecutorService executor = Executors.newFixedThreadPool(USERS);
-		DBConnection init = new DBConnection();
+		DBConnection init = DBConnection.getInstance();
 
 		try {
 			init.ExecuteQuery("DELETE FROM bets;");
@@ -45,8 +45,8 @@ public class ModelRunner {
 		System.out.println("Total execution time for the test: "
 				+ ((end_time - start_time) / 1000) + " seconds");
 
-		System.out.println("Average response time per page: " + (total
-				/ loadTimes.size())+" milliseconds");
+		System.out.println("Average response time per page: "
+				+ (total / loadTimes.size()) + " milliseconds");
 	}
 
 }

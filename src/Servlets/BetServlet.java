@@ -25,6 +25,8 @@ public class BetServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	DBConnection place_bet = DBConnection.getInstance();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,24 +41,21 @@ public class BetServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		DBConnection account_details = new DBConnection();
-		DBConnection total_bets = new DBConnection();
+
 		System.out.println("Placing bet...");
 		try {
-			account_details.ExecuteQuery(
-					"SELECT account, Bets FROM players WHERE Username = \""
+			ArrayList<ArrayList<String>> account_details = place_bet
+					.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			total_bets.ExecuteQuery(
-					"SELECT sum(amount) FROM bets WHERE Username = \""
+			ArrayList<ArrayList<String>> total_bets = place_bet
+					.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			if (Integer.parseInt(account_details.getResults().get(0).get(0)) == 0
-					&& Integer.parseInt(account_details.getResults().get(0)
-							.get(1)) >= 3) {
+			if (Integer.parseInt(account_details.get(0).get(0)) == 0
+					&& Integer.parseInt(account_details.get(0).get(1)) >= 3) {
 
 				// free users cannot make more than 3 bets
 				// New location to be redirected
@@ -68,31 +67,29 @@ public class BetServlet extends HttpServlet {
 				System.out.println("Free user trying to make more than 3 bets");
 			} else {
 				try {
-					DBConnection placeBet = new DBConnection();
-					placeBet.ExecuteQuery(
-							"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
+					place_bet
+							.ExecuteQuery("INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
 									+ UsernameValidation(request
 											.getParameter("username"))
 									+ "\", \""
 									+ GenerateBetID()
 									+ "\", \""
-									+ ValidateRiskLevel(
-											Integer.parseInt(account_details
-													.getResults().get(0).get(0)),
-											Integer.parseInt(request
+									+ ValidateRiskLevel(Integer
+											.parseInt(account_details.get(0)
+													.get(0)), Integer
+											.parseInt(request
 													.getParameter("risk_lvl")))
 									+ "\", \""
 									+ ValidateBetAmount(
 											Integer.parseInt(account_details
-													.getResults().get(0).get(0)),
+													.get(0).get(0)),
 											Integer.parseInt(request
 													.getParameter("bet_amt")),
-											getTotalBetAmount(total_bets
-													.getResults().get(0)))
+											getTotalBetAmount(total_bets.get(0)))
 									+ "\");");
 
-					placeBet.ExecuteQuery(
-							"UPDATE players SET Bets = Bets+1 WHERE username = \""
+					place_bet
+							.ExecuteQuery("UPDATE players SET Bets = Bets+1 WHERE username = \""
 									+ request.getParameter("username") + "\";");
 
 					// New location to be redirected
@@ -138,12 +135,10 @@ public class BetServlet extends HttpServlet {
 
 	public void init() {
 		try {
-			DBConnection initID = new DBConnection();
-			initID.ExecuteQuery(
-					"SELECT max(BetID) FROM bets;");
-			if (initID.getResults().get(0).get(0) != null)
-				this.CurrentBetID = Long.parseLong(initID.getResults().get(0)
-						.get(0));
+			ArrayList<ArrayList<String>> last_id = place_bet
+					.ExecuteQuery("SELECT max(BetID) FROM bets;");
+			if (last_id.get(0).get(0) != null)
+				this.CurrentBetID = Long.parseLong(last_id.get(0).get(0));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
