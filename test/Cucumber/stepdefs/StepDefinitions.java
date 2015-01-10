@@ -34,7 +34,7 @@ public class StepDefinitions {
 					"DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 			
 			new DBConnection(
-					"DELETE from attemped_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+					"DELETE from attempted_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
 			new DBConnection(
 					"DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
