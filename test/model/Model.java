@@ -335,7 +335,7 @@ public class Model implements FsmModel, Runnable {
 		browser = new ChromeDriver();
 		Tester t = new AllRoundTester(this);
 		t.addListener(new VerboseListener());
-		t.generate(50);
+		t.generate(100);
 		t.buildGraph();
 		browser.close();
 	}

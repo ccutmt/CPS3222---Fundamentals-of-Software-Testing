@@ -39,14 +39,17 @@ public class BetServlet extends HttpServlet {
 	 */
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		DBConnection account_details = new DBConnection();
+		DBConnection total_bets = new DBConnection();
 		System.out.println("Placing bet...");
 		try {
-			DBConnection account_details = new DBConnection(
+			account_details.ExecuteQuery(
 					"SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			DBConnection total_bets = new DBConnection(
+			total_bets.ExecuteQuery(
 					"SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
@@ -65,7 +68,8 @@ public class BetServlet extends HttpServlet {
 				System.out.println("Free user trying to make more than 3 bets");
 			} else {
 				try {
-					new DBConnection(
+					DBConnection placeBet = new DBConnection();
+					placeBet.ExecuteQuery(
 							"INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
 									+ UsernameValidation(request
 											.getParameter("username"))
@@ -87,7 +91,7 @@ public class BetServlet extends HttpServlet {
 													.getResults().get(0)))
 									+ "\");");
 
-					new DBConnection(
+					placeBet.ExecuteQuery(
 							"UPDATE players SET Bets = Bets+1 WHERE username = \""
 									+ request.getParameter("username") + "\";");
 
@@ -134,7 +138,8 @@ public class BetServlet extends HttpServlet {
 
 	public void init() {
 		try {
-			DBConnection initID = new DBConnection(
+			DBConnection initID = new DBConnection();
+			initID.ExecuteQuery(
 					"SELECT max(BetID) FROM bets;");
 			if (initID.getResults().get(0).get(0) != null)
 				this.CurrentBetID = Long.parseLong(initID.getResults().get(0)

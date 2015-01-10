@@ -17,9 +17,9 @@ Examples:
 |fieldname     |incorrect            |errorMessage	|
 |name     |Invalid Name   |error_name|
 |surname      |Invalid Surname   |error_surname	|
-|dob           |Invalid Date of Birth |error_dob		|
+|dob           |Invalid Date of Birth. Format: YYYY/MM/DD |error_dob		|
 |cc_num    |Invalid Credit Card         |error_cc_num|
-|cc_exp   |Invalid Credit Card Expiry Date|error_cc_exp	|
+|cc_exp   |Invalid Expiry Date. Format: YYYY/MM|error_cc_exp	|
 
 Scenario: Successful bet on free account
 Given I am a user with a free account

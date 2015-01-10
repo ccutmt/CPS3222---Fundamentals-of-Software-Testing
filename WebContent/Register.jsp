@@ -50,8 +50,8 @@
 
 				<div class="row">
 					<label for="DOB"></label> 
-					<input type="text" placeholder="Date of Birth" name="dob" id="dob"/>
-					<span id="error_dob" class="error">Invalid Date of Birth</span>	
+					<input type="text" placeholder="Date of Birth: YYYY/MM/DD" name="dob" id="dob"/>
+					<span id="error_dob" class="error">Invalid Date of Birth. Format: YYYY/MM/DD</span>	
 				</div>
 
 				<div class="row">
@@ -68,8 +68,8 @@
 
 				<div class="row">
 					<label for="ccexpiry"></label> 
-					<input type="text" placeholder="Credit Card Expiry Date" name="cc_exp" id="cc_exp" />
-					<span id="error_cc_exp" class="error">Invalid Credit Card Expiry Date</span>	
+					<input type="text" placeholder="Credit Card Expiry Date: YYYY/MM" name="cc_exp" id="cc_exp" />
+					<span id="error_cc_exp" class="error">Invalid Expiry Date. Format: YYYY/MM</span>	
 				</div>
 
 				<div class="row">

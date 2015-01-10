@@ -8,11 +8,11 @@ import Database.DBConnection;
 
 public class BettingFunctions {
 	public String getAllBets(String username) {
+		DBConnection bets = new DBConnection();
 		String html = "";
 		try {
-			DBConnection bets = new DBConnection(
-					"SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
-							+ UsernameValidation(username) + "\";");
+			bets.ExecuteQuery("SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
+					+ UsernameValidation(username) + "\";");
 
 			for (int i = 0; i < bets.getResults().size(); i++) {
 				html += "<tr>";

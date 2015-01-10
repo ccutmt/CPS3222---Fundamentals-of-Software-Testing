@@ -23,9 +23,9 @@ public class BettingFunctionsTest {
 		betFunc = new BettingFunctions();
 		
 		try{
-			new DBConnection("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 					+ "VALUES ( \"betFuncTest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"1\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
-			new DBConnection("DELETE from Bets where BetID=\"1\";");
+			DB.ExecuteQuery("DELETE from Bets where BetID=\"1\";");
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
@@ -34,7 +34,7 @@ public class BettingFunctionsTest {
 	@Test
 	public void getAllLowBetTest() {
 		try {
-		new DBConnection("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
+		DB.ExecuteQuery("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
 				+ "VALUES ( \"betFuncTest\", \"1\",\"0\",\"5\");");
 		}
 		catch (SQLException e) {
@@ -46,7 +46,7 @@ public class BettingFunctionsTest {
 	@Test
 	public void getAllMediumBetTest() {
 		try {
-			new DBConnection("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
+			DB.ExecuteQuery("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
 					+ "VALUES ( \"betFuncTest\", \"1\",\"1\",\"5\");");
 			}
 			catch (SQLException e) {
@@ -59,7 +59,7 @@ public class BettingFunctionsTest {
 	@Test
 	public void getAllHighBetTest() {
 		try {
-			new DBConnection("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
+			DB.ExecuteQuery("INSERT INTO bets ( Username, BetID, RiskLevel, Amount)"
 					+ "VALUES ( \"betFuncTest\", \"1\",\"2\",\"5\");");
 			}
 			catch (SQLException e) {
@@ -72,8 +72,8 @@ public class BettingFunctionsTest {
 	@After
 	public void tearDown() throws Exception {
 		try {
-			new DBConnection("DELETE from Bets where username=\"betFuncTest\";");
-			new DBConnection("DELETE from Players where username=\"betFuncTest\";");
+			DB.ExecuteQuery("DELETE from Bets where username=\"betFuncTest\";");
+			DB.ExecuteQuery("DELETE from Players where username=\"betFuncTest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

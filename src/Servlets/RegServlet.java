@@ -41,7 +41,8 @@ public class RegServlet extends HttpServlet {
 		System.out.println("Executing Registration Servlet");
 		//PrintWriter writer = response.getWriter();
 		try {
-			new DBConnection(
+			DBConnection insert_player = new DBConnection();
+			insert_player.ExecuteQuery(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \""
 							+ UsernameValidation(request

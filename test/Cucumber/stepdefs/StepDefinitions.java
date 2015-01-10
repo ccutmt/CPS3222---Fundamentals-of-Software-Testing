@@ -29,15 +29,13 @@ public class StepDefinitions {
 		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
 		browser = new ChromeDriver();
 
+		DBConnection init = new DBConnection();
 		try {
-			new DBConnection(
-					"DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
-			
-			new DBConnection(
-					"DELETE from attempted_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+			init.ExecuteQuery("DELETE from bets where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
-			new DBConnection(
-					"DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+			init.ExecuteQuery("DELETE from attempted_logins where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
+
+			init.ExecuteQuery("DELETE from Players where username IN (\"Afriggieri4\", \"Afriggieri5\", \"Afriggieri6\");");
 
 		} catch (SQLException se) {
 			se.printStackTrace();
@@ -170,9 +168,10 @@ public class StepDefinitions {
 	}
 
 	private void CreateFreeAccount() {
+		DBConnection free_account = new DBConnection();
 		try {
-			new DBConnection(
-					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+			free_account
+					.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \"Afriggieri5\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 0, 371449635398431, \"2018/05/30\", 123, 0 );");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -180,9 +179,10 @@ public class StepDefinitions {
 	}
 
 	private void CreatePremiumAccount() {
+		DBConnection premium_account = new DBConnection();
 		try {
-			new DBConnection(
-					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+			premium_account
+					.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \"Afriggieri6\", \"testing123\", \"Andreas\", \"Friggieri\", \"1994/09/29\", 1, 371449635398431, \"2018/05/30\", 123, 0 );");
 		} catch (SQLException e) {
 			e.printStackTrace();

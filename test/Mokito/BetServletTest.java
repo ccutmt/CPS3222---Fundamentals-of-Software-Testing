@@ -40,9 +40,9 @@ public class BetServletTest {
 		betservlet = new BetServlet();
 
 		try{
-			new DBConnection("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 					+ "VALUES ( \"bettest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
-			new DBConnection("DELETE from Bets where BetID=\"1\";");
+			DB.ExecuteQuery("DELETE from Bets where BetID=\"1\";");
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
@@ -51,7 +51,7 @@ public class BetServletTest {
 	@Test
 	public void MoreThan3BetsTest() throws ServletException, IOException {
 		try {
-			new DBConnection("UPDATE players SET Bets = 3 WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Bets = 3 WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}	
@@ -77,7 +77,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumHighSuccessfulBetTest() throws ServletException, IOException {	
 		try {
-			new DBConnection("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -94,7 +94,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumMediumSuccessfulBetTest() throws ServletException, IOException {	
 		try {
-			new DBConnection("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -111,7 +111,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumLowSuccessfulBetTest() throws ServletException, IOException {	
 		try {
-			new DBConnection("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -161,7 +161,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumSuccessfulBetOver5Test() throws ServletException, IOException {	
 		try {
-			new DBConnection("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -178,8 +178,8 @@ public class BetServletTest {
 	@Test
 	public void PremiumUnSuccessfulBetOver5000Test() throws ServletException, IOException {	
 		try {
-			new DBConnection("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
-			//new DBConnection("INSERT INTO Bets (Username, BetI SET Account = \"1\" WHERE username=\"bettest\";");
+			DB.ExecuteQuery("UPDATE players SET Account = \"1\" WHERE username=\"bettest\";");
+			//DB.ExecuteQuery("INSERT INTO Bets (Username, BetI SET Account = \"1\" WHERE username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -196,8 +196,8 @@ public class BetServletTest {
 	@After
 	public void tearDown() throws Exception {
 		try {
-			new DBConnection("DELETE from Bets where username=\"bettest\";");
-			new DBConnection("DELETE from Players where username=\"bettest\";");
+			DB.ExecuteQuery("DELETE from Bets where username=\"bettest\";");
+			DB.ExecuteQuery("DELETE from Players where username=\"bettest\";");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

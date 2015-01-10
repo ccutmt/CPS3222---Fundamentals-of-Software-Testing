@@ -40,19 +40,15 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	public void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
 
-		//PrintWriter writer = response.getWriter();
-
 		try {
-			DBConnection db = new DBConnection(
-					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
-							+ UsernameValidation(request
-									.getParameter("username")) + "\";");
-
-			
+			DBConnection db = new DBConnection();
+			db.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \""
+					+ UsernameValidation(request.getParameter("username"))
+					+ "\";");
 
 			// Set response content type
 			response.setContentType("text/html");
@@ -69,16 +65,20 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				ArrayList<String> results = db.getResults().get(0);
 				// check for any attempted logins
-				DBConnection check_logins = new DBConnection(
-						"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+				DBConnection check_logins = new DBConnection();
+				check_logins
+						.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 								+ UsernameValidation(request
 										.getParameter("username")) + "\";");
 
 				if (check_logins.getResults().size() == 0
-						|| Integer.parseInt(check_logins.getResults().get(0).get(1)) < 3
-						|| CheckforFiveMinutes(check_logins.getResults().get(0).get(0))) {
+						|| Integer.parseInt(check_logins.getResults().get(0)
+								.get(1)) < 3
+						|| CheckforFiveMinutes(check_logins.getResults().get(0)
+								.get(0))) {
 					// authenticate user
-					
+					DBConnection user_authenticated = new DBConnection();
+
 					if (!results.get(0).isEmpty()
 							&& (results.get(1)
 									.contentEquals(PasswordValidation(request
@@ -88,10 +88,10 @@ public class LoginServlet extends HttpServlet {
 						System.out.println(results.get(0) + " logged on");
 
 						// remove attempted logins for the user
-						new DBConnection(
-								"DELETE FROM attempted_logins WHERE username = \""
+						user_authenticated
+								.ExecuteQuery("DELETE FROM attempted_logins WHERE username = \""
 										+ results.get(0) + "\";");
-						
+
 						HttpSession session = request.getSession();
 						session.setAttribute("usernameforbet", results.get(0));
 
@@ -108,40 +108,43 @@ public class LoginServlet extends HttpServlet {
 						Calendar cal = Calendar.getInstance();
 
 						try {
-							new DBConnection(
-									"INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
+							user_authenticated
+									.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\""
 											+ results.get(0)
 											+ "\", \""
 											+ dateFormat.format(cal.getTime())
 											+ "\", \"1\");");
 						} catch (MySQLIntegrityConstraintViolationException e) {
-							new DBConnection(
-									"UPDATE attempted_logins SET last_login = \""
+							user_authenticated
+									.ExecuteQuery("UPDATE attempted_logins SET last_login = \""
 											+ dateFormat.format(cal.getTime())
 											+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
 											+ results.get(0) + "\";");
 						}
 
-						//last update
-						/*if(CheckforFiveMinutes(check_logins.getResults().get(0).get(0)) 
-								&& !(results.get(1)
-										.contentEquals(PasswordValidation(request
-												.getParameter("password"))))) {
-							//5minutes passed but password is incorrect
-							// New location to be redirected
-							String site = new String("Pages/LoginTimeout.html");
-
-							response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
-							response.setHeader("Location", site);
-							
-						} else {*/
+						// last update
+						/*
+						 * if(CheckforFiveMinutes(check_logins.getResults().get(0
+						 * ).get(0)) && !(results.get(1)
+						 * .contentEquals(PasswordValidation(request
+						 * .getParameter("password"))))) { //5minutes passed but
+						 * password is incorrect // New location to be
+						 * redirected String site = new
+						 * String("Pages/LoginTimeout.html");
+						 * 
+						 * response.setStatus(HttpServletResponse.
+						 * SC_MOVED_TEMPORARILY); response.setHeader("Location",
+						 * site);
+						 * 
+						 * } else {
+						 */
 						// New location to be redirected
 
 						String site = new String("Pages/LoginFailed.html");
 
 						response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 						response.setHeader("Location", site);
-						//}
+						// }
 						System.out.println("Failed to authenticate user");
 					}
 				} else {
@@ -155,20 +158,20 @@ public class LoginServlet extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			
+
 			// New location to be redirected
 
 			String site = new String("Pages/LoginFailed.html");
 
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
-			
-			//writer.println("Unable to Login");
+
+			// writer.println("Unable to Login");
 			System.out.println("Failed to login user");
 			e.printStackTrace();
 		}
 
-		//writer.println("Login Servlet");
+		// writer.println("Login Servlet");
 	}
 
 	public Boolean CheckforFiveMinutes(String last_login) throws ParseException {

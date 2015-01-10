@@ -11,18 +11,19 @@ import Database.DBConnection;
 
 public class ModelRunner {
 
-	private final int USERS = 10;
+	private final int USERS = 5;
 
 	@Test
 	public void runner() {
 		long start_time = System.currentTimeMillis();
 		ArrayList<Long> loadTimes = new ArrayList<>();
 		ExecutorService executor = Executors.newFixedThreadPool(USERS);
+		DBConnection init = new DBConnection();
 
 		try {
-			new DBConnection("DELETE FROM bets;");
-			new DBConnection("DELETE FROM attempted_logins;");
-			new DBConnection("DELETE FROM PLAYERS;");
+			init.ExecuteQuery("DELETE FROM bets;");
+			init.ExecuteQuery("DELETE FROM attempted_logins;");
+			init.ExecuteQuery("DELETE FROM PLAYERS;");
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}

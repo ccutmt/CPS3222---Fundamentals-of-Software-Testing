@@ -49,7 +49,7 @@ public class LoginServletTest {
 		DB.ExecuteQuery(DB, query);*/
 		
 		try{
-			new DBConnection("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
+			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 					+ "VALUES ( \"logintest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
 		}catch(SQLException se){
 			se.printStackTrace();
@@ -97,7 +97,7 @@ public class LoginServletTest {
 		System.out.println(dateFormat.format(test_cal.getTime()));
 
 		try {
-			new DBConnection("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(test_cal.getTime())+ "\",\"3\");");
+			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(test_cal.getTime())+ "\",\"3\");");
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		}
@@ -117,7 +117,7 @@ public class LoginServletTest {
 		System.out.println(dateFormat.format(cal.getTime()));
 		
 		try {
-			new DBConnection("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
+			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		}
@@ -136,7 +136,7 @@ public class LoginServletTest {
 		cal.add(Calendar.MINUTE, -8);
 		
 		try {
-			new DBConnection("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
+			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
 		} catch (MySQLIntegrityConstraintViolationException e) {
 			e.printStackTrace();
 		}
@@ -152,8 +152,8 @@ public class LoginServletTest {
 	@After
 	public void tearDown() throws Exception {
 		try{
-			new DBConnection("DELETE from attempted_logins where  username=\"logintest\";");
-			new DBConnection("DELETE from Players where username=\"logintest\";");
+			DB.ExecuteQuery("DELETE from attempted_logins where  username=\"logintest\";");
+			DB.ExecuteQuery("DELETE from Players where username=\"logintest\";");
 		}catch(SQLException se){
 			se.printStackTrace();
 		}
