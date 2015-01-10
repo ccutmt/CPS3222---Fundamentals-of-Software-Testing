@@ -27,22 +27,30 @@ import Servlets.RegServlet;
 public class RegisterServletTest {
 	private RegServlet regservlet;
 
+	@Mock
 	private HttpServletRequest request;
+	
+	@Mock
 	private HttpServletResponse response;
-	private PrintWriter writer;
+	
+	@Mock
 	private HttpSession session;
+	
+	@Mock
 	private DBConnection DB;
 
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
-		request = Mockito.mock(HttpServletRequest.class);
+		regservlet = new RegServlet();
+		
+		/*request = Mockito.mock(HttpServletRequest.class);
 		response = Mockito.mock(HttpServletResponse.class);
 		writer = Mockito.mock(PrintWriter.class);
 		session = Mockito.mock(HttpSession.class);
-		DB = Mockito.mock(DBConnection.class);
+		DB = Mockito.mock(DBConnection.class);*/
+		
 		Mockito.doReturn(session).when(request).getSession();
-		regservlet = new RegServlet();
 
 		/*try {
 
@@ -51,13 +59,6 @@ public class RegisterServletTest {
 		} catch (SQLException se) {
 			se.printStackTrace();
 		}*/
-		
-		try {
-			DB.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
-			//DB.ExecuteQuery("DELETE from Players where username=\"useralreadyexiststest\";");
-		} catch (SQLException se) {
-			se.printStackTrace();
-		}
 	}
 
 	@Test
@@ -78,6 +79,13 @@ public class RegisterServletTest {
 
 		Mockito.verify(response).setHeader("Location",
 				"Pages/RegistrationSuccess.html");
+		
+		try {
+			DBConnection delete_player = new DBConnection();
+			delete_player.ExecuteQuery("DELETE from Players where username=\"chris1994\";");
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
 	}
 
 	@Test(expected = Exception.class)
@@ -92,7 +100,7 @@ public class RegisterServletTest {
 				.getParameter("cc_num");
 		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
 		Mockito.doReturn("123").when(request).getParameter("cvv");*/
-
+		
 		regservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location",
@@ -114,13 +122,6 @@ public class RegisterServletTest {
 		Mockito.doReturn("123").when(request).getParameter("cvv");*/
 
 		regservlet.doGet(request, response);
-
-		/*
-		 * Mockito.when(bdao.create(bet)).thenThrow(new Exception());
-		 * doReturn(true).when((bc)).betConstraints(request, user,bet);
-		 * 
-		 * bc.doPost(request,response);
-		 */
 
 		Mockito.verify(response).setHeader("Location",
 				"Pages/AddUserFailed.html");
