@@ -100,6 +100,10 @@ public class RegisterServletTest {
 		//Mockito.when((DB.ExecuteQuery(anyString()))).thenThrow(new MySQLIntegrityConstraintViolationException());
 		Mockito.doReturn("someString").when(request).getParameter(anyString());
 		Mockito.doReturn("378282246310005").when(request).getParameter("cc_num");
+		Mockito.doReturn("0").when(request).getParameter("account_type");
+		Mockito.doReturn("1994-12-18").when(request).getParameter("dob");
+		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
+		Mockito.doReturn("123").when(request).getParameter("cvv");
 		Mockito.doThrow(new MySQLIntegrityConstraintViolationException()).when(DB).ExecuteQuery(anyString());
 		/*Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
@@ -117,9 +121,9 @@ public class RegisterServletTest {
 				"Pages/ErrorAlreadyExists.html");
 	}
 
-	@Test(expected = Exception.class)
-	public void UserNotAddedTest() throws ServletException, IOException {
-		Mockito.when(request).thenThrow(new SQLException());
+	@Test//(expected = Exception.class)
+	public void UserNotAddedTest() throws ServletException, IOException , SQLException{
+		//Mockito.when(request.getParameter(anyString())).thenThrow(new SQLException());
 		/*Mockito.doReturn("few").when(request).getParameter("username"); // short username
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		Mockito.doReturn("Christopher").when(request).getParameter("name");
@@ -131,6 +135,14 @@ public class RegisterServletTest {
 		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
 		Mockito.doReturn("123").when(request).getParameter("cvv");*/
 
+		Mockito.doReturn("someString").when(request).getParameter(anyString());
+		Mockito.doReturn("378282246310005").when(request).getParameter("cc_num");
+		Mockito.doReturn("0").when(request).getParameter("account_type");
+		Mockito.doReturn("1994-12-18").when(request).getParameter("dob");
+		Mockito.doReturn("2019-05").when(request).getParameter("cc_exp");
+		Mockito.doReturn("123").when(request).getParameter("cvv");
+		Mockito.doThrow(new SQLException()).when(DB).ExecuteQuery(anyString());
+		
 		regservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location",
