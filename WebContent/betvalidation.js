@@ -1,13 +1,28 @@
 $(document).ready(function() {
 
 	// Bet Amount real-time validation
-	$("#bet_amt").blur(function() {
+	/*$("#bet_amt").blur(function() {
 		if (validateBetAmount($("#bet_amt").val())) {
 			$("#bet_amt").removeClass('invalid');
 			$("#bet_amt").addClass('valid');
 		} else {
 			$("#bet_amt").removeClass('valid');
 			$("#bet_amt").addClass('invalid');
+		}
+	});*/
+	
+	$("#bet_amt").blur(function() {
+		var element = $("#bet_amt");
+		if (validateBetAmount(element.val())) {
+			element.removeClass('invalid').addClass('valid');
+
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error_show').addClass('error');
+		} else {
+			element.removeClass('valid').addClass('invalid');
+
+			var error_element = $("span", element.parent());
+			error_element.removeClass('error').addClass('error_show');
 		}
 	});
 
