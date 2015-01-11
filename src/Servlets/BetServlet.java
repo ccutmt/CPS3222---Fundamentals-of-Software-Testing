@@ -26,6 +26,8 @@ public class BetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public DBConnection place_bet = DBConnection.getInstance();
+	public ArrayList<ArrayList<String>> account_details = new ArrayList<>();
+	public ArrayList<ArrayList<String>> total_bets = new ArrayList<>();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -44,12 +46,11 @@ public class BetServlet extends HttpServlet {
 
 		System.out.println("Placing bet...");
 		try {
-			ArrayList<ArrayList<String>> account_details = place_bet
-					.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+			account_details = place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
 
-			ArrayList<ArrayList<String>> total_bets = place_bet
+			total_bets = place_bet
 					.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";");
@@ -135,8 +136,8 @@ public class BetServlet extends HttpServlet {
 
 	public void init() {
 		try {
-			ArrayList<ArrayList<String>> last_id = place_bet
-					.ExecuteQuery("SELECT max(BetID) FROM bets;");
+			ArrayList<ArrayList<String>> last_id = new ArrayList<>(place_bet
+					.ExecuteQuery("SELECT max(BetID) FROM bets;"));
 			if (last_id.get(0).get(0) != null)
 				this.CurrentBetID = Long.parseLong(last_id.get(0).get(0));
 		} catch (SQLException e) {

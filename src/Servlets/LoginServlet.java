@@ -47,10 +47,10 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Executing Login Servlet");
 
 		try {
-			ArrayList<ArrayList<String>> users = login_player
+			ArrayList<ArrayList<String>> users = new ArrayList<>(login_player
 					.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";");
+									.getParameter("username")) + "\";"));
 
 			// Set response content type
 			response.setContentType("text/html");
@@ -67,10 +67,10 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				ArrayList<String> user = users.get(0);
 				// check for any attempted logins
-				ArrayList<ArrayList<String>> check_logins = login_player
+				ArrayList<ArrayList<String>> check_logins = new ArrayList<>(login_player
 						.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 								+ UsernameValidation(request
-										.getParameter("username")) + "\";");
+										.getParameter("username")) + "\";"));
 
 				if (check_logins.size() == 0
 						|| Integer.parseInt(check_logins.get(0).get(1)) < 3

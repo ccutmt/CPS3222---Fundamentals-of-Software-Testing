@@ -12,8 +12,8 @@ public class BettingFunctions {
 		DBConnection bets_table = DBConnection.getInstance();
 		String html = "";
 		try {
-			ArrayList<ArrayList<String>> bets = bets_table.ExecuteQuery("SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
-					+ UsernameValidation(username) + "\";");
+			ArrayList<ArrayList<String>> bets = new ArrayList<>(bets_table.ExecuteQuery("SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
+					+ UsernameValidation(username) + "\";"));
 
 			for (int i = 0; i < bets.size(); i++) {
 				html += "<tr>";
