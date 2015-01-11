@@ -8,8 +8,10 @@ import java.util.regex.Pattern;
 import Database.DBConnection;
 
 public class BettingFunctions {
+
+	public DBConnection bets_table = DBConnection.getInstance();
+	
 	public String getAllBets(String username) {
-		DBConnection bets_table = DBConnection.getInstance();
 		String html = "";
 		try {
 			ArrayList<ArrayList<String>> bets = new ArrayList<>(bets_table.ExecuteQuery("SELECT BetID, RiskLevel, Amount FROM bets WHERE Username = \""
