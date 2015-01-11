@@ -41,19 +41,25 @@ public class BetServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		account_details.clear();
+		total_bets.clear();
 
 		System.out.println("Placing bet...");
 		try {
-			account_details = place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+			account_details = (ArrayList<ArrayList<String>>)place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";");
+									.getParameter("username")) + "\";").clone();
 
-			total_bets = place_bet
+			total_bets = (ArrayList<ArrayList<String>>)place_bet
 					.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";");
+									.getParameter("username")) + "\";").clone();
+			
+			System.out.println("index 0"+account_details.get(0).get(0));
+			System.out.println("index 1"+account_details.get(0).get(1));
 
 			if (Integer.parseInt(account_details.get(0).get(0)) == 0
 					&& Integer.parseInt(account_details.get(0).get(1)) >= 3) {

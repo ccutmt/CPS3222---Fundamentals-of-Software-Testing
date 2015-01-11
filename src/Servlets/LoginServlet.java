@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	public DBConnection login_player = DBConnection.getInstance();
 	public ArrayList<ArrayList<String>> users = new ArrayList<>();
 	public ArrayList<ArrayList<String>> check_logins = new ArrayList<>();
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -44,14 +44,16 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
 
 		try {
-			users = login_player.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \""
+			users = (ArrayList<ArrayList<String>>) login_player.ExecuteQuery(
+					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";");
+									.getParameter("username")) + "\";").clone();
 
 			// Set response content type
 			response.setContentType("text/html");
@@ -68,9 +70,12 @@ public class LoginServlet extends HttpServlet {
 			} else {
 				ArrayList<String> user = users.get(0);
 				// check for any attempted logins
-				check_logins = login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
-								+ UsernameValidation(request
-										.getParameter("username")) + "\";");
+				check_logins = (ArrayList<ArrayList<String>>) login_player
+						.ExecuteQuery(
+								"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+										+ UsernameValidation(request
+												.getParameter("username"))
+										+ "\";").clone();
 
 				if (check_logins.size() == 0
 						|| Integer.parseInt(check_logins.get(0).get(1)) < 3
