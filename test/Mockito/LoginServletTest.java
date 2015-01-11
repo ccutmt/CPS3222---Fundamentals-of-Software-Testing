@@ -1,12 +1,8 @@
 package Mockito;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -25,8 +20,6 @@ import org.mockito.MockitoAnnotations;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
-
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import Database.DBConnection;
 import Servlets.LoginServlet;
@@ -74,30 +67,10 @@ public class LoginServletTest {
 		MockitoAnnotations.initMocks(this);
 		logservlet = new LoginServlet();
 		
-		/*request = Mockito.mock(HttpServletRequest.class);
-		response = Mockito.mock(HttpServletResponse.class);
-		writer = Mockito.mock(PrintWriter.class);
-		session = Mockito.mock(HttpSession.class);
-		DB = Mockito.mock(DBConnection.class);*/
-		
 		logservlet.login_player = Mockito.mock(DBConnection.class);
 		DB = logservlet.login_player;
 		
-		/*logservlet.users = Mockito.mock(ArrayList.class);
-		logservlet.check_logins = Mockito.mock(ArrayList.class);*/
-		
 		Mockito.doReturn(session).when(request).getSession();
-		
-		/*String query = "INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
-				+ "VALUES ( \"logintest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");";
-		DB.ExecuteQuery(DB, query);*/
-		
-		/*try{
-			DB.ExecuteQuery("INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
-					+ "VALUES ( \"logintest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");");
-		}catch(SQLException se){
-			se.printStackTrace();
-		}*/
 	}
 	
 	@Test
@@ -127,7 +100,6 @@ public class LoginServletTest {
 		Mockito.when(logservlet.login_player.ExecuteQuery(anyString())).thenReturn(results);
 		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 				+ "someString"	+ "\";")).thenReturn(results2);
-		//Mockito.when(results2.size()).thenReturn(0);
 		
 		logservlet.doGet(request, response);
 
@@ -149,7 +121,6 @@ public class LoginServletTest {
 	  Mockito.when(logservlet.login_player.ExecuteQuery(anyString())).thenReturn(results);
 	  Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 	    + "someString" + "\";")).thenReturn(results2);
-	  //Mockito.when(results2.size()).thenReturn(0);
 	  
 	  logservlet.doGet(request, response); 
 	  
@@ -175,7 +146,6 @@ public class LoginServletTest {
 		Mockito.when(results.size()).thenReturn(1);
 		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \"someString\";")).thenReturn(results);
 		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \"someString\";")).thenReturn(results2);
-		//Mockito.when(results2.size()).thenReturn(0);
 		Mockito.when(results2.size()).thenReturn(1);
 		
 		logservlet.doGet(request, response);
@@ -201,21 +171,10 @@ public class LoginServletTest {
 		Mockito.when(results.size()).thenReturn(1);
 		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \"someString\";")).thenReturn(results);
 		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \"someString\";")).thenReturn(results2);
-		//Mockito.when(results2.size()).thenReturn(0);
 		Mockito.when(results2.size()).thenReturn(1);
 		
 		logservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location", "BetPage.jsp");
-	}
-	
-	@After
-	public void tearDown() throws Exception {
-		/*try{
-			DB.ExecuteQuery("DELETE from attempted_logins where  username=\"logintest\";");
-			DB.ExecuteQuery("DELETE from Players where username=\"logintest\";");
-		}catch(SQLException se){
-			se.printStackTrace();
-		}*/
 	}
 }

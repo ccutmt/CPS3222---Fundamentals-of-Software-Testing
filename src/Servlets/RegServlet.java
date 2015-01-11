@@ -40,9 +40,8 @@ public class RegServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("Executing Registration Servlet");
-		//PrintWriter writer = response.getWriter();
+
 		try {
-			//DBConnection insert_player = new DBConnection();
 			insert_player.ExecuteQuery(
 					"INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
 							+ " VALUES ( \""
@@ -71,7 +70,7 @@ public class RegServlet extends HttpServlet {
 							+ "\", "
 							+ CVVValidation(request.getParameter("cvv"))
 							+ ", 0 );");
-			//writer.println("User added Successfully");
+
 			System.out.println("Added new User");
 
 			// Set response content type
@@ -87,7 +86,6 @@ public class RegServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
 		} catch (MySQLIntegrityConstraintViolationException e1) {
-			//writer.println("User already Exists!");
 			System.out.println("User already exists");
 			e1.printStackTrace();
 
@@ -100,7 +98,6 @@ public class RegServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
 		} catch (SQLException e2) {
-			//writer.println("Cannot add new user to db");
 			System.out.println("Failed to add new user");
 			e2.printStackTrace();
 
@@ -118,7 +115,6 @@ public class RegServlet extends HttpServlet {
 	public int GetMaxDate(String date) {
 		// method used for cc expiry date to find the maximum date for the
 		// particular month, in order to fit in db field
-		//System.out.println((date));
 		Calendar calendar = Calendar.getInstance();
 		String year = date.substring(0, 4);
 		String month = date.substring(5, 7);

@@ -1,9 +1,6 @@
 package Mockito;
 
-import static org.junit.Assert.*;
-
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -12,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -21,8 +17,6 @@ import org.mockito.MockitoAnnotations;
 import static org.mockito.Mockito.doReturn;
 
 import static org.mockito.Matchers.anyString;
-
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
 import Database.DBConnection;
 import Servlets.BetServlet;
@@ -48,7 +42,6 @@ public class BetServletTest {
 	@Mock
 	private ArrayList<String> record;
 
-	// @SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -56,9 +49,6 @@ public class BetServletTest {
 
 		betservlet.place_bet = Mockito.mock(DBConnection.class);
 		DB = betservlet.place_bet;
-
-		// betservlet.account_details = Mockito.mock(ArrayList.class);
-		// betservlet.total_bets = Mockito.mock(ArrayList.class);
 
 		Mockito.doReturn(session).when(request).getSession();
 
@@ -75,7 +65,6 @@ public class BetServletTest {
 
 		doReturn("someUsername").when(request).getParameter("username");
 
-		// doReturn(results).when(betservlet.place_bet.ExecuteQuery(anyString()));
 		Mockito.when(betservlet.place_bet.ExecuteQuery(anyString()))
 				.thenReturn(results);
 
@@ -208,9 +197,6 @@ public class BetServletTest {
 		Mockito.when(betservlet.place_bet.ExecuteQuery(anyString()))
 				.thenReturn(results);
 
-		// Mockito.doThrow(new UnsupportedOperationException()).when(DB)
-		// .ExecuteQuery(anyString());
-
 		betservlet.doGet(request, response);
 
 		Mockito.verify(response)
@@ -232,9 +218,6 @@ public class BetServletTest {
 
 		Mockito.when(betservlet.place_bet.ExecuteQuery(anyString()))
 				.thenReturn(results);
-
-		// Mockito.doThrow(new
-		// SQLException()).when(DB).ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
@@ -284,10 +267,4 @@ public class BetServletTest {
 		Mockito.verify(response).setHeader("Location",
 				"Pages/MaxCumulativeBets.html");
 	}
-
-	@After
-	public void tearDown() throws Exception {
-
-	}
-
 }

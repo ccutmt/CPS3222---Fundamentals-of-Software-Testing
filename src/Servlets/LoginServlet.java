@@ -42,17 +42,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("Executing Login Servlet");
 
 		try {
-			/*users = (ArrayList<ArrayList<String>>) login_player.ExecuteQuery(
-					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
-							+ UsernameValidation(request
-									.getParameter("username")) + "\";").clone();*/
-
 			// Set response content type
 			response.setContentType("text/html");  
 
@@ -73,13 +67,6 @@ public class LoginServlet extends HttpServlet {
 						"SELECT Username, Password FROM PLAYERS WHERE Username = \""
 								+ UsernameValidation(request
 										.getParameter("username")) + "\";").get(0);
-				// check for any attempted logins
-				/*check_logins = (ArrayList<ArrayList<String>>) login_player
-						.ExecuteQuery(
-								"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
-										+ UsernameValidation(request
-												.getParameter("username"))
-										+ "\";").clone();*/
 
 				if (login_player
 						.ExecuteQuery(
@@ -143,23 +130,7 @@ public class LoginServlet extends HttpServlet {
 											+ "\", attempts_amount = attempts_amount+1 WHERE username = \""
 											+ user.get(0) + "\";");
 						}
-
-						// last update
-						/*
-						 * if(CheckforFiveMinutes(check_logins.getResults().get(0
-						 * ).get(0)) && !(user.get(1)
-						 * .contentEquals(PasswordValidation(request
-						 * .getParameter("password"))))) { //5minutes passed but
-						 * password is incorrect // New location to be
-						 * redirected String site = new
-						 * String("Pages/LoginTimeout.html");
-						 * 
-						 * response.setStatus(HttpServletResponse.
-						 * SC_MOVED_TEMPORARILY); response.setHeader("Location",
-						 * site);
-						 * 
-						 * } else {
-						 */
+						
 						// New location to be redirected
 
 						String site = new String("Pages/LoginFailed.html");
@@ -188,12 +159,9 @@ public class LoginServlet extends HttpServlet {
 			response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 			response.setHeader("Location", site);
 
-			// writer.println("Unable to Login");
 			System.out.println("Failed to login user");
 			e.printStackTrace();
 		}
-
-		// writer.println("Login Servlet");
 	}
 
 	public Boolean CheckforFiveMinutes(String last_login) throws ParseException {

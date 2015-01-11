@@ -2,9 +2,7 @@ package model;
 
 import static org.junit.Assert.assertEquals;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Random;
 
 import net.sourceforge.czt.modeljunit.Action;
@@ -16,7 +14,6 @@ import net.sourceforge.czt.modeljunit.VerboseListener;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-import Database.DBConnection;
 import Selenium.Bet.FillBet;
 import Selenium.Login.FillLogin;
 import Selenium.Registration.FillRegistration;
@@ -123,11 +120,14 @@ public class Model implements FsmModel, Runnable {
 		FillRegistration reg_form = new FillRegistration(browser);
 		double prob = Math.random();
 		do {
-			//do until a unique username is generated
-			if (browser.getCurrentUrl().compareTo("http://localhost:8080/SoftwareTesting/Pages/ErrorAlreadyExists.html")==0){
+			// do until a unique username is generated
+			if (browser
+					.getCurrentUrl()
+					.compareTo(
+							"http://localhost:8080/SoftwareTesting/Pages/ErrorAlreadyExists.html") == 0) {
 				browser.findElement(By.id("back")).click();
 			}
-			
+
 			this.username = generateUsername();
 			this.password = "testing123";
 			if (prob > 0.25) {
@@ -142,7 +142,7 @@ public class Model implements FsmModel, Runnable {
 			long timeBefore = System.currentTimeMillis();
 			;
 			reg_form.submitForm();
-			
+
 			long timeAfter = System.currentTimeMillis();
 			responseTimes.add(timeAfter - timeBefore);
 		} while (browser
@@ -175,6 +175,8 @@ public class Model implements FsmModel, Runnable {
 
 	public boolean proceedToLoginFailedGuard() {
 		double prob = Math.random();
+		// 25% chance to be invalid if less than 3 attempted logins, else
+		// timeout state
 		if (prob <= 0.25 && getState().equals(States.LoginPage)
 				&& this.attempted_logins < 3) {
 			return true;
@@ -185,6 +187,7 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToLoginFailed() {
 		FillLogin log_form = new FillLogin(browser);
+		// adding a space to the password to create an invalid login
 		log_form.fillForm(this.username, this.password + " ");
 		this.attempted_logins++;
 		long timeBefore = System.currentTimeMillis();
@@ -198,24 +201,16 @@ public class Model implements FsmModel, Runnable {
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
-	// public boolean proceedToLoginTimeoutGuard() {
-	// return getState().equals(States.LoginPage);
-	// }
-	//
-	// @Action
-	// public void proceedToLoginTimeout() {
-	//
-	// }
-
 	public boolean proceedToBetGuard() {
-		// double prob = Math.random();
-		if (/* prob > 0.25 && */getState().equals(States.LoginPage)) {
+		if (getState().equals(States.LoginPage)) {
 			return true;
 		} else if (getState().equals(States.Bet_Amount_Error)
 				|| getState().equals(States.Bet_Cumulative_Error)
 				|| getState().equals(States.Bet_Exceeded3Bets_Error)
 				|| getState().equals(States.Bet_Risk_Error)
 				|| getState().equals(States.Bet_Successful)) {
+			// if state is an error page, user has to click on return button to
+			// visit betting state
 			browser.findElement(By.id("bet")).click();
 			return true;
 		} else
@@ -236,20 +231,11 @@ public class Model implements FsmModel, Runnable {
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
-	// public boolean proceedToMoreThan3BetsErrorGuard() {
-	// return (getState().equals(States.BettingPage));
-	// }
-	//
-	// @Action
-	// public void proceedToMoreThan3BetsError() {
-	//
-	// }
-
 	public boolean proceedToBetSuccessGuard() {
-		// double prob = Math.random();
 		double probInvalidBetAmount = Math.random();
-		if ((/* prob > 0.5 && */getState().equals(States.BettingPage))
+		if ((getState().equals(States.BettingPage))
 				&& ((this.acount_type.compareTo("premium") == 0) || (probInvalidBetAmount > (1 / 6)))) {
+			// free user can also bet 6 euro, which is invalid
 			return true;
 		} else
 			return false;
@@ -260,9 +246,11 @@ public class Model implements FsmModel, Runnable {
 		FillBet bet_form = new FillBet(browser);
 		Random random = new Random();
 		if (this.acount_type.compareTo("free") == 0) {
+			// 1 to 5 since 6euro is invalid and catered for in the Guard
 			int randomAmount = random.nextInt(5) + 1;
 			bet_form.fillForm(randomAmount + "", "low");
 		} else {
+			// 100 to 2000 euro
 			int randomAmount = random.nextInt(2000) + 100;
 			bet_form.fillForm(randomAmount + "", "medium");
 		}
@@ -278,35 +266,9 @@ public class Model implements FsmModel, Runnable {
 		this.atLeastOneBet = true;
 	}
 
-	// public boolean proceedToCumulativeErrorGuard() {
-	// return getState().equals(States.BettingPage);
-	// }
-	//
-	// @Action
-	// public void proceedToCumulativeError() {
-	//
-	// }
-	//
-	// public boolean proceedToRiskErrorGuard() {
-	// return getState().equals(States.BettingPage);
-	// }
-	//
-	// @Action
-	// public void proceedToRiskError() {
-	//
-	// }
-	//
-	// public boolean proceedToBetAmountErrorGuard() {
-	// return getState().equals(States.BettingPage);
-	// }
-	//
-	// @Action
-	// public void proceedToBetAmountError() {
-	//
-	// }
-
 	public boolean logoutGuard() {
 		double ran = Math.random();
+		// user has to place at least 1 bet to logout
 		return (ran <= 0.5 && this.atLeastOneBet && getState().equals(
 				States.BettingPage));
 	}

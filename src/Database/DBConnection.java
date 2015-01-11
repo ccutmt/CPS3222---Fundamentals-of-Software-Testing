@@ -9,17 +9,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DBConnection {
+	//singleton class
+	
 
 	// stores a single record with any amount of fields
 	private ArrayList<ArrayList<String>> result;
 
 	private static DBConnection dbConnection = null;
 	
+	//ensures that constructor can never be called outside this class
 	private DBConnection() {
 		this.result = new ArrayList<>();
 	}
 
-	
+	//if there is no instance, create one, else return it.
 	public static DBConnection getInstance()
 	{
 		if(dbConnection == null)
@@ -29,8 +32,10 @@ public class DBConnection {
 		return dbConnection;
 	}
 	public ArrayList<ArrayList<String>> ExecuteQuery(String query) throws SQLException {
+		//clear any previous results
 		this.result.clear();
 		try {
+			//connect to mysql db. Username: andreas, Password: password
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:mysql://localhost/softwaretestingdb", "andreas",

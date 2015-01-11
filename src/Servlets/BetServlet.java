@@ -26,8 +26,6 @@ public class BetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public DBConnection place_bet = DBConnection.getInstance();
-	//public ArrayList<ArrayList<String>> account_details = new ArrayList<>();
-	//public ArrayList<ArrayList<String>> total_bets = new ArrayList<>();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -47,15 +45,6 @@ public class BetServlet extends HttpServlet {
 		
 		System.out.println("Placing bet...");
 		try {
-			/*account_details = (ArrayList<ArrayList<String>>)place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
-							+ UsernameValidation(request
-									.getParameter("username")) + "\";").clone();
-
-			total_bets = (ArrayList<ArrayList<String>>)place_bet
-					.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
-							+ UsernameValidation(request
-									.getParameter("username")) + "\";").clone();*/
-
 			if (Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
 					+ UsernameValidation(request
 							.getParameter("username")) + "\";").get(0).get(0)) == 0
@@ -69,7 +58,6 @@ public class BetServlet extends HttpServlet {
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 				response.setHeader("Location", site);
-				// writer.println("You are not allowed to make more than 3 bets! \n Please register as a premium user");
 				System.out.println("Free user trying to make more than 3 bets");
 			} else {
 				try {
@@ -156,24 +144,6 @@ public class BetServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	// public void destroy() {
-	// try {
-	// new DBConnection("DELETE FROM bets;");
-	// } catch (SQLException e) {
-	// // TODO Auto-generated catch block
-	// e.printStackTrace();
-	// }
-	// }
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 	public String UsernameValidation(String username) throws SQLException {

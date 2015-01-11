@@ -11,16 +11,19 @@ import Database.DBConnection;
 
 public class ModelRunner {
 
+	// specify how many threads(users) to create
 	private final int USERS = 10;
 
 	@Test
 	public void runner() {
-		long start_time = System.currentTimeMillis();
-		ArrayList<Long> loadTimes = new ArrayList<>();
-		ExecutorService executor = Executors.newFixedThreadPool(USERS);
+		long timeBefore = System.currentTimeMillis();
+		ArrayList<Long> responseTimes = new ArrayList<>();
+		// create threads
+		ExecutorService thread_manager = Executors.newFixedThreadPool(USERS);
 		DBConnection init = DBConnection.getInstance();
 
 		try {
+			// clear all tables to initialise conditions
 			init.ExecuteQuery("DELETE FROM bets;");
 			init.ExecuteQuery("DELETE FROM attempted_logins;");
 			init.ExecuteQuery("DELETE FROM PLAYERS;");
@@ -29,24 +32,24 @@ public class ModelRunner {
 		}
 
 		for (int i = 0; i < USERS; i++) {
-			Runnable ptest = new Model(loadTimes);
-			executor.execute(ptest);
+			Runnable ptest = new Model(responseTimes);
+			thread_manager.execute(ptest);
 		}
-		executor.shutdown();
-		while (!executor.isTerminated()) {
+		thread_manager.shutdown();
+		while (!thread_manager.isTerminated()) {
+			// wait until executor service terminates safely
 		}
-		long end_time = System.currentTimeMillis();
+		long timeAfter = System.currentTimeMillis();
 		long total = 0;
-		for (int i = 0; i < loadTimes.size(); i++) {
-			total += loadTimes.get(i);
-			System.out.println(i);
+		for (int i = 0; i < responseTimes.size(); i++) {
+			total += responseTimes.get(i);
 		}
 
 		System.out.println("Total execution time for the test: "
-				+ ((end_time - start_time) / 1000) + " seconds");
+				+ ((timeAfter - timeBefore) / 1000) + " seconds");
 
 		System.out.println("Average response time per page: "
-				+ (total / loadTimes.size()) + " milliseconds");
+				+ (total / responseTimes.size()) + " milliseconds");
 	}
 
 }
