@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.doReturn;
 
@@ -54,8 +56,18 @@ public class LoginServletTest {
 	ArrayList<ArrayList<String>> results;
 	
 	@Mock
+	ArrayList<String> record2;
+	
+	@Mock
 	ArrayList<ArrayList<String>> results2;
 	
+	@Mock
+	Calendar cal;
+	
+	@Mock
+	Date date;
+	
+	private InduceTimeout timeout = new InduceTimeout();
 	
 	@Before
 	public void setUp() throws Exception {		
@@ -93,8 +105,7 @@ public class LoginServletTest {
 		
 		doReturn("someUsername").when(request).getParameter("username");
 		
-		Mockito.when(logservlet.login_player.ExecuteQuery(anyString()))
-		.thenReturn(results);
+		Mockito.when(results.size()).thenReturn(0);
 		
 		logservlet.doGet(request, response);
 		
@@ -124,72 +135,77 @@ public class LoginServletTest {
 	}
 
 	@Test
-	public void UserFailedLoginTest() throws ServletException, IOException, Exception {
-		
-		Mockito.doReturn("").when(request).getParameter("username");
-		Mockito.doReturn("").when(request).getParameter("password");
-		logservlet.doGet(request, response);
-		
-		Mockito.verify(response).setHeader("Location", "Pages/LoginFailed.html");
-	}
+	 public void UserFailedLoginTest() throws ServletException, IOException, Exception {
+	  
+	  doReturn("someString").when(record).get(0);
+	  doReturn("testing1").when(record).get(1);
+
+	  doReturn(record).when(results).get(0);
+	  
+	  Mockito.doReturn("someString").when(request).getParameter("username");
+	  Mockito.doReturn("testing123").when(request).getParameter("password");
+	  
+	  Mockito.when(results.size()).thenReturn(1);
+	  Mockito.when(logservlet.login_player.ExecuteQuery(anyString())).thenReturn(results);
+	  Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+	    + "someString" + "\";")).thenReturn(results2);
+	  //Mockito.when(results2.size()).thenReturn(0);
+	  
+	  logservlet.doGet(request, response); 
+	  
+	  Mockito.verify(response).setHeader("Location", "Pages/LoginFailed.html");
+	 }
 	
 	@Test
 	public void UserFailedLoginTimeoutTest() throws ServletException, IOException, SQLException {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar test_cal = Calendar.getInstance();
-		test_cal.add(Calendar.MINUTE, -2);
-		System.out.println(dateFormat.format(test_cal.getTime()));
 
-		try {
-			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(test_cal.getTime())+ "\",\"3\");");
-		} catch (MySQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-		}
+		doReturn("someString").when(record).get(0);
+		doReturn("testing123").when(record).get(1);
 
-		Mockito.doReturn("logintest").when(request).getParameter("username");
+		doReturn(record).when(results).get(0);
+		
+		Mockito.doReturn("someString").when(request).getParameter("username");
 		Mockito.doReturn("testing123").when(request).getParameter("password");
+		
+		doReturn(timeout.turnBackTime()).when(record2).get(0);
+		doReturn("3").when(record2).get(1);
+		
+		doReturn(record2).when(results2).get(0);
+		
+		Mockito.when(results.size()).thenReturn(1);
+		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \"someString\";")).thenReturn(results);
+		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \"someString\";")).thenReturn(results2);
+		//Mockito.when(results2.size()).thenReturn(0);
+		Mockito.when(results2.size()).thenReturn(1);
+		
 		logservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location", "Pages/LoginTimeout.html");
 	}
-	
-	@Test
-	public void UserLoginFailedAfterTimeoutTest() throws ServletException, IOException, SQLException {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MINUTE, -8);
-		System.out.println(dateFormat.format(cal.getTime()));
-		
-		try {
-			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
-		} catch (MySQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-		}
-		
-		Mockito.doReturn("logintest").when(request).getParameter("username");
-		Mockito.doReturn("testing123898").when(request).getParameter("password");
-		logservlet.doGet(request, response);
-		
-		Mockito.verify(response).setHeader("Location", "Pages/LoginFailed.html");
-	}
 
 	@Test
 	public void UserLoginAfterTimeoutTest() throws ServletException, IOException, SQLException {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MINUTE, -8);
+		doReturn("someString").when(record).get(0);
+		doReturn("testing123").when(record).get(1);
+
+		doReturn(record).when(results).get(0);
 		
-		try {
-			DB.ExecuteQuery("INSERT INTO attempted_logins (username, last_login, attempts_amount) VALUES (\"logintest\",\""+ dateFormat.format(cal.getTime())+ "\",\"3\");");
-		} catch (MySQLIntegrityConstraintViolationException e) {
-			e.printStackTrace();
-		}
-		
-		Mockito.doReturn("logintest").when(request).getParameter("username");
+		Mockito.doReturn("someString").when(request).getParameter("username");
 		Mockito.doReturn("testing123").when(request).getParameter("password");
 		
-		logservlet.doGet(request, response);
+		doReturn("2015-01-11 18:30:11").when(record2).get(0);
+		doReturn("3").when(record2).get(1);
 		
+		doReturn(record2).when(results2).get(0);
+		
+		Mockito.when(results.size()).thenReturn(1);
+		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT Username, Password FROM PLAYERS WHERE Username = \"someString\";")).thenReturn(results);
+		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \"someString\";")).thenReturn(results2);
+		//Mockito.when(results2.size()).thenReturn(0);
+		Mockito.when(results2.size()).thenReturn(1);
+		
+		logservlet.doGet(request, response);
+
 		Mockito.verify(response).setHeader("Location", "BetPage.jsp");
 	}
 	
