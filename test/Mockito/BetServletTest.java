@@ -48,9 +48,6 @@ public class BetServletTest {
 	@Mock
 	private ArrayList<String> record;
 
-	@Mock
-	private ArrayList<ArrayList<String>> execRes;
-
 	// @SuppressWarnings("unchecked")
 	@Before
 	public void setUp() throws Exception {

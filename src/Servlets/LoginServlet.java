@@ -29,8 +29,6 @@ public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public DBConnection login_player = DBConnection.getInstance();
-	public ArrayList<ArrayList<String>> users = new ArrayList<>();
-	public ArrayList<ArrayList<String>> check_logins = new ArrayList<>();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -50,36 +48,57 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("Executing Login Servlet");
 
 		try {
-			users = (ArrayList<ArrayList<String>>) login_player.ExecuteQuery(
+			/*users = (ArrayList<ArrayList<String>>) login_player.ExecuteQuery(
 					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";").clone();
+									.getParameter("username")) + "\";").clone();*/
 
 			// Set response content type
-			response.setContentType("text/html");
+			response.setContentType("text/html");  
 
-			if (users.size() == 0) {
+			if (login_player.ExecuteQuery(
+					"SELECT Username, Password FROM PLAYERS WHERE Username = \""
+							+ UsernameValidation(request
+									.getParameter("username")) + "\";").size() == 0) {
 				// user not in database
 				// New location to be redirected
-				String site = new String("Pages/UserNotFound.html");
+				String site = new String("Pages/UserNotFound.html");  
 
 				response.setStatus(HttpServletResponse.SC_MOVED_TEMPORARILY);
 				response.setHeader("Location", site);
 
 				System.out.println("User not registered yet");
 			} else {
-				ArrayList<String> user = users.get(0);
+				ArrayList<String> user = login_player.ExecuteQuery(
+						"SELECT Username, Password FROM PLAYERS WHERE Username = \""
+								+ UsernameValidation(request
+										.getParameter("username")) + "\";").get(0);
 				// check for any attempted logins
-				check_logins = (ArrayList<ArrayList<String>>) login_player
+				/*check_logins = (ArrayList<ArrayList<String>>) login_player
 						.ExecuteQuery(
 								"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
 										+ UsernameValidation(request
 												.getParameter("username"))
-										+ "\";").clone();
+										+ "\";").clone();*/
 
-				if (check_logins.size() == 0
-						|| Integer.parseInt(check_logins.get(0).get(1)) < 3
-						|| CheckforFiveMinutes(check_logins.get(0).get(0))) {
+				if (login_player
+						.ExecuteQuery(
+								"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+										+ UsernameValidation(request
+												.getParameter("username"))
+										+ "\";").size() == 0
+						|| Integer.parseInt(login_player
+								.ExecuteQuery(
+										"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+												+ UsernameValidation(request
+														.getParameter("username"))
+												+ "\";").get(0).get(1)) < 3
+						|| CheckforFiveMinutes(login_player
+								.ExecuteQuery(
+										"SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+												+ UsernameValidation(request
+														.getParameter("username"))
+												+ "\";").get(0).get(0))) {
 					// authenticate user
 
 					if (!user.get(0).isEmpty()

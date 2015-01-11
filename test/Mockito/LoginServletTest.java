@@ -1,7 +1,6 @@
 package Mockito;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.anyString;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +21,8 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.doReturn;
 
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 
@@ -52,7 +53,10 @@ public class LoginServletTest {
 	@Mock
 	ArrayList<ArrayList<String>> results;
 	
-	@SuppressWarnings("unchecked")
+	@Mock
+	ArrayList<ArrayList<String>> results2;
+	
+	
 	@Before
 	public void setUp() throws Exception {		
 		MockitoAnnotations.initMocks(this);
@@ -67,8 +71,8 @@ public class LoginServletTest {
 		logservlet.login_player = Mockito.mock(DBConnection.class);
 		DB = logservlet.login_player;
 		
-		logservlet.users = Mockito.mock(ArrayList.class);
-		logservlet.check_logins = Mockito.mock(ArrayList.class);
+		/*logservlet.users = Mockito.mock(ArrayList.class);
+		logservlet.check_logins = Mockito.mock(ArrayList.class);*/
 		
 		Mockito.doReturn(session).when(request).getSession();
 		
@@ -85,10 +89,12 @@ public class LoginServletTest {
 	}
 	
 	@Test
-	public void UserNotFoundTest() throws ServletException, IOException {
+	public void UserNotFoundTest() throws ServletException, IOException, SQLException {
 		
-		Mockito.doReturn("usernotindb").when(request).getParameter("username");
-		Mockito.doReturn("testing123").when(request).getParameter("password");
+		doReturn("someUsername").when(request).getParameter("username");
+		
+		Mockito.when(logservlet.login_player.ExecuteQuery(anyString()))
+		.thenReturn(results);
 		
 		logservlet.doGet(request, response);
 		
@@ -97,24 +103,20 @@ public class LoginServletTest {
 
 	@Test
 	public void UserLoginTest() throws ServletException, IOException, SQLException {	
-
-		Mockito.doReturn("someString").when(record).get(0);
-		Mockito.doReturn("someString123").when(record).get(1);
-
-		Mockito.doReturn(record).when(logservlet.users).get(0);		
-		Mockito.doReturn(1).when(logservlet.users).size();
-		Mockito.doReturn(logservlet.users).when(DB).ExecuteQuery(anyString());
 		
-		//System.out.println(logservlet.users.size());
-		
-		Mockito.doReturn("").when(record).get(0);
-		Mockito.doReturn("").when(record).get(1);
+		doReturn("someString").when(record).get(0);
+		doReturn("testing123").when(record).get(1);
 
-		Mockito.doReturn(record).when(logservlet.check_logins).get(0);
-		Mockito.doReturn(logservlet.check_logins).when(DB).ExecuteQuery(anyString());
+		doReturn(record).when(results).get(0);
 		
 		Mockito.doReturn("someString").when(request).getParameter("username");
-		Mockito.doReturn("someString123").when(request).getParameter("password");
+		Mockito.doReturn("testing123").when(request).getParameter("password");
+		
+		Mockito.when(results.size()).thenReturn(1);
+		Mockito.when(logservlet.login_player.ExecuteQuery(anyString())).thenReturn(results);
+		Mockito.when(logservlet.login_player.ExecuteQuery("SELECT last_login, attempts_amount FROM attempted_logins WHERE Username = \""
+				+ "someString"	+ "\";")).thenReturn(results2);
+		//Mockito.when(results2.size()).thenReturn(0);
 		
 		logservlet.doGet(request, response);
 
