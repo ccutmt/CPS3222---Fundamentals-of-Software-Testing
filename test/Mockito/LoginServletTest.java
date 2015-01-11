@@ -102,12 +102,10 @@ public class LoginServletTest {
 		Mockito.doReturn("someString123").when(record).get(1);
 
 		Mockito.doReturn(record).when(logservlet.users).get(0);		
-		
-		Mockito.doReturn("someString").when(request).getParameter("username");
-		Mockito.doReturn("someString123").when(request).getParameter("password");
+		Mockito.doReturn(1).when(logservlet.users).size();
 		Mockito.doReturn(logservlet.users).when(DB).ExecuteQuery(anyString());
 		
-		System.out.println(logservlet.users.size());
+		//System.out.println(logservlet.users.size());
 		
 		Mockito.doReturn("").when(record).get(0);
 		Mockito.doReturn("").when(record).get(1);
@@ -115,6 +113,8 @@ public class LoginServletTest {
 		Mockito.doReturn(record).when(logservlet.check_logins).get(0);
 		Mockito.doReturn(logservlet.check_logins).when(DB).ExecuteQuery(anyString());
 		
+		Mockito.doReturn("someString").when(request).getParameter("username");
+		Mockito.doReturn("someString123").when(request).getParameter("password");
 		
 		logservlet.doGet(request, response);
 

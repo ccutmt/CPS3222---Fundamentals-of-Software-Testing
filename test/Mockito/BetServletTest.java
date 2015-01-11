@@ -18,6 +18,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.doReturn;
 
 import static org.mockito.Matchers.anyString;
 
@@ -46,6 +47,9 @@ public class BetServletTest {
 
 	@Mock
 	private ArrayList<String> record;
+	
+	@Mock
+	private ArrayList<ArrayList<String>> execRes;
 
 	@SuppressWarnings("unchecked")
 	@Before
@@ -53,51 +57,38 @@ public class BetServletTest {
 		MockitoAnnotations.initMocks(this);
 		betservlet = new BetServlet();
 
-		/*
-		 * request = Mockito.mock(HttpServletRequest.class); response =
-		 * Mockito.mock(HttpServletResponse.class); writer =
-		 * Mockito.mock(PrintWriter.class); session =
-		 * Mockito.mock(HttpSession.class); DB =
-		 * Mockito.mock(DBConnection.class);
-		 */
-
 		betservlet.place_bet = Mockito.mock(DBConnection.class);
 		DB = betservlet.place_bet;
 
 		betservlet.account_details = Mockito.mock(ArrayList.class);
+		betservlet.total_bets = Mockito.mock(ArrayList.class);
 
 		Mockito.doReturn(session).when(request).getSession();
-
-		/*
-		 * try{ DB.ExecuteQuery(
-		 * "INSERT INTO PLAYERS ( Username, Password, Name, Surname, DOB, Account, CCNum, CCExpDate, CVV, Bets )"
-		 * +
-		 * "VALUES ( \"bettest\", \"testing123\",\"Christopher\",\"Cutajar\",\"1994-12-18\",\"0\",\"378282246310005\",\"2019-05-31\",\"123\",\"0\");"
-		 * ); DB.ExecuteQuery("DELETE from Bets where BetID=\"1\";");
-		 * }catch(SQLException se){ se.printStackTrace(); }
-		 */
+	
 	}
 
 	@Test
 	public void MoreThan3BetsTest() throws ServletException, IOException,
 			SQLException {
-
-		Mockito.doReturn("0").when(record).get(0);
-		Mockito.doReturn("3").when(record).get(1);
-
-		Mockito.doReturn(record).when(betservlet.account_details).get(0);
-
-		Mockito.doReturn("someString").when(request).getParameter("username");
-		Mockito.doReturn(betservlet.account_details).when(DB)
-				.ExecuteQuery(anyString());
-
+		doReturn("someUsername").when(request).getParameter("username");		
+	
+		doReturn(execRes).when(betservlet.place_bet.ExecuteQuery(anyString()));
+		
+		doReturn(results).when(execRes).clone();
+		
+		doReturn(record).when(results).get(0);
+		
+		doReturn("0").when(record).get(0);
+		doReturn("4").when(record).get(1);
+		
+		
 		betservlet.doGet(request, response);
+		
+		Mockito.verify(response).setHeader("Location", "Pages/BetSuccess.html");
 
-		Mockito.verify(response).setHeader("Location",
-				"Pages/MoreThan3Bets.html");
 	}
 
-	@Test
+	/*@Test
 	public void FreeSuccessfulBetTest() throws ServletException, IOException,
 			SQLException {
 
@@ -196,9 +187,9 @@ public class BetServletTest {
 
 		Mockito.doReturn(betservlet.account_details).when(DB)
 				.ExecuteQuery(anyString());
-		
-		//Mockito.doThrow(new UnsupportedOperationException()).when(DB)
-		//.ExecuteQuery(anyString());
+
+		// Mockito.doThrow(new UnsupportedOperationException()).when(DB)
+		// .ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
@@ -209,7 +200,7 @@ public class BetServletTest {
 	@Test
 	public void FreeHighUnSuccessfulBetTest() throws ServletException,
 			IOException, SQLException, UnsupportedOperationException {
-		
+
 		Mockito.doReturn("0").when(record).get(0);
 		Mockito.doReturn("0").when(record).get(1);
 
@@ -218,12 +209,12 @@ public class BetServletTest {
 		Mockito.doReturn("someString").when(request).getParameter("username");
 		Mockito.doReturn("2").when(request).getParameter("risk_lvl");
 		Mockito.doReturn("5").when(request).getParameter("bet_amt");
-		
-		Mockito.doReturn(betservlet.account_details).when(DB)
-		.ExecuteQuery(anyString());
 
-		//Mockito.doThrow(new UnsupportedOperationException()).when(DB)
-			//	.ExecuteQuery(anyString());
+		Mockito.doReturn(betservlet.account_details).when(DB)
+				.ExecuteQuery(anyString());
+
+		// Mockito.doThrow(new UnsupportedOperationException()).when(DB)
+		// .ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
@@ -231,10 +222,11 @@ public class BetServletTest {
 				.setHeader("Location", "Pages/InvalidRisk.html");
 	}
 
-	@Test//(expected = SQLException.class)
+	@Test
+	// (expected = SQLException.class)
 	public void FreeUnSuccessfulBetOver5Test() throws ServletException,
 			IOException, SQLException {
-		
+
 		Mockito.doReturn("0").when(record).get(0);
 		Mockito.doReturn("0").when(record).get(1);
 
@@ -243,11 +235,12 @@ public class BetServletTest {
 		Mockito.doReturn("someString").when(request).getParameter("username");
 		Mockito.doReturn("0").when(request).getParameter("risk_lvl");
 		Mockito.doReturn("10").when(request).getParameter("bet_amt");
-		
-		Mockito.doReturn(betservlet.account_details).when(DB)
-		.ExecuteQuery(anyString());
 
-		//Mockito.doThrow(new SQLException()).when(DB).ExecuteQuery(anyString());
+		Mockito.doReturn(betservlet.account_details).when(DB)
+				.ExecuteQuery(anyString());
+
+		// Mockito.doThrow(new
+		// SQLException()).when(DB).ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
@@ -258,7 +251,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumSuccessfulBetOver5Test() throws ServletException,
 			IOException, SQLException {
-		
+
 		Mockito.doReturn("1").when(record).get(0);
 		Mockito.doReturn("0").when(record).get(1);
 
@@ -267,10 +260,9 @@ public class BetServletTest {
 		Mockito.doReturn("someString").when(request).getParameter("username");
 		Mockito.doReturn("2").when(request).getParameter("risk_lvl");
 		Mockito.doReturn("200").when(request).getParameter("bet_amt");
-		
-		Mockito.doReturn(betservlet.account_details).when(DB)
-		.ExecuteQuery(anyString());
 
+		Mockito.doReturn(betservlet.account_details).when(DB)
+				.ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
@@ -280,7 +272,7 @@ public class BetServletTest {
 	@Test
 	public void PremiumUnSuccessfulBetOver5000Test() throws ServletException,
 			IOException, Exception {
-		
+
 		Mockito.doReturn("1").when(record).get(0);
 		Mockito.doReturn("0").when(record).get(1);
 
@@ -291,13 +283,13 @@ public class BetServletTest {
 		Mockito.doReturn("5001").when(request).getParameter("bet_amt");
 
 		Mockito.doReturn(betservlet.account_details).when(DB)
-		.ExecuteQuery(anyString());
+				.ExecuteQuery(anyString());
 
 		betservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location",
 				"Pages/MaxCumulativeBets.html");
-	}
+	}*/
 
 	@After
 	public void tearDown() throws Exception {
