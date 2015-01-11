@@ -1,4 +1,4 @@
-package Mokito;
+package Mockito;
 
 import static org.junit.Assert.*;
 
