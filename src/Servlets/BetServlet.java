@@ -26,8 +26,8 @@ public class BetServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public DBConnection place_bet = DBConnection.getInstance();
-	public ArrayList<ArrayList<String>> account_details = new ArrayList<>();
-	public ArrayList<ArrayList<String>> total_bets = new ArrayList<>();
+	//public ArrayList<ArrayList<String>> account_details = new ArrayList<>();
+	//public ArrayList<ArrayList<String>> total_bets = new ArrayList<>();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,28 +41,27 @@ public class BetServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		account_details.clear();
-		total_bets.clear();
-
+		
 		System.out.println("Placing bet...");
 		try {
-			account_details = (ArrayList<ArrayList<String>>)place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+			/*account_details = (ArrayList<ArrayList<String>>)place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
 							+ UsernameValidation(request
 									.getParameter("username")) + "\";").clone();
 
 			total_bets = (ArrayList<ArrayList<String>>)place_bet
 					.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
 							+ UsernameValidation(request
-									.getParameter("username")) + "\";").clone();
-			
-			System.out.println("index 0"+account_details.get(0).get(0));
-			System.out.println("index 1"+account_details.get(0).get(1));
+									.getParameter("username")) + "\";").clone();*/
 
-			if (Integer.parseInt(account_details.get(0).get(0)) == 0
-					&& Integer.parseInt(account_details.get(0).get(1)) >= 3) {
+			if (Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+					+ UsernameValidation(request
+							.getParameter("username")) + "\";").get(0).get(0)) == 0
+					&& Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+							+ UsernameValidation(request
+									.getParameter("username")) + "\";").get(0).get(1)) >= 3) {
 
 				// free users cannot make more than 3 bets
 				// New location to be redirected
@@ -82,17 +81,24 @@ public class BetServlet extends HttpServlet {
 									+ GenerateBetID()
 									+ "\", \""
 									+ ValidateRiskLevel(Integer
-											.parseInt(account_details.get(0)
+											.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+													+ UsernameValidation(request
+															.getParameter("username")) + "\";").get(0)
 													.get(0)), Integer
 											.parseInt(request
 													.getParameter("risk_lvl")))
 									+ "\", \""
 									+ ValidateBetAmount(
-											Integer.parseInt(account_details
+											Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
+													+ UsernameValidation(request
+															.getParameter("username")) + "\";")
 													.get(0).get(0)),
 											Integer.parseInt(request
 													.getParameter("bet_amt")),
-											getTotalBetAmount(total_bets.get(0)))
+											getTotalBetAmount(place_bet
+													.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
+															+ UsernameValidation(request
+																	.getParameter("username")) + "\";").get(0)))
 									+ "\");");
 
 					place_bet
