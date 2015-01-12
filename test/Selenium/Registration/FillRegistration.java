@@ -48,7 +48,7 @@ public class FillRegistration implements FillRegistrationInterface {
 		field = browser.findElement(By.id("cc_exp"));
 		field.sendKeys("2018/12");
 
-		field = browser.findElement(By.id("cvv"));
+		field = browser.findElement(By.id("cvv")); 
 		field.sendKeys("123");
 
 	}

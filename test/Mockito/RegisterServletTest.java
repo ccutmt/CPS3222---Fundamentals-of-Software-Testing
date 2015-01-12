@@ -63,7 +63,7 @@ public class RegisterServletTest {
 		regservlet.doGet(request, response);
 
 		Mockito.verify(response).setHeader("Location",
-				"Pages/RegistrationSuccess.html");
+				"Pages/RegistrationSuccess.html"); 
 	}
 
 	@Test

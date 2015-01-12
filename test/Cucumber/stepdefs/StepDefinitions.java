@@ -89,7 +89,7 @@ public class StepDefinitions {
 		log_form = new FillLogin(browser);
 		log_form.visitLogin();
 		log_form.fillForm("Afriggieri5", "testing123");
-		log_form.submitForm();
+		log_form.submitForm(); 
 	}
 
 	@When("^I try to place a bet of 5 euros$")
