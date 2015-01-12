@@ -12,7 +12,7 @@ import Database.DBConnection;
 public class ModelRunner {
 
 	// specify how many threads(users) to create
-	private final int USERS = 5;
+	private final int USERS = 7;
 
 	@Test
 	public void runner() {
