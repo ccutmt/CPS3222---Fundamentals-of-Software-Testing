@@ -166,8 +166,6 @@ public class BetServlet extends HttpServlet {
 
 	public int ValidateRiskLevel(int account_type, int risk_level)
 			throws UnsupportedOperationException {
-		System.out.println("------Account Type:" + account_type);
-		System.out.println("------Risk Level:" + risk_level);
 		if (((account_type == 0) && (risk_level == 0))
 				|| ((account_type == 1) && (risk_level >= 0) && (risk_level < 3))) {
 			return risk_level;
@@ -177,9 +175,6 @@ public class BetServlet extends HttpServlet {
 
 	public int ValidateBetAmount(int account_type, int bet_amount,
 			int total_bets) throws SQLException, Exception {
-		System.out.println("Bet amount before fail: " + bet_amount);
-		System.out.println("Account type before fail: " + account_type);
-		System.out.println("total bets before fail: " + total_bets);
 
 		if (bet_amount > 0
 				&& total_bets >= 0
