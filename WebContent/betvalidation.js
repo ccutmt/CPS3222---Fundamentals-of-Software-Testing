@@ -1,6 +1,16 @@
 $(document).ready(function() {
 
-	// Bet Amount real-time validation	
+	// Bet Amount real-time validation
+	/*$("#bet_amt").blur(function() {
+		if (validateBetAmount($("#bet_amt").val())) {
+			$("#bet_amt").removeClass('invalid');
+			$("#bet_amt").addClass('valid');
+		} else {
+			$("#bet_amt").removeClass('valid');
+			$("#bet_amt").addClass('invalid');
+		}
+	});*/
+	
 	$("#bet_amt").blur(function() {
 		var element = $("#bet_amt");
 		if (validateBetAmount(element.val())) {
