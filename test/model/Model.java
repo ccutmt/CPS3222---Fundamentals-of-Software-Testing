@@ -68,12 +68,6 @@ public class Model implements FsmModel, Runnable {
 		} else if (url
 				.compareTo("http://localhost:8080/SoftwareTesting/Pages/MaxCumulativeBets.html") == 0) {
 			return States.Bet_Cumulative_Error;
-		} else if (url
-				.compareTo("http://localhost:8080/SoftwareTesting/Pages/InvalidRisk.html") == 0) {
-			return States.Bet_Risk_Error;
-		} else if (url
-				.compareTo("http://localhost:8080/SoftwareTesting/Pages/InvalidBetAmount.html") == 0) {
-			return States.Bet_Amount_Error;
 		} else
 			return null;
 	}
@@ -158,18 +152,16 @@ public class Model implements FsmModel, Runnable {
 	public boolean proceedToLoginGuard() {
 		return (getState().equals(States.Registration_Successful)
 				|| getState().equals(States.Login_Failed_Error) || getState()
-				.equals(States.Login_Timeout_Error));
+				.equals(States.Login_Timeout_Error)); 
 	}
 
 	@Action
 	public void proceedToLogin() {
 		long timeBefore = System.currentTimeMillis();
-		;
 		browser.findElement(By.id("login")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/Login.jsp",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -204,10 +196,8 @@ public class Model implements FsmModel, Runnable {
 	public boolean proceedToBetGuard() {
 		if (getState().equals(States.LoginPage)) {
 			return true;
-		} else if (getState().equals(States.Bet_Amount_Error)
-				|| getState().equals(States.Bet_Cumulative_Error)
+		} else if (getState().equals(States.Bet_Cumulative_Error)
 				|| getState().equals(States.Bet_Exceeded3Bets_Error)
-				|| getState().equals(States.Bet_Risk_Error)
 				|| getState().equals(States.Bet_Successful)) {
 			// if state is an error page, user has to click on return button to
 			// visit betting state
