@@ -82,10 +82,8 @@ public class Model implements FsmModel, Runnable {
 		this.attempted_logins = 0;
 		this.atLeastOneBet = false;
 		long timeBefore = System.currentTimeMillis();
-		;
 		browser.get("http://localhost:8080/SoftwareTesting/");
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -96,12 +94,10 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void proceedToRegister() {
 		long timeBefore = System.currentTimeMillis();
-		;
 		browser.findElement(By.id("register")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/Register.jsp",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -183,13 +179,11 @@ public class Model implements FsmModel, Runnable {
 		log_form.fillForm(this.username, this.password + " ");
 		this.attempted_logins++;
 		long timeBefore = System.currentTimeMillis();
-		;
 		log_form.submitForm();
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/LoginFailed.html",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -212,12 +206,10 @@ public class Model implements FsmModel, Runnable {
 		FillLogin log_form = new FillLogin(browser);
 		log_form.fillForm(this.username, this.password);
 		long timeBefore = System.currentTimeMillis();
-		;
 		log_form.submitForm();
 		assertEquals("http://localhost:8080/SoftwareTesting/BetPage.jsp",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -245,13 +237,11 @@ public class Model implements FsmModel, Runnable {
 			bet_form.fillForm(randomAmount + "", "medium");
 		}
 		long timeBefore = System.currentTimeMillis();
-		;
 		bet_form.submitForm();
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/BetSuccess.html",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 		this.atLeastOneBet = true;
 	}
@@ -266,12 +256,10 @@ public class Model implements FsmModel, Runnable {
 	@Action
 	public void logout() {
 		long timeBefore = System.currentTimeMillis();
-		;
 		browser.findElement(By.id("logout")).click();
 		assertEquals("http://localhost:8080/SoftwareTesting/HomePage.jsp",
 				browser.getCurrentUrl());
 		long timeAfter = System.currentTimeMillis();
-		;
 		responseTimes.add(timeAfter - timeBefore);
 	}
 
@@ -287,7 +275,7 @@ public class Model implements FsmModel, Runnable {
 		browser = new ChromeDriver();
 		Tester t = new AllRoundTester(this);
 		t.addListener(new VerboseListener());
-		t.generate(50);
+		t.generate(25);
 		t.buildGraph();
 		browser.close();
 	}

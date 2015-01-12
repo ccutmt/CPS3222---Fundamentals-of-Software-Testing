@@ -39,18 +39,24 @@ public class BetServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	//@SuppressWarnings("unchecked")
+	// @SuppressWarnings("unchecked")
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		System.out.println("Placing bet...");
 		try {
-			if (Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
-					+ UsernameValidation(request
-							.getParameter("username")) + "\";").get(0).get(0)) == 0
-					&& Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
-							+ UsernameValidation(request
-									.getParameter("username")) + "\";").get(0).get(1)) >= 3) {
+			if (Integer.parseInt(place_bet
+					.ExecuteQuery(
+							"SELECT account, Bets FROM players WHERE Username = \""
+									+ UsernameValidation(request
+											.getParameter("username")) + "\";")
+					.get(0).get(0)) == 0
+					&& Integer.parseInt(place_bet
+							.ExecuteQuery(
+									"SELECT account, Bets FROM players WHERE Username = \""
+											+ UsernameValidation(request
+													.getParameter("username"))
+											+ "\";").get(0).get(1)) >= 3) {
 
 				// free users cannot make more than 3 bets
 				// New location to be redirected
@@ -68,26 +74,34 @@ public class BetServlet extends HttpServlet {
 									+ "\", \""
 									+ GenerateBetID()
 									+ "\", \""
-									+ ValidateRiskLevel(Integer
-											.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
-													+ UsernameValidation(request
-															.getParameter("username")) + "\";").get(0)
-													.get(0)), Integer
-											.parseInt(request
+									+ ValidateRiskLevel(
+											Integer.parseInt(place_bet
+													.ExecuteQuery(
+															"SELECT account, Bets FROM players WHERE Username = \""
+																	+ UsernameValidation(request
+																			.getParameter("username"))
+																	+ "\";")
+													.get(0).get(0)),
+											Integer.parseInt(request
 													.getParameter("risk_lvl")))
 									+ "\", \""
 									+ ValidateBetAmount(
-											Integer.parseInt(place_bet.ExecuteQuery("SELECT account, Bets FROM players WHERE Username = \""
-													+ UsernameValidation(request
-															.getParameter("username")) + "\";")
+											Integer.parseInt(place_bet
+													.ExecuteQuery(
+															"SELECT account, Bets FROM players WHERE Username = \""
+																	+ UsernameValidation(request
+																			.getParameter("username"))
+																	+ "\";")
 													.get(0).get(0)),
 											Integer.parseInt(request
 													.getParameter("bet_amt")),
 											getTotalBetAmount(place_bet
-													.ExecuteQuery("SELECT sum(amount) FROM bets WHERE Username = \""
-															+ UsernameValidation(request
-																	.getParameter("username")) + "\";").get(0)))
-									+ "\");");
+													.ExecuteQuery(
+															"SELECT sum(amount) FROM bets WHERE Username = \""
+																	+ UsernameValidation(request
+																			.getParameter("username"))
+																	+ "\";")
+													.get(0))) + "\");");
 
 					place_bet
 							.ExecuteQuery("UPDATE players SET Bets = Bets+1 WHERE username = \""
@@ -136,8 +150,8 @@ public class BetServlet extends HttpServlet {
 
 	public void init() {
 		try {
-			ArrayList<ArrayList<String>> last_id = new ArrayList<>(place_bet
-					.ExecuteQuery("SELECT max(BetID) FROM bets;"));
+			ArrayList<ArrayList<String>> last_id = new ArrayList<>(
+					place_bet.ExecuteQuery("SELECT max(BetID) FROM bets;"));
 			if (last_id.get(0).get(0) != null)
 				this.CurrentBetID = Long.parseLong(last_id.get(0).get(0));
 		} catch (SQLException e) {
@@ -159,6 +173,8 @@ public class BetServlet extends HttpServlet {
 
 	public int ValidateRiskLevel(int account_type, int risk_level)
 			throws UnsupportedOperationException {
+		System.out.println("------Account Type:" + account_type);
+		System.out.println("------Risk Level:" + risk_level);
 		if (((account_type == 0) && (risk_level == 0))
 				|| ((account_type == 1) && (risk_level >= 0) && (risk_level < 3))) {
 			return risk_level;
@@ -168,18 +184,22 @@ public class BetServlet extends HttpServlet {
 
 	public int ValidateBetAmount(int account_type, int bet_amount,
 			int total_bets) throws SQLException, Exception {
+		System.out.println("Bet amount before fail: " + bet_amount);
+		System.out.println("Account type before fail: " + account_type);
+		System.out.println("total bets before fail: " + total_bets);
+
 		if (bet_amount > 0
 				&& total_bets >= 0
-				&& (((account_type == 0) && (bet_amount <= 5) && (total_bets
-						+ bet_amount <= 15)) || ((account_type == 1) && ((total_bets + bet_amount) <= 5000)))) {
+				&& (((account_type == 0) && (bet_amount <= 5)) || ((account_type == 1) && ((total_bets + bet_amount) <= 5000)))) {
 			return bet_amount;
 
 		} else if ((account_type == 1) && ((total_bets + bet_amount) > 5000)) {
 			throw new Exception();
 		}
 
-		else
+		else {
 			throw new SQLException();
+		}
 	}
 
 	public long GenerateBetID() {

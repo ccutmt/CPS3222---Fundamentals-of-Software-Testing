@@ -12,7 +12,7 @@ import Database.DBConnection;
 public class ModelRunner {
 
 	// specify how many threads(users) to create
-	private final int USERS = 1;
+	private final int USERS = 7;
 
 	@Test
 	public void runner() {
@@ -50,6 +50,16 @@ public class ModelRunner {
 
 		System.out.println("Average response time per page: "
 				+ (total / responseTimes.size()) + " milliseconds");
+
+		try {
+			// clear all tables
+			init.ExecuteQuery("DELETE FROM bets;");
+			init.ExecuteQuery("DELETE FROM attempted_logins;");
+			init.ExecuteQuery("DELETE FROM PLAYERS;");
+		} catch (SQLException se) {
+			se.printStackTrace();
+		}
+
 	}
 
 }
