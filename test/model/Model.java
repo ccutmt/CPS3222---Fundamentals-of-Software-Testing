@@ -287,7 +287,7 @@ public class Model implements FsmModel, Runnable {
 
 	public String generateUsername() {
 		Random rand = new Random();
-		int randomNum = rand.nextInt((50000)) + 1;
+		int randomNum = rand.nextInt((999999999)) + 1;
 		return "TestUser" + randomNum;
 	}
 
@@ -297,7 +297,7 @@ public class Model implements FsmModel, Runnable {
 		browser = new ChromeDriver();
 		Tester t = new AllRoundTester(this);
 		t.addListener(new VerboseListener());
-		t.generate(50);
+		t.generate(75);
 		t.buildGraph();
 		browser.close();
 	}

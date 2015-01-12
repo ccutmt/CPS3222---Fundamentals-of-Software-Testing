@@ -67,6 +67,12 @@ public class BetServlet extends HttpServlet {
 				System.out.println("Free user trying to make more than 3 bets");
 			} else {
 				try {
+					int account_type = Integer.parseInt(place_bet.ExecuteQuery(
+									"SELECT account FROM players WHERE Username = \""
+											+ UsernameValidation(request
+													.getParameter("username"))
+											+ "\";")
+							.get(0).get(0));
 					place_bet
 							.ExecuteQuery("INSERT INTO bets (USERNAME, BetID, RiskLevel, Amount) VALUES (\""
 									+ UsernameValidation(request
@@ -74,25 +80,12 @@ public class BetServlet extends HttpServlet {
 									+ "\", \""
 									+ GenerateBetID()
 									+ "\", \""
-									+ ValidateRiskLevel(
-											Integer.parseInt(place_bet
-													.ExecuteQuery(
-															"SELECT account, Bets FROM players WHERE Username = \""
-																	+ UsernameValidation(request
-																			.getParameter("username"))
-																	+ "\";")
-													.get(0).get(0)),
+									+ ValidateRiskLevel(account_type,
 											Integer.parseInt(request
 													.getParameter("risk_lvl")))
 									+ "\", \""
 									+ ValidateBetAmount(
-											Integer.parseInt(place_bet
-													.ExecuteQuery(
-															"SELECT account, Bets FROM players WHERE Username = \""
-																	+ UsernameValidation(request
-																			.getParameter("username"))
-																	+ "\";")
-													.get(0).get(0)),
+											account_type,
 											Integer.parseInt(request
 													.getParameter("bet_amt")),
 											getTotalBetAmount(place_bet
