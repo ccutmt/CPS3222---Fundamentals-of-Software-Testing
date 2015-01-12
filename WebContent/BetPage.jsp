@@ -59,7 +59,8 @@
 				<div class="row">
 					<label for="BetAmount"></label> <input
 						type="number" placeholder="Bet Amount" name="bet_amt" id="bet_amt" />
-					<span id="error_bet_amt" class="error">Invalid Bet Amount </span>
+					<span id="error_bet_amt" class="error">Error in the Bet
+						Amount field </span>
 				</div>
 
 				<div id="register">
