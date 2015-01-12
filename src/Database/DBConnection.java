@@ -33,7 +33,7 @@ public class DBConnection {
 	}
 	public ArrayList<ArrayList<String>> ExecuteQuery(String query) throws SQLException {
 		//clear any previous results
-		this.result.clear();
+		this.result = new ArrayList<>();
 		try {
 			//connect to mysql db. Username: andreas, Password: password
 			Class.forName("com.mysql.jdbc.Driver");
