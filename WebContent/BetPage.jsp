@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" type="text/css" href="register.css">
 <link rel="stylesheet" type="text/css" href="table.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="jquery/2.1.3/jquery.min.js"></script>
 <script type="text/javascript" src="betvalidation.js"></script>
 
 <title>Bet Page</title>
