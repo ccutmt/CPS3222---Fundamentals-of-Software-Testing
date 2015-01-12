@@ -126,36 +126,35 @@ public class Model implements FsmModel, Runnable {
 	public void proceedToRegisterSuccessful() {
 		FillRegistration reg_form = new FillRegistration(browser);
 		double prob = Math.random();
-		do {
-			// do until a unique username is generated
-			if (browser
-					.getCurrentUrl()
-					.compareTo(
-							"http://localhost:8080/SoftwareTesting/Pages/ErrorAlreadyExists.html") == 0) {
-				browser.findElement(By.id("back")).click();
-			}
-
-			this.username = generateUsername();
-			this.password = "testing123";
-			if (prob > 0.25) {
-				this.acount_type = "free";
-				reg_form.fillForm(this.username, this.password,
-						this.acount_type);
-			} else {
-				this.acount_type = "premium";
-				reg_form.fillForm(this.username, this.password,
-						this.acount_type);
-			}
-			long timeBefore = System.currentTimeMillis();
-			;
-			reg_form.submitForm();
-
-			long timeAfter = System.currentTimeMillis();
-			responseTimes.add(timeAfter - timeBefore);
-		} while (browser
+		// do {
+		// do until a unique username is generated
+		if (browser
 				.getCurrentUrl()
 				.compareTo(
-						"http://localhost:8080/SoftwareTesting/Pages/RegistrationSuccess.html") != 0);
+						"http://localhost:8080/SoftwareTesting/Pages/ErrorAlreadyExists.html") == 0) {
+			browser.findElement(By.id("back")).click();
+		}
+
+		this.username = generateUsername();
+		this.password = "testing123";
+		if (prob > 0.25) {
+			this.acount_type = "free";
+			reg_form.fillForm(this.username, this.password, this.acount_type);
+		} else {
+			this.acount_type = "premium";
+			reg_form.fillForm(this.username, this.password, this.acount_type);
+		}
+		long timeBefore = System.currentTimeMillis();
+		;
+		reg_form.submitForm();
+
+		long timeAfter = System.currentTimeMillis();
+		responseTimes.add(timeAfter - timeBefore);
+		// } while (browser
+		// .getCurrentUrl()
+		// .compareTo(
+		// "http://localhost:8080/SoftwareTesting/Pages/RegistrationSuccess.html")
+		// != 0);
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/RegistrationSuccess.html",
 				browser.getCurrentUrl());
@@ -217,7 +216,7 @@ public class Model implements FsmModel, Runnable {
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/LoginTimeout.html",
 				browser.getCurrentUrl());
-		//this.attempted_logins = 0;
+		// this.attempted_logins = 0;
 	}
 
 	public boolean proceedToBetGuard() {
@@ -230,6 +229,7 @@ public class Model implements FsmModel, Runnable {
 				|| getState().equals(States.Bet_Risk_Error)
 				|| getState().equals(States.Bet_Successful)) {
 			// visit betting state
+			browser.findElement(By.id("bet")).click();
 			return true;
 		} else
 			return false;
@@ -237,22 +237,14 @@ public class Model implements FsmModel, Runnable {
 
 	@Action
 	public void proceedToBet() {
-		if (getState().equals(States.LoginPage)) {
-			FillLogin log_form = new FillLogin(browser);
-			log_form.fillForm(this.username, this.password);
-			long timeBefore = System.currentTimeMillis();
-			log_form.submitForm();
-			long timeAfter = System.currentTimeMillis();
-			responseTimes.add(timeAfter - timeBefore);
-		} else {
-			long timeBefore = System.currentTimeMillis();
-			browser.findElement(By.id("bet")).click();
-			long timeAfter = System.currentTimeMillis();
-			responseTimes.add(timeAfter - timeBefore);
-		}
-
+		FillLogin log_form = new FillLogin(browser);
+		log_form.fillForm(this.username, this.password);
+		long timeBefore = System.currentTimeMillis();
+		log_form.submitForm();
 		assertEquals("http://localhost:8080/SoftwareTesting/BetPage.jsp",
 				browser.getCurrentUrl());
+		long timeAfter = System.currentTimeMillis();
+		responseTimes.add(timeAfter - timeBefore);
 	}
 
 	public boolean proceedToBetSuccessGuard() {
@@ -275,12 +267,12 @@ public class Model implements FsmModel, Runnable {
 			// 1 to 5 since 6euro is invalid and catered for in the Guard
 			int randomAmount = random.nextInt(5) + 1;
 			bet_form.fillForm(randomAmount + "", "low");
-			//this.cumulative_bets += randomAmount;
+			// this.cumulative_bets += randomAmount;
 		} else {
 			// 100 to 2000 euro
 			int randomAmount = random.nextInt(2000) + 100;
 			bet_form.fillForm(randomAmount + "", "medium");
-			//this.cumulative_bets += randomAmount;
+			// this.cumulative_bets += randomAmount;
 		}
 		long timeBefore = System.currentTimeMillis();
 		bet_form.submitForm();
@@ -319,9 +311,9 @@ public class Model implements FsmModel, Runnable {
 	}
 
 	public boolean logoutGuard() {
-		// double ran = Math.random();
+		double ran = Math.random();
 		// user has to place at least 1 bet to logout
-		/* ran <= 0.5 && */if (this.atLeastOneBet
+		if (ran <= 0.5 && this.atLeastOneBet
 				&& getState().equals(States.BettingPage)) {
 			return true;
 		} else
