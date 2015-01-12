@@ -7,7 +7,7 @@
 
 <title>User Registration</title>
 <link rel="stylesheet" type="text/css" href="register.css">
-<script src="jquery/2.1.3/jquery.min.js"></script>
+<script src="jquery-2.1.3.min.js"></script>
 <script type="text/javascript" src="validation.js"></script>
 
 <title>Register Page</title>
