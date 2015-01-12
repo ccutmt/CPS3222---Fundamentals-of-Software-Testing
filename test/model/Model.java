@@ -216,12 +216,13 @@ public class Model implements FsmModel, Runnable {
 		assertEquals(
 				"http://localhost:8080/SoftwareTesting/Pages/LoginTimeout.html",
 				browser.getCurrentUrl());
-		// this.attempted_logins = 0;
+		this.attempted_logins = 0;
 	}
 
 	public boolean proceedToBetGuard() {
 		double probFailLogin = Math.random();
-		if (getState().equals(States.LoginPage) && probFailLogin > 0.25) {
+		if (getState().equals(States.LoginPage) && probFailLogin > 0.25
+				&& this.attempted_logins < 3) {
 			return true;
 		} else if (getState().equals(States.Bet_Amount_Error)
 				|| getState().equals(States.Bet_Cumulative_Error)
@@ -310,6 +311,23 @@ public class Model implements FsmModel, Runnable {
 		this.atLeastOneBet = true;
 	}
 
+	public boolean proceedToExceeded3BetsErrorGuard() {
+		if (getState().equals(States.BettingPage)
+				&& this.acount_type.compareTo("free") == 0
+				&& this.amountOfBets >= 3) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Action
+	public void proceedToExceeded3BetsError() {
+		assertEquals(
+				"http://localhost:8080/SoftwareTesting/Pages/MoreThan3Bets.html",
+				browser.getCurrentUrl());
+	}
+
 	public boolean logoutGuard() {
 		double ran = Math.random();
 		// user has to place at least 1 bet to logout
@@ -348,7 +366,7 @@ public class Model implements FsmModel, Runnable {
 		t.addCoverageMetric(new ActionCoverage());
 		t.addCoverageMetric(new TransitionPairCoverage());
 		t.addListener(new VerboseListener());
-		t.generate(10);
+		t.generate(50);
 		t.buildGraph();
 		browser.close();
 		t.printCoverage();

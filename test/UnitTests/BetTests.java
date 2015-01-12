@@ -168,18 +168,6 @@ public class BetTests {
 	}
 
 	@Test
-	public void ValidateBetAmountFreeOverTotal() throws SQLException, Exception {
-		try {
-			betservlet.ValidateBetAmount(0, 5, 15);
-
-			fail("expected SQLException");
-
-		} catch (SQLException e) {
-			// ignore, this exception is expected.
-		}
-	}
-
-	@Test
 	public void ValidatBetAmountFreeMaxCumulatuveBets() throws SQLException, Exception {
 		assertEquals(5, betservlet.ValidateBetAmount(0, 5, 10));
 	}
